@@ -1,0 +1,175 @@
+{
+  "global": {
+    "siteName": "My Simple Website",
+    "defaultSeo": {
+      "metaTitle": "Welcome to My Simple Website | Selamat Datang di Website Sederhana Saya",
+      "metaDescription": "A simple, clean website showcasing our services and company information. Website sederhana dan bersih yang menampilkan layanan dan informasi perusahaan kami.",
+      "shareImage": null
+    },
+    "siteDescription": "A simple and clean website | Website yang sederhana dan bersih",
+    "favicon": null
+  },
+  "about": {
+    "title": "About Our Company | Tentang Perusahaan Kami",
+    "blocks": [
+      {
+        "__component": "shared.rich-text",
+        "body": "# Welcome to Our Company\n\nWe are a modern company dedicated to providing excellent services to our customers. Our team consists of experienced professionals who are passionate about what they do.\n\n---\n\n# Selamat Datang di Perusahaan Kami\n\nKami adalah perusahaan modern yang berdedikasi untuk memberikan layanan terbaik kepada pelanggan kami. Tim kami terdiri dari profesional berpengalaman yang bersemangat dengan apa yang mereka kerjakan."
+      },
+      {
+        "__component": "shared.quote",
+        "title": "Our Mission | Misi Kami",
+        "body": "\"To deliver innovative solutions that make a difference in people's lives. | Memberikan solusi inovatif yang membuat perbedaan dalam kehidupan masyarakat.\""
+      },
+      {
+        "__component": "shared.media",
+        "file": "coffee-art.jpg"
+      },
+      {
+        "__component": "shared.rich-text",
+        "body": "## Our Services | Layanan Kami\n\n### English\n- **Consulting**: Professional consultation services\n- **Development**: Custom software development\n- **Support**: 24/7 customer support\n- **Training**: Comprehensive training programs\n\n### Bahasa Indonesia\n- **Konsultasi**: Layanan konsultasi profesional\n- **Pengembangan**: Pengembangan perangkat lunak khusus\n- **Dukungan**: Dukungan pelanggan 24/7\n- **Pelatihan**: Program pelatihan komprehensif"
+      },
+      {
+        "__component": "shared.slider",
+        "files": ["coffee-art.jpg", "coffee-beans.jpg", "beautiful-picture.jpg"]
+      },
+      {
+        "__component": "shared.rich-text",
+        "body": "## Contact Us | Hubungi Kami\n\n**Address | Alamat:**  \nJl. Contoh No. 123, Jakarta, Indonesia\n\n**Phone | Telepon:**  \n+62 21 1234 5678\n\n**Email:**  \ninfo@example.com\n\n**Business Hours | Jam Operasional:**  \nMonday - Friday: 9:00 AM - 6:00 PM (WIB)  \nSenin - Jumat: 09:00 - 18:00 (WIB)"
+      }
+    ]
+  },
+  "categories": [
+    {
+      "name": "Company",
+      "slug": "company"
+    },
+    {
+      "name": "Services",
+      "slug": "services"
+    },
+    {
+      "name": "News",
+      "slug": "news"
+    }
+  ],
+  "authors": [
+    {
+      "name": "Admin",
+      "email": "admin@example.com",
+      "avatar": "daviddoe@strapi.io.jpg"
+    },
+    {
+      "name": "Content Manager",
+      "email": "content@example.com",
+      "avatar": "sarahbaker@strapi.io.jpg"
+    }
+  ],
+  "articles": [
+    {
+      "title": "Welcome to Our New Website | Selamat Datang di Website Baru Kami",
+      "slug": "welcome-to-our-new-website",
+      "category": {
+        "id": 1
+      },
+      "author": {
+        "id": 1
+      },
+      "description": "New bilingual website with modern design and features",
+      "cover": null,
+      "blocks": [
+        {
+          "__component": "shared.rich-text",
+          "body": "# Welcome to Our New Website\n\nWe are excited to introduce our brand new website! Our team has worked hard to create a modern, user-friendly platform that serves both English and Indonesian speakers.\n\n## Key Features:\n- **Responsive Design**: Works perfectly on all devices\n- **Bilingual Support**: Available in English and Bahasa Indonesia\n- **Fast Loading**: Optimized for speed and performance\n- **Easy Navigation**: Simple and intuitive user interface\n\n---\n\n# Selamat Datang di Website Baru Kami\n\nKami sangat senang memperkenalkan website baru kami! Tim kami telah bekerja keras untuk menciptakan platform modern dan ramah pengguna yang melayani penutur bahasa Inggris dan Indonesia.\n\n## Fitur Utama:\n- **Desain Responsif**: Bekerja sempurna di semua perangkat\n- **Dukungan Dwi Bahasa**: Tersedia dalam bahasa Inggris dan Bahasa Indonesia\n- **Loading Cepat**: Dioptimalkan untuk kecepatan dan performa\n- **Navigasi Mudah**: Antarmuka pengguna yang sederhana dan intuitif"
+        },
+        {
+          "__component": "shared.quote",
+          "title": "CEO Message | Pesan CEO",
+          "body": "\"This new website represents our commitment to better serve our customers and partners. | Website baru ini merepresentasikan komitmen kami untuk melayani pelanggan dan mitra dengan lebih baik.\""
+        },
+        {
+          "__component": "shared.media",
+          "file": "this-shrimp-is-awesome.jpg"
+        },
+        {
+          "__component": "shared.rich-text",
+          "body": "## What's Next? | Apa Selanjutnya?\n\n### English\nWe will continue to improve and add new features to enhance your experience. Stay tuned for:\n- Online customer portal\n- Live chat support\n- Resource library\n- Monthly newsletters\n\n### Bahasa Indonesia\nKami akan terus memperbaiki dan menambahkan fitur baru untuk meningkatkan pengalaman Anda. Nantikan:\n- Portal pelanggan online\n- Dukungan live chat\n- Perpustakaan sumber daya\n- Newsletter bulanan"
+        }
+      ]
+    },
+    {
+      "title": "Our Services Overview | Ikhtisar Layanan Kami",
+      "slug": "our-services-overview",
+      "category": {
+        "id": 2
+      },
+      "author": {
+        "id": 2
+      },
+      "description": "Comprehensive professional services for your business needs",
+      "cover": null,
+      "blocks": [
+        {
+          "__component": "shared.rich-text",
+          "body": "# Our Comprehensive Services\n\nWe offer a wide range of professional services tailored to meet the unique needs of our clients. Our experienced team is dedicated to delivering exceptional results.\n\n---\n\n# Layanan Komprehensif Kami\n\nKami menawarkan berbagai layanan profesional yang disesuaikan untuk memenuhi kebutuhan unik klien kami. Tim berpengalaman kami berdedikasi untuk memberikan hasil yang luar biasa."
+        },
+        {
+          "__component": "shared.slider",
+          "files": ["coffee-art.jpg", "coffee-beans.jpg", "we-love-pizza.jpg", "coffee-shadow.jpg"]
+        },
+        {
+          "__component": "shared.rich-text",
+          "body": "## Consulting Services | Layanan Konsultasi\n\n### English\nOur consulting team provides expert advice and strategic guidance to help your business grow and succeed. We analyze your current processes, identify opportunities for improvement, and develop customized solutions.\n\n**What we offer:**\n- Business strategy development\n- Process optimization\n- Technology assessment\n- Market analysis\n\n### Bahasa Indonesia\nTim konsultan kami memberikan saran ahli dan panduan strategis untuk membantu bisnis Anda tumbuh dan sukses. Kami menganalisis proses saat ini, mengidentifikasi peluang perbaikan, dan mengembangkan solusi yang disesuaikan.\n\n**Yang kami tawarkan:**\n- Pengembangan strategi bisnis\n- Optimisasi proses\n- Penilaian teknologi\n- Analisis pasar"
+        },
+        {
+          "__component": "shared.quote",
+          "title": "Client Testimonial | Testimoni Klien",
+          "body": "\"The consulting services provided by this team transformed our business operations completely. | Layanan konsultasi yang diberikan oleh tim ini mengubah operasi bisnis kami secara menyeluruh.\" - Happy Client"
+        },
+        {
+          "__component": "shared.rich-text",
+          "body": "## Development & Support | Pengembangan & Dukungan\n\n### English\n**Custom Development:**\n- Web applications\n- Mobile applications\n- Enterprise software\n- API integrations\n\n**24/7 Support:**\n- Technical assistance\n- Maintenance services\n- Emergency support\n- Regular updates\n\n### Bahasa Indonesia\n**Pengembangan Khusus:**\n- Aplikasi web\n- Aplikasi mobile\n- Perangkat lunak enterprise\n- Integrasi API\n\n**Dukungan 24/7:**\n- Bantuan teknis\n- Layanan pemeliharaan\n- Dukungan darurat\n- Update berkala"
+        }
+      ]
+    },
+    {
+      "title": "Company News & Updates | Berita & Update Perusahaan",
+      "slug": "company-news-updates",
+      "category": {
+        "id": 3
+      },
+      "author": {
+        "id": 1
+      },
+      "description": "Latest company news, updates and achievements",
+      "cover": null,
+      "blocks": [
+        {
+          "__component": "shared.rich-text",
+          "body": "# Latest Company Updates\n\nStay informed about our company's growth, new partnerships, and exciting developments. We believe in transparency and keeping our stakeholders informed.\n\n---\n\n# Update Perusahaan Terbaru\n\nTetap terinformasi tentang pertumbuhan perusahaan kami, kemitraan baru, dan perkembangan yang menarik. Kami percaya pada transparansi dan menjaga pemangku kepentingan tetap terinformasi."
+        },
+        {
+          "__component": "shared.quote",
+          "title": "Recent Achievement | Pencapaian Terbaru",
+          "body": "\"We are proud to announce that we have successfully completed 100+ projects this year! | Kami bangga mengumumkan bahwa kami telah berhasil menyelesaikan 100+ proyek tahun ini!\""
+        },
+        {
+          "__component": "shared.media",
+          "file": "a-bug-is-becoming-a-meme-on-the-internet.jpg"
+        },
+        {
+          "__component": "shared.rich-text",
+          "body": "## Recent Milestones | Pencapaian Terbaru\n\n### English\n- **Q3 2024**: Expanded our team by 30%\n- **August 2024**: Launched new customer portal\n- **September 2024**: Achieved ISO 9001 certification\n- **October 2024**: Opened new branch office\n- **November 2024**: Launched bilingual website\n\n### Bahasa Indonesia\n- **Q3 2024**: Memperluas tim kami sebesar 30%\n- **Agustus 2024**: Meluncurkan portal pelanggan baru\n- **September 2024**: Meraih sertifikasi ISO 9001\n- **Oktober 2024**: Membuka kantor cabang baru\n- **November 2024**: Meluncurkan website dwi bahasa"
+        },
+        {
+          "__component": "shared.slider",
+          "files": ["default-image.png", "coffee-shadow.jpg", "we-love-pizza.jpg"]
+        },
+        {
+          "__component": "shared.rich-text",
+          "body": "## Upcoming Events | Acara Mendatang\n\n### English\n**December 2024:**\n- Annual company retreat\n- Client appreciation dinner\n- Year-end performance review\n\n**January 2025:**\n- New year kick-off meeting\n- Product roadmap presentation\n- Training workshops for new technologies\n\n### Bahasa Indonesia\n**Desember 2024:**\n- Retreat perusahaan tahunan\n- Makan malam apresiasi klien\n- Review kinerja akhir tahun\n\n**Januari 2025:**\n- Rapat kick-off tahun baru\n- Presentasi roadmap produk\n- Workshop pelatihan untuk teknologi baru"
+        }
+      ]
+    }
+  ]
+}
