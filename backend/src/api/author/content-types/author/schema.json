@@ -32,7 +32,7 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::article.article",
-      "mappedBy": "author"
+      "mappedBy": "authorsBio"
     }
   }
 }
