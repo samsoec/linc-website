@@ -1,0 +1,202 @@
+@import "tailwindcss";
+@import "react-slideshow-image/dist/styles.css";
+
+/******************************************* 
+  Rich Text Styles
+*******************************************/ 
+
+/* Headers */
+.rich-text h1 {
+  font-size: 2.25rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #8b5cf6;
+}
+
+.rich-text h2 {
+  font-size: 1.875rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #8b5cf6;
+}
+
+.rich-text h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #8b5cf6;
+}
+
+.rich-text h4 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #8b5cf6;
+}
+
+.rich-text h5 {
+  font-size: 1.125rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #8b5cf6;
+}
+
+.rich-text h6 {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #c4b5fd;
+}
+
+/* Horizontal rules */
+.rich-text hr {
+  border-color: #d1d5db;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.rich-text a {
+  color: #8b5cf6;
+  text-decoration: underline;
+}
+
+/* Typographic replacements */
+.rich-text p {
+  margin-bottom: 1rem;
+}
+
+/* Emphasis */
+.rich-text strong {
+  font-weight: bold;
+}
+
+.rich-text em {
+  font-style: italic;
+}
+
+.rich-text del {
+  text-decoration: line-through;
+}
+
+/* Blockquotes */
+.rich-text blockquote {
+  border-left: 4px solid #9ca3af;
+  padding-left: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Lists */
+.rich-text ul {
+  list-style-type: disc;
+  padding-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+.rich-text ol {
+  list-style-type: decimal;
+  padding-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+.rich-text li {
+  margin-bottom: 0.5rem;
+}
+
+.rich-text li > ul {
+  list-style-type: disc;
+  padding-left: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.rich-text li > ol {
+  list-style-type: decimal;
+  padding-left: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Code blocks */
+.rich-text pre {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+  background-color: #111827;
+  color: #f3f4f6;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.rich-text code {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+  background-color: #111827;
+  color: #f3f4f6;
+  border-radius: 0.25rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+/* Tables */
+.rich-text table {
+  width: 100%;
+  border-collapse: collapse;
+  border-color: #d1d5db;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.rich-text th {
+  background-color: #111827;
+  text-align: left;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-weight: 600;
+  border-bottom: 1px solid #d1d5db;
+}
+
+.rich-text td {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-bottom: 1px solid #d1d5db;
+}
+
+/* Images */
+.rich-text img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Custom containers */
+.rich-text .warning {
+  background-color: #fef3c7;
+  border-color: #f59e0b;
+  color: #92400e;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+
+/******************************************* 
+  React Slideshow Styles
+*******************************************/   
+
+.react-slideshow-container [aria-label="Previous Slide"] {
+  margin-left: 1rem;
+}
+
+.react-slideshow-container [aria-label="Next Slide"] {
+  margin-right: 1rem;
+}
