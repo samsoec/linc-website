@@ -1,0 +1,283 @@
+{
+    "data": [
+        {
+            "id": 9,
+            "documentId": "xwba8tljp3s0fp1ib3s7oscw",
+            "createdAt": "2023-03-08T14:13:57.041Z",
+            "updatedAt": "2024-05-31T16:19:31.954Z",
+            "publishedAt": "2023-03-08T14:28:43.068Z",
+            "locale": "en",
+            "shortName": "Home Page",
+            "slug": "home",
+            "heading": "dfsgsg",
+            "description": "dfsgsdfg",
+            "contentSections": [
+                {
+                    "__component": "sections.hero",
+                    "id": 5,
+                    "title": "Strapi [Starter] with Next JS",
+                    "description": "This is build with [Strapi] and [Next] JS. A match made in heaven.",
+                    "picture": {
+                        "id": 55,
+                        "documentId": "avevsca6apussoqp3jpdcs9x",
+                        "url": "/uploads/undraw_woman_ffrd_b3ac24fb06.svg",
+                        "alternativeText": null,
+                        "caption": null,
+                        "width": 643,
+                        "height": 700
+                    },
+                    "buttons": [
+                        {
+                            "id": 7,
+                            "url": "https://discord.com/invite/strapi",
+                            "newTab": true,
+                            "text": "Discord",
+                            "type": "secondary"
+                        },
+                        {
+                            "id": 8,
+                            "url": "https://strapi.io/events",
+                            "newTab": true,
+                            "text": "Events",
+                            "type": "primary"
+                        }
+                    ]
+                },
+                {
+                    "__component": "sections.features",
+                    "id": 3,
+                    "heading": "Features",
+                    "description": "Welcome to Strapi Starter",
+                    "feature": [
+                        {
+                            "id": 7,
+                            "title": "Discover Next.js",
+                            "description": "The React Framework for Production: Explore the future of web development with Next.js, the cutting-edge React framework.",
+                            "showLink": true,
+                            "newTab": true,
+                            "url": "https://vercel.com/",
+                            "text": "Learn more",
+                            "media": null
+                        },
+                        {
+                            "id": 8,
+                            "title": "Strapi",
+                            "description": "Unleash the power of Strapi, the leading open-source headless CMS that lets you create, manage, and distribute your content across multiple platforms.",
+                            "showLink": true,
+                            "newTab": true,
+                            "url": "https://strapi.io",
+                            "text": "Learn more",
+                            "media": null
+                        },
+                        {
+                            "id": 9,
+                            "title": "Cloud",
+                            "description": "Simplify your content management experience with Strapi Cloud, the fully-managed hosting solution for your Strapi projects.",
+                            "showLink": true,
+                            "newTab": true,
+                            "url": "https://strapi.io/cloud",
+                            "text": "Learn more",
+                            "media": null
+                        }
+                    ]
+                },
+                {
+                    "__component": "sections.pricing",
+                    "id": 3,
+                    "title": "Our Plans",
+                    "plans": [
+                        {
+                            "id": 7,
+                            "name": "Free",
+                            "description": "Features",
+                            "isRecommended": false,
+                            "price": 0,
+                            "pricePeriod": "Monthly",
+                            "product_features": [
+                                {
+                                    "id": 14,
+                                    "documentId": "io11f1yrz8y0mn8lpm7womhy",
+                                    "name": "Example Feature 1",
+                                    "createdAt": "2023-03-10T15:45:14.988Z",
+                                    "updatedAt": "2023-03-28T15:45:07.118Z",
+                                    "publishedAt": "2023-03-10T15:45:16.468Z"
+                                },
+                                {
+                                    "id": 16,
+                                    "documentId": "pou8ua3g02wylmjimd4i6vpl",
+                                    "name": "Example Feature 2",
+                                    "createdAt": "2023-03-10T15:46:27.207Z",
+                                    "updatedAt": "2023-03-28T15:45:18.540Z",
+                                    "publishedAt": "2023-03-10T15:46:27.565Z"
+                                },
+                                {
+                                    "id": 17,
+                                    "documentId": "c41ma7uyvjaj2gzyb6kif4ht",
+                                    "name": "Example Feature 3",
+                                    "createdAt": "2023-03-10T15:46:39.431Z",
+                                    "updatedAt": "2023-03-28T15:45:28.608Z",
+                                    "publishedAt": "2023-03-10T15:46:40.548Z"
+                                }
+                            ]
+                        },
+                        {
+                            "id": 8,
+                            "name": "Pro",
+                            "description": "Features",
+                            "isRecommended": true,
+                            "price": 9.99,
+                            "pricePeriod": "monthly",
+                            "product_features": [
+                                {
+                                    "id": 14,
+                                    "documentId": "io11f1yrz8y0mn8lpm7womhy",
+                                    "name": "Example Feature 1",
+                                    "createdAt": "2023-03-10T15:45:14.988Z",
+                                    "updatedAt": "2023-03-28T15:45:07.118Z",
+                                    "publishedAt": "2023-03-10T15:45:16.468Z"
+                                },
+                                {
+                                    "id": 16,
+                                    "documentId": "pou8ua3g02wylmjimd4i6vpl",
+                                    "name": "Example Feature 2",
+                                    "createdAt": "2023-03-10T15:46:27.207Z",
+                                    "updatedAt": "2023-03-28T15:45:18.540Z",
+                                    "publishedAt": "2023-03-10T15:46:27.565Z"
+                                },
+                                {
+                                    "id": 17,
+                                    "documentId": "c41ma7uyvjaj2gzyb6kif4ht",
+                                    "name": "Example Feature 3",
+                                    "createdAt": "2023-03-10T15:46:39.431Z",
+                                    "updatedAt": "2023-03-28T15:45:28.608Z",
+                                    "publishedAt": "2023-03-10T15:46:40.548Z"
+                                },
+                                {
+                                    "id": 15,
+                                    "documentId": "v4mmioqixx1ko72259wxy65l",
+                                    "name": "Example Feature 4",
+                                    "createdAt": "2023-03-10T15:45:47.489Z",
+                                    "updatedAt": "2023-03-28T15:46:00.360Z",
+                                    "publishedAt": "2023-03-10T15:46:10.561Z"
+                                }
+                            ]
+                        },
+                        {
+                            "id": 9,
+                            "name": "Enterprise ",
+                            "description": "Features",
+                            "isRecommended": false,
+                            "price": 19.99,
+                            "pricePeriod": "monthly",
+                            "product_features": [
+                                {
+                                    "id": 14,
+                                    "documentId": "io11f1yrz8y0mn8lpm7womhy",
+                                    "name": "Example Feature 1",
+                                    "createdAt": "2023-03-10T15:45:14.988Z",
+                                    "updatedAt": "2023-03-28T15:45:07.118Z",
+                                    "publishedAt": "2023-03-10T15:45:16.468Z"
+                                },
+                                {
+                                    "id": 16,
+                                    "documentId": "pou8ua3g02wylmjimd4i6vpl",
+                                    "name": "Example Feature 2",
+                                    "createdAt": "2023-03-10T15:46:27.207Z",
+                                    "updatedAt": "2023-03-28T15:45:18.540Z",
+                                    "publishedAt": "2023-03-10T15:46:27.565Z"
+                                },
+                                {
+                                    "id": 17,
+                                    "documentId": "c41ma7uyvjaj2gzyb6kif4ht",
+                                    "name": "Example Feature 3",
+                                    "createdAt": "2023-03-10T15:46:39.431Z",
+                                    "updatedAt": "2023-03-28T15:45:28.608Z",
+                                    "publishedAt": "2023-03-10T15:46:40.548Z"
+                                },
+                                {
+                                    "id": 15,
+                                    "documentId": "v4mmioqixx1ko72259wxy65l",
+                                    "name": "Example Feature 4",
+                                    "createdAt": "2023-03-10T15:45:47.489Z",
+                                    "updatedAt": "2023-03-28T15:46:00.360Z",
+                                    "publishedAt": "2023-03-10T15:46:10.561Z"
+                                },
+                                {
+                                    "id": 18,
+                                    "documentId": "s1ufuvasfovmxris6zo9gdo2",
+                                    "name": "Example Feature 5",
+                                    "createdAt": "2023-03-28T15:45:55.243Z",
+                                    "updatedAt": "2023-03-28T15:50:01.464Z",
+                                    "publishedAt": "2023-03-28T15:50:01.464Z"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "__component": "sections.testimonials-group",
+                    "id": 3,
+                    "title": "Testimonials",
+                    "description": "Hello",
+                    "testimonials": [
+                        {
+                            "id": 5,
+                            "text": "ed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
+                            "authorName": "Paul Brats",
+                            "picture": {
+                                "id": 64,
+                                "documentId": "ebrl6qs4hu2vswlnj1kdybcj",
+                                "url": "/uploads/paul_brats_012832af74.jpg",
+                                "alternativeText": null,
+                                "caption": null,
+                                "width": 200,
+                                "height": 200
+                            }
+                        },
+                        {
+                            "id": 6,
+                            "text": "ed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
+                            "authorName": "Kit Kat",
+                            "picture": {
+                                "id": 66,
+                                "documentId": "rb5crcbrvlm9reu4l76jyixf",
+                                "url": "/uploads/kit_kat_96feba6636.png",
+                                "alternativeText": null,
+                                "caption": null,
+                                "width": 2000,
+                                "height": 2000
+                            }
+                        }
+                    ]
+                },
+                {
+                    "__component": "sections.lead-form",
+                    "id": 3,
+                    "title": "Join our community.",
+                    "emailPlaceholder": "Enter your email",
+                    "location": "main page",
+                    "description": "Doloribus consectetur quasi ipsa quo neque culpa blanditiis ducimus recusandae a veritatis optio cumque, in harum ad nam!",
+                    "submitButton": {
+                        "id": 3,
+                        "text": "Submit",
+                        "type": "primary"
+                    }
+                }
+            ],
+            "seo": {
+                "id": 33,
+                "metaTitle": "dfgsdg",
+                "metaDescription": "dsfgsdf",
+                "shareImage": null
+            }
+        }
+    ],
+    "meta": {
+        "pagination": {
+            "page": 1,
+            "pageSize": 25,
+            "pageCount": 1,
+            "total": 1
+        }
+    }
+}

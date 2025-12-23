@@ -1,8 +1,10 @@
 interface Feature {
-  id: string;
-  attributes: {
-    name: string;
-  };
+  id: number;
+  documentId: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
 }
 
 interface Plan {
@@ -12,9 +14,7 @@ interface Plan {
   price: number;
   pricePeriod: string;
   isRecommended: boolean;
-  product_features: {
-    data: Feature[];
-  };
+  product_features: Feature[];
 }
 
 interface PriceProps {
@@ -77,7 +77,7 @@ export default function Pricing({ data }: PriceProps) {
                       : "dark:text-gray-400"
                   }`}
                 >
-                  {plan.product_features.data.map((feature: Feature) => (
+                  {plan.product_features.map((feature: Feature) => (
                     <li key={feature.id} className="flex mb-2 space-x-2">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -95,7 +95,7 @@ export default function Pricing({ data }: PriceProps) {
                           clipRule="evenodd"
                         ></path>
                       </svg>
-                      <span>{feature.attributes.name}</span>
+                      <span>{feature.name}</span>
                     </li>
                   ))}
                 </ul>

@@ -7,7 +7,6 @@ export default async function RootRoute({params}: { params: Promise<{ lang: stri
     try {
       const { lang } = await params;
       const page = await getPageBySlug('home', lang)
-      console.log('Page data:', page);
       if (page.error && page.error.status == 401)
         throw new Error(
           'Missing or invalid credentials. Have you created an access token using the Strapi admin panel? http://localhost:1337/admin/'
@@ -15,7 +14,7 @@ export default async function RootRoute({params}: { params: Promise<{ lang: stri
 
       if (page.data.length == 0 && lang !== 'en') return <LangRedirect />
       if (page.data.length === 0) return null
-      const contentSections = page.data[0].attributes.contentSections
+      const contentSections = page.data[0].contentSections
       return contentSections.map((section: any, index: number) =>
         componentResolver(section, index)
       )

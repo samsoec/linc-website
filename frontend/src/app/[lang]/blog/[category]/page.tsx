@@ -38,7 +38,7 @@ export default async function CategoryRoute({ params }: { params: Promise<{ cate
     //TODO: CREATE A COMPONENT FOR THIS
     if (data.length === 0) return <div>Not Posts In this category</div>;
 
-    const { name, description } = data[0]?.attributes.category.data.attributes;
+    const { name, description } = data[0]?.category;
 
     return (
         <div>

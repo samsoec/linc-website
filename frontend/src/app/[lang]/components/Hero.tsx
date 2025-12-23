@@ -13,14 +13,13 @@ interface Button {
 }
 
 interface Picture {
-  data: {
-    id: string;
-    attributes: {
-      url: string;
-      name: string;
-      alternativeText: string;
-    };
-  };
+  id: number;
+  documentId: string;
+  url: string;
+  alternativeText: string | null;
+  caption: string | null;
+  width: number;
+  height: number;
 }
 
 interface HeroProps {
@@ -34,7 +33,7 @@ interface HeroProps {
 }
 
 export default function Hero({ data }: HeroProps) {
-  const imgUrl = getStrapiMedia(data.picture.data.attributes.url);
+  const imgUrl = getStrapiMedia(data.picture.url);
 
   return (
     <section className="dark:bg-black dark:text-gray-100">
@@ -70,7 +69,7 @@ export default function Hero({ data }: HeroProps) {
           <Image
             src={imgUrl || ""}
             alt={
-              data.picture.data.attributes.alternativeText || "none provided"
+              data.picture.alternativeText || "none provided"
             }
             className="object-contain h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128 "
             width={600}

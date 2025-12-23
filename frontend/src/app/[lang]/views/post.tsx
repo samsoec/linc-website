@@ -2,43 +2,42 @@ import { formatDate, getStrapiMedia } from '@/app/[lang]/utils/api-helpers';
 import Image from 'next/image';
 import componentResolver from '../utils/component-resolver';
 
+interface Cover {
+    id: number;
+    documentId: string;
+    url: string;
+}
+
+interface Avatar {
+    id: number;
+    documentId: string;
+    url: string;
+}
+
+interface AuthorsBio {
+    id: number;
+    documentId: string;
+    name: string;
+    avatar: Avatar;
+}
+
 interface Article {
     id: number;
-    attributes: {
-        title: string;
-        description: string;
-        slug: string;
-        cover: {
-            data: {
-                attributes: {
-                    url: string;
-                };
-            };
-        };
-        authorsBio: {
-            data: {
-                attributes: {
-                    name: string;
-                    avatar: {
-                        data: {
-                            attributes: {
-                                url: string;
-                            };
-                        };
-                    };
-                };
-            };
-        };
-        blocks: any[];
-        publishedAt: string;
-    };
+    documentId: string;
+    title: string;
+    description: string;
+    slug: string;
+    cover: Cover;
+    authorsBio: AuthorsBio;
+    blocks: any[];
+    publishedAt: string;
 }
 
 export default function Post({ data }: { data: Article }) {
-    const { title, description, publishedAt, cover, authorsBio } = data.attributes;
-    const author = authorsBio.data?.attributes;
-    const imageUrl = getStrapiMedia(cover.data?.attributes.url);
-    const authorImgUrl = getStrapiMedia(authorsBio.data?.attributes.avatar.data.attributes.url);
+    const { title, description, publishedAt, cover, authorsBio } = data;
+    const author = authorsBio;
+    const imageUrl = getStrapiMedia(cover?.url);
+    const authorImgUrl = getStrapiMedia(authorsBio?.avatar?.url);
 
     return (
         <article className="space-y-8 dark:bg-black dark:text-gray-50">
@@ -74,7 +73,7 @@ export default function Post({ data }: { data: Article }) {
             <div className="dark:text-gray-100">
                 <p>{description}</p>
 
-                {data.attributes.blocks.map((section: any, index: number) => componentResolver(section, index))}
+                {data.blocks.map((section: any, index: number) => componentResolver(section, index))}
             </div>
         </article>
     );

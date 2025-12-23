@@ -44,7 +44,7 @@ async function getMetaData(slug: string) {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
     const meta = await getMetaData(slug);
-    const metadata = meta[0].attributes.seo;
+    const metadata = meta[0].seo;
 
     return {
         title: metadata.metaTitle,
@@ -73,12 +73,10 @@ export async function generateStaticParams() {
 
     return articleResponse.data.map(
         (article: {
-            attributes: {
+            slug: string;
+            category: {
                 slug: string;
-                category: {
-                    slug: string;
-                };
             };
-        }) => ({ slug: article.attributes.slug, category: article.attributes.slug })
+        }) => ({ slug: article.slug, category: article.category.slug })
     );
 }

@@ -21,7 +21,7 @@ async function getGlobal(lang: string): Promise<any> {
 
   const urlParamsObject = {
     populate: [
-      "metadata.shareImage",
+      "metadata",
       "favicon",
       "notificationBanner.link",
       "navbar.links",
@@ -39,12 +39,17 @@ async function getGlobal(lang: string): Promise<any> {
 
 export async function generateMetadata({ params } : { params: Promise<{lang: string}>}): Promise<Metadata> {
   const { lang } = await params;
+  
+  if (!i18n.locales.includes(lang as any)) {
+    return FALLBACK_SEO;
+  }
+  
   const meta = await getGlobal(lang);
 
   if (!meta.data) return FALLBACK_SEO;
 
-  const { metadata, favicon } = meta.data.attributes;
-  const { url } = favicon.data.attributes;
+  const { metadata, favicon } = meta.data;
+  const { url } = favicon;
 
   return {
     title: metadata.metaTitle,
@@ -63,18 +68,38 @@ export default async function RootLayout({
   readonly params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
-  const global = await getGlobal(lang);
-  // TODO: CREATE A CUSTOM ERROR PAGE
-  if (!global.data) return null;
   
-  const { notificationBanner, navbar, footer } = global.data.attributes;
+  // Validate locale to prevent invalid requests (e.g., favicon.ico being treated as a locale)
+  if (!i18n.locales.includes(lang as any)) {
+    return (
+      <html lang="en">
+        <body>{children}</body>
+      </html>
+    );
+  }
+  
+  const global = await getGlobal(lang);  
+  // TODO: CREATE A CUSTOM ERROR PAGE
+  if (!global.data) {
+    return (
+      <html lang={lang}>
+        <body>
+          <main className="dark:bg-black dark:text-gray-100 min-h-screen">
+            {children}
+          </main>
+        </body>
+      </html>
+    );
+  }
+  
+  const { notificationBanner, navbar, footer } = global.data;
 
   const navbarLogoUrl = getStrapiMedia(
-    navbar.navbarLogo.logoImg.data?.attributes.url
+    navbar.navbarLogo.logoImg.url
   );
 
   const footerLogoUrl = getStrapiMedia(
-    footer.footerLogo.logoImg.data?.attributes.url
+    footer.footerLogo.logoImg.url
   );
 
   return (
@@ -96,7 +121,7 @@ export default async function RootLayout({
           logoUrl={footerLogoUrl}
           logoText={footer.footerLogo.logoText}
           menuLinks={footer.menuLinks}
-          categoryLinks={footer.categories.data}
+          categoryLinks={footer.categories}
           legalLinks={footer.legalLinks}
           socialLinks={footer.socialLinks}
         />

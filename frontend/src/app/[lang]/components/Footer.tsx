@@ -16,10 +16,8 @@ interface FooterLink {
 
 interface CategoryLink {
   id: string;
-  attributes: {
-    name: string;
-    slug: string;
-  };
+  name: string;
+  slug: string;
 }
 
 function FooterLink({ url, text }: FooterLink) {
@@ -38,14 +36,14 @@ function FooterLink({ url, text }: FooterLink) {
   );
 }
 
-function CategoryLink({ attributes }: CategoryLink) {
+function CategoryLink({ name, slug }: CategoryLink) {
   return (
     <li className="flex">
       <Link
-        href={`/blog/${attributes.slug}`}
+        href={`/blog/${slug}`}
         className="hover:dark:text-violet-400"
       >
-        {attributes.name}
+        {name}
       </Link>
     </li>
   );

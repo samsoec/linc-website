@@ -64,12 +64,13 @@ export default async function LayoutRoute({
   children,
 }: {
   children: React.ReactNode;
-  params: {
+  params: Promise<{
     slug: string;
     category: string;
-  };
+  }>;
 }) {
-  const { category } = params;
+  const resolvedParams = await params;
+  const { category } = resolvedParams;
   const { categories, articles } = (await fetchSideMenuData(category)) as Data;
 
   return (
@@ -80,7 +81,7 @@ export default async function LayoutRoute({
           <ArticleSelect
             categories={categories}
             articles={articles}
-            params={params}
+            params={resolvedParams}
           />
         </aside>
       </div>
@@ -102,12 +103,10 @@ export async function generateStaticParams() {
 
   return articleResponse.data.map(
     (article: {
-      attributes: {
+      slug: string;
+      category: {
         slug: string;
-        category: {
-          slug: string;
-        };
       };
-    }) => ({ slug: article.attributes.slug, category: article.attributes.slug })
+    }) => ({ slug: article.slug, category: article.category.slug })
   );
 }

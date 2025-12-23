@@ -16,8 +16,8 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
     const { slug, lang } = await params;
     const page = await getPageBySlug(slug, lang);
 
-    if (!page.data[0]?.attributes?.seo) return FALLBACK_SEO;
-    const metadata = page.data[0].attributes.seo
+    if (!page.data[0]?.seo) return FALLBACK_SEO;
+    const metadata = page.data[0].seo
 
     return {
         title: metadata.metaTitle,
@@ -30,6 +30,6 @@ export default async function PageRoute({params}: Props) {
     const { slug, lang } = await params;
     const page = await getPageBySlug(slug, lang);
     if (page.data.length === 0) return null;
-    const contentSections = page.data[0].attributes.contentSections;
+    const contentSections = page.data[0].contentSections;
     return contentSections.map((section: any, index: number) => componentResolver(section, index));
 }
