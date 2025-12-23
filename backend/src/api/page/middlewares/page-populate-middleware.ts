@@ -6,7 +6,99 @@
 
 const populate = {
   contentSections: {
-    populate: '*',
+    on: {
+      'sections.hero': {
+        populate: {
+          picture: {
+            fields: ["url", "alternativeText", "caption", "width", "height"],
+          },
+          buttons: {
+            populate: true,
+          },
+        },
+      },
+      'sections.bottom-actions': {
+        populate: {
+          buttons: {
+            populate: true,
+          },
+        },
+      },
+      'sections.feature-columns-group': {
+        populate: {
+          features: {
+            populate: {
+              icon: {
+                fields: ["url", "alternativeText"],
+              },
+            },
+          },
+        },
+      },
+      'sections.feature-rows-group': {
+        populate: {
+          features: {
+            populate: {
+              media: {
+                fields: ["url", "alternativeText", "caption", "width", "height"],
+              },
+            },
+          },
+        },
+      },
+      'sections.testimonials-group': {
+        populate: {
+          testimonials: {
+            populate: {
+              picture: {
+                fields: ["url", "alternativeText", "caption", "width", "height"],
+              },
+            },
+          },
+        },
+      },
+      'sections.large-video': {
+        populate: {
+          video: {
+            fields: ["url", "alternativeText"],
+          },
+          poster: {
+            fields: ["url", "alternativeText"],
+          },
+        },
+      },
+      'sections.rich-text': {
+        populate: '*',
+      },
+      'sections.pricing': {
+        populate: {
+          plans: {
+            populate: ["product_features"],
+          },
+        },
+      },
+      'sections.lead-form': {
+        populate: {
+          submitButton: {
+            populate: true,
+          },
+        },
+      },
+      'sections.features': {
+        populate: {
+          feature: {
+            populate: {
+              media: {
+                fields: ["url", "alternativeText", "caption", "width", "height"],
+              },
+            },
+          },
+        },
+      },
+      'sections.heading': {
+        populate: '*',
+      },
+    },
   },
   seo: {
     fields: ["metaTitle", "metaDescription"],
