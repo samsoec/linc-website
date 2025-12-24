@@ -1,8 +1,13 @@
 /**
- * Strapi Types - Generated from backend schema
- * 
- * This file contains all TypeScript types derived from the Strapi backend.
- * These types are used across the frontend for type safety.
+ * Strapi Types - Manually Defined Types for Frontend Use
+ *
+ * This file contains runtime-friendly TypeScript types for use in the frontend.
+ * These types represent the actual data shape returned by Strapi v5 APIs.
+ *
+ * For the raw Strapi schema types (useful for type checking against the backend),
+ * see: ./generated/index.ts
+ *
+ * To sync types from backend, run: npm run types:sync
  */
 
 // =============================================================================
