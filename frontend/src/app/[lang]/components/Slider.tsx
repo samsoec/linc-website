@@ -2,27 +2,21 @@
 import { Fade } from "react-slideshow-image";
 import { getStrapiMedia } from "../utils/api-helpers";
 import Image from "next/image";
+import type { SliderBlock } from "@/types/strapi";
 
-interface Image {
-  id: number;
-  alternativeText: string | null;
-  caption: string | null;
-  url: string;
+interface SlideShowProps {
+  data: SliderBlock;
 }
 
-interface SlidShowProps {
-  files: Image[];
-}
-
-export default function Slideshow({ data }: { data: SlidShowProps }) {
+export default function Slideshow({ data }: SlideShowProps) {
   return (
     <div className="slide-container">
       <Fade>
-        {data.files.map((fadeImage: Image, index) => {
+        {data.files.map((fadeImage, index) => {
           const imageUrl = getStrapiMedia(fadeImage.url);
           return (
             <div key={index}>
-              {imageUrl && <Image className="w-full h-96 object-cover rounded-lg" height={400} width={600} alt="alt text" src={imageUrl} />}
+              {imageUrl && <Image className="w-full h-96 object-cover rounded-lg" height={400} width={600} alt={fadeImage.alternativeText || "slider image"} src={imageUrl} />}
             </div>
           );
         })}

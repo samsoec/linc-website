@@ -17,7 +17,7 @@ function getLocale(request: NextRequest): string | undefined {
     const locales: string[] = i18n.locales;
     try {
         return matchLocale(languages, locales, i18n.defaultLocale);
-      } catch (e) {
+      } catch {
         // Invalid accept-language header
         return i18n.defaultLocale;
       }

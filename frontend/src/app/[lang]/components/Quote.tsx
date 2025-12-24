@@ -1,9 +1,7 @@
+import type { QuoteBlock } from "@/types/strapi";
+
 interface QuoteProps {
-  data: {
-    title: string;
-    body: string;
-    author: string;
-  };
+  data: QuoteBlock;
 }
 
 export default function Quote({ data }: QuoteProps) {

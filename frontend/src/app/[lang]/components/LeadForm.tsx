@@ -1,17 +1,11 @@
 import FormSubmit from "./FormSubmit";
+import type { LeadFormSection } from "@/types/strapi";
 
-interface EmailProps {
-  id: string;
-  __component: string;
-  title: string;
-  description: string;
-  emailPlaceholder: string;
-  submitButton: {
-    text: string;
-  };
+interface LeadFormProps {
+  data: LeadFormSection;
 }
 
-export default function Email({ data }: { data: EmailProps }) {
+export default function Email({ data }: LeadFormProps) {
 
   return (
     <section className="py-6 dark:bg-black dark:text-gray-50">

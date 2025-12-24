@@ -1,7 +1,13 @@
 import ArticleSelect from "@/app/[lang]/components/ArticleSelect";
 import { fetchAPI } from "@/app/[lang]/utils/fetch-api";
+import type { Category, Article } from "@/types/strapi";
 
-async function fetchSideMenuData(filter: string) {
+interface SideMenuData {
+  articles: Article[];
+  categories: Category[];
+}
+
+async function fetchSideMenuData(filter: string): Promise<SideMenuData | undefined> {
   try {
     const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
     const options = { headers: { Authorization: `Bearer ${token}` } };
@@ -35,28 +41,9 @@ async function fetchSideMenuData(filter: string) {
   }
 }
 
-interface Category {
-  id: number;
-  attributes: {
-    name: string;
-    slug: string;
-    articles: {
-      data: Array<{}>;
-    };
-  };
-}
-
-interface Article {
-  id: number;
-  attributes: {
-    title: string;
-    slug: string;
-  };
-}
-
-interface Data {
-  articles: Article[];
-  categories: Category[];
+export interface RouteParams {
+  slug: string;
+  category: string;
 }
 
 export default async function LayoutRoute({
@@ -64,14 +51,17 @@ export default async function LayoutRoute({
   children,
 }: {
   children: React.ReactNode;
-  params: Promise<{
-    slug: string;
-    category: string;
-  }>;
+  params: Promise<RouteParams>;
 }) {
   const resolvedParams = await params;
   const { category } = resolvedParams;
-  const { categories, articles } = (await fetchSideMenuData(category)) as Data;
+  const sideMenuData = await fetchSideMenuData(category);
+  
+  if (!sideMenuData) {
+    return <section>{children}</section>;
+  }
+  
+  const { categories, articles } = sideMenuData;
 
   return (
     <section className="container p-8 mx-auto space-y-6 sm:space-y-12">

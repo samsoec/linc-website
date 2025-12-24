@@ -1,24 +1,11 @@
 import Link from "next/link";
+import type { FeaturesSection, Feature as FeatureType } from "@/types/strapi";
 
 interface FeaturesProps {
-  data: {
-    heading: string;
-    description: string;
-    feature: Feature[];
-  };
+  data: FeaturesSection;
 }
 
-interface Feature {
-  id: string;
-  title: string;
-  description: string;
-  showLink: boolean;
-  newTab: boolean;
-  url: string;
-  text: string;
-}
-
-function Feature({ title, description, showLink, newTab, url, text }: Feature) {
+function Feature({ title, description, showLink, newTab, url, text }: FeatureType) {
   return (
     <div className="flex flex-col items-center p-4">
       <svg
@@ -60,7 +47,7 @@ export default function Features({ data }: FeaturesProps) {
         <p className="dark:text-gray-400">{data.description}</p>
       </div>
       <div className="container mx-auto my-6 grid justify-center gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {data.feature.map((feature: Feature, index: number) => (
+        {data.feature.map((feature: FeatureType, index: number) => (
           <Feature key={index} {...feature} />
         ))}
       </div>

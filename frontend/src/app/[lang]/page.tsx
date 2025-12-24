@@ -1,6 +1,7 @@
 import LangRedirect from './components/LangRedirect';
 import componentResolver from './utils/component-resolver';
 import {getPageBySlug} from "@/app/[lang]/utils/get-page-by-slug";
+import type { PageSection } from "@/types/strapi";
 
 
 export default async function RootRoute({params}: { params: Promise<{ lang: string }> }) {
@@ -15,10 +16,10 @@ export default async function RootRoute({params}: { params: Promise<{ lang: stri
       if (page.data.length == 0 && lang !== 'en') return <LangRedirect />
       if (page.data.length === 0) return null
       const contentSections = page.data[0].contentSections
-      return contentSections.map((section: any, index: number) =>
+      return contentSections.map((section: PageSection, index: number) =>
         componentResolver(section, index)
       )
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Page error:', error);
       return <div>Error loading page. Please check your credentials.</div>
     }

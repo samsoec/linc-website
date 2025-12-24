@@ -1,46 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getStrapiMedia, formatDate } from "../utils/api-helpers";
-
-interface Cover {
-  id: number;
-  documentId: string;
-  url: string;
-}
-
-interface Category {
-  id: number;
-  documentId: string;
-  name: string;
-  slug: string;
-}
-
-interface Avatar {
-  id: number;
-  documentId: string;
-  url: string;
-}
-
-interface AuthorsBio {
-  id: number;
-  documentId: string;
-  name: string;
-  avatar: Avatar;
-}
-
-interface Article {
-  id: number;
-  documentId: string;
-  title: string;
-  description: string;
-  slug: string;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  cover: Cover;
-  category: Category;
-  authorsBio: AuthorsBio;
-}
+import type { Article } from "@/types/strapi";
 
 export default function PostList({
   data: articles,
@@ -62,7 +23,7 @@ export default function PostList({
             <Link
               href={`/blog/${category?.slug}/${article.slug}`}
               key={article.id}
-              className="max-w-sm mx-auto group hover:no-underline focus:no-underline dark:bg-gray-900 lg:w-[300px] xl:min-w-[375px] rounded-2xl overflow-hidden shadow-lg"
+              className="max-w-sm mx-auto group hover:no-underline focus:no-underline dark:bg-gray-900 lg:w-75 xl:min-w-93.75 rounded-2xl overflow-hidden shadow-lg"
             >
               {imageUrl && (
                 <Image
@@ -90,7 +51,7 @@ export default function PostList({
 
                 <div className="flex justify-between items-center">
                   <span className="text-xs dark:text-gray-400">
-                    {formatDate(article.publishedAt)}
+                    {article.publishedAt ? formatDate(article.publishedAt) : ''}
                   </span>
                   {authorsBio && (
                     <span className="text-xs dark:text-gray-400">

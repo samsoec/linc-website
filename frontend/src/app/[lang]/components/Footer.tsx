@@ -5,22 +5,9 @@ import Logo from "./Logo";
 import { CgWebsite } from "react-icons/cg";
 import { FaDiscord } from "react-icons/fa";
 import { AiFillTwitterCircle, AiFillYoutube } from "react-icons/ai";
+import type { Link as LinkType, SocialLink as SocialLinkType, Category } from "@/types/strapi";
 
-interface FooterLink {
-  id: number;
-  url: string;
-  newTab: boolean;
-  text: string;
-  social?: string;
-}
-
-interface CategoryLink {
-  id: string;
-  name: string;
-  slug: string;
-}
-
-function FooterLink({ url, text }: FooterLink) {
+function FooterLink({ url, text }: LinkType) {
   const path = usePathname();
   return (
     <li className="flex">
@@ -36,7 +23,7 @@ function FooterLink({ url, text }: FooterLink) {
   );
 }
 
-function CategoryLink({ name, slug }: CategoryLink) {
+function CategoryLink({ name, slug }: { name: string; slug: string }) {
   return (
     <li className="flex">
       <Link
@@ -74,10 +61,10 @@ export default function Footer({
 }: {
   logoUrl: string | null;
   logoText: string | null;
-  menuLinks: Array<FooterLink>;
-  categoryLinks: Array<CategoryLink>;
-  legalLinks: Array<FooterLink>;
-  socialLinks: Array<FooterLink>;
+  menuLinks: LinkType[];
+  categoryLinks: Category[];
+  legalLinks: LinkType[];
+  socialLinks: SocialLinkType[];
 }) {
 
   return (
@@ -93,7 +80,7 @@ export default function Footer({
           <div className="col-span-6 text-center md:text-left md:col-span-3">
             <p className="pb-1 text-lg font-medium">Categories</p>
             <ul>
-              {categoryLinks.map((link: CategoryLink) => (
+              {categoryLinks.map((link) => (
                 <CategoryLink key={link.id} {...link} />
               ))}
             </ul>
@@ -102,7 +89,7 @@ export default function Footer({
           <div className="col-span-6 text-center md:text-left md:col-span-3">
             <p className="pb-1 text-lg font-medium">Menu</p>
             <ul>
-              {menuLinks.map((link: FooterLink) => (
+              {menuLinks.map((link) => (
                 <FooterLink key={link.id} {...link} />
               ))}
             </ul>
@@ -114,7 +101,7 @@ export default function Footer({
               ©{new Date().getFullYear()} All rights reserved
             </span>
             <ul className="flex">
-              {legalLinks.map((link: FooterLink) => (
+              {legalLinks.map((link) => (
                 <Link
                   href={link.url}
                   className="text-gray-400 hover:text-gray-300 mr-2"
@@ -126,7 +113,7 @@ export default function Footer({
             </ul>
           </div>
           <div className="flex justify-center pt-4 space-x-4 lg:pt-0 lg:col-end-13">
-            {socialLinks.map((link: FooterLink) => {
+            {socialLinks.map((link) => {
               return (
                 <a
                   key={link.id}

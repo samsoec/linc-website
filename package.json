@@ -11,7 +11,8 @@
     "dev": "yarn clear && concurrently \"cd frontend && yarn dev\" \"cd backend && yarn develop\"",
     "seed": "cd backend && yarn strapi import -f ../starter.tar.gz",
     "export": "cd backend && yarn strapi export --no-encrypt -f ../starter",
-    "repo:upstream": "git fetch upstream && git merge upstream/main"
+    "repo:upstream": "git fetch upstream && git merge upstream/main",
+    "types:sync": "echo 'Types are defined in frontend/src/types/strapi.ts based on backend schemas. Update manually when backend schema changes.'"
   },
   "keywords": [],
   "author": "",

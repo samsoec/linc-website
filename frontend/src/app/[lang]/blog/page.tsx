@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import { fetchAPI } from "../utils/fetch-api";
+import type { Article } from "@/types/strapi";
 
 import Loader from "../components/Loader";
 import Blog from "../views/blog-list";
@@ -16,7 +17,7 @@ interface Meta {
 
 export default function Profile() {
   const [meta, setMeta] = useState<Meta | undefined>();
-  const [data, setData] = useState<any>([]);
+  const [data, setData] = useState<Article[]>([]);
   const [isLoading, setLoading] = useState(true);
 
   const fetchData = useCallback(async (start: number, limit: number) => {
@@ -44,7 +45,7 @@ export default function Profile() {
       if (start === 0) {
         setData(responseData.data);
       } else {
-        setData((prevData: any[] ) => [...prevData, ...responseData.data]);
+        setData((prevData: Article[]) => [...prevData, ...responseData.data]);
       }
 
       setMeta(responseData.meta);

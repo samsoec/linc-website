@@ -1,28 +1,7 @@
-interface Feature {
-  id: number;
-  documentId: string;
-  name: string;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-}
-
-interface Plan {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  pricePeriod: string;
-  isRecommended: boolean;
-  product_features: Feature[];
-}
+import type { PricingSection } from "@/types/strapi";
 
 interface PriceProps {
-  data: {
-    id: string;
-    title: string;
-    plans: Plan[];
-  };
+  data: PricingSection;
 }
 
 export default function Pricing({ data }: PriceProps) {
@@ -36,13 +15,13 @@ export default function Pricing({ data }: PriceProps) {
           <h2 className="text-4xl font-bold lg:text-5xl">{data.title}</h2>
         </div>
         <div className="flex flex-wrap items-stretch max-w-5xl mx-auto">
-          {data.plans.map((plan: Plan) => (
+          {data.plans.map((plan) => (
             <div
               key={plan.id}
               className="w-full p-4 mb-8  sm:mx-40 lg:mx-0 lg:w-1/3 lg:mb-0"
             >
               <div
-                className={`flex flex-col p-6 space-y-6 rounded shadow sm:p-8 min-h-[475px] min-w-[300px] ${
+                className={`flex flex-col p-6 space-y-6 rounded shadow sm:p-8 min-h-118.75 min-w-75 ${
                   plan.isRecommended ? "dark:bg-violet-600" : "dark:bg-gray-800"
                 }`}
               >
@@ -77,13 +56,13 @@ export default function Pricing({ data }: PriceProps) {
                       : "dark:text-gray-400"
                   }`}
                 >
-                  {plan.product_features.map((feature: Feature) => (
+                  {plan.product_features.map((feature) => (
                     <li key={feature.id} className="flex mb-2 space-x-2">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20"
                         fill="currentColor"
-                        className={`flex-shrink-0 w-6 h-6 ${
+                        className={`shrink-0 w-6 h-6 ${
                           plan.isRecommended
                             ? "dark:text-gray-900"
                             : "dark:text-gray-400"

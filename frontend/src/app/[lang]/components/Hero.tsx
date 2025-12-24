@@ -3,33 +3,10 @@ import Image from "next/image";
 import HighlightedText from "./HighlightedText";
 import { getStrapiMedia } from "../utils/api-helpers";
 import { renderButtonStyle } from "../utils/render-button-style";
-
-interface Button {
-  id: string;
-  url: string;
-  text: string;
-  type: string;
-  newTab: boolean;
-}
-
-interface Picture {
-  id: number;
-  documentId: string;
-  url: string;
-  alternativeText: string | null;
-  caption: string | null;
-  width: number;
-  height: number;
-}
+import type { HeroSection } from "@/types/strapi";
 
 interface HeroProps {
-  data: {
-    id: string;
-    title: string;
-    description: string;
-    picture: Picture;
-    buttons: Button[];
-  };
+  data: HeroSection;
 }
 
 export default function Hero({ data }: HeroProps) {
@@ -53,7 +30,7 @@ export default function Hero({ data }: HeroProps) {
             color="dark:text-violet-400"
           />
           <div className="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
-            {data.buttons.map((button: Button, index: number) => (
+            {data.buttons.map((button, index) => (
               <Link
                 key={index}
                 href={button.url}

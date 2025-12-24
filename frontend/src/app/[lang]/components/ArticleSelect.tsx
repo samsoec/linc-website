@@ -1,19 +1,6 @@
 import Link from "next/link";
-
-interface Category {
-  id: number;
-  documentId: string;
-  name: string;
-  slug: string;
-  articles: Array<{}>;
-}
-
-interface Article {
-  id: number;
-  documentId: string;
-  title: string;
-  slug: string;
-}
+import type { Category, Article } from "@/types/strapi";
+import type { RouteParams } from "@/app/[lang]/blog/[category]/[slug]/layout";
 
 function selectedFilter(current: string, selected: string) {
   return current === selected
@@ -28,14 +15,11 @@ export default function ArticleSelect({
 }: {
   categories: Category[];
   articles: Article[];
-  params: {
-    slug: string;
-    category: string;
-  };
+  params: RouteParams;
 }) {
 
   return (
-    <div className="p-4 rounded-lg dark:bg-gray-900 min-h-[365px] relative">
+    <div className="p-4 rounded-lg dark:bg-gray-900 min-h-91.25 relative">
       <h4 className="text-xl font-semibold">Browse By Category</h4>
 
       <div>

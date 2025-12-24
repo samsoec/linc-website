@@ -1,23 +1,18 @@
 "use client";
 import Logo from "./Logo";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import type { Link as LinkType } from "@/types/strapi";
 
-interface NavLink {
-  id: number;
-  url: string;
-  newTab: boolean;
-  text: string;
-}
-
-interface MobileNavLink extends NavLink {
+interface MobileNavLinkProps extends LinkType {
   closeMenu: () => void;
 }
 
-function NavLink({ url, text }: NavLink) {
+function NavLink({ url, text }: LinkType) {
   const path = usePathname();
 
   return (
@@ -34,7 +29,7 @@ function NavLink({ url, text }: NavLink) {
   );
 }
 
-function MobileNavLink({ url, text, closeMenu }: MobileNavLink) {
+function MobileNavLink({ url, text, closeMenu }: MobileNavLinkProps) {
   const path = usePathname();
   const handleClick = () => {
     closeMenu();
@@ -59,7 +54,7 @@ export default function Navbar({
   logoUrl,
   logoText,
 }: {
-  links: Array<NavLink>;
+  links: LinkType[];
   logoUrl: string | null;
   logoText: string | null;
 }) {
@@ -74,9 +69,9 @@ export default function Navbar({
           {logoText && <h2 className="text-2xl font-bold">{logoText}</h2>}
         </Logo>
 
-        <div className="items-center flex-shrink-0 hidden lg:flex">
+        <div className="items-center shrink-0 hidden lg:flex">
           <ul className="items-stretch hidden space-x-3 lg:flex">
-            {links.map((item: NavLink) => (
+            {links.map((item) => (
               <NavLink key={item.id} {...item} />
             ))}
           </ul>
@@ -94,7 +89,7 @@ export default function Navbar({
             <div className="flex items-center justify-between">
               <a href="#" className="-m-1.5 p-1.5">
                 <span className="sr-only">Strapi</span>
-                {logoUrl && <img className="h-8 w-auto" src={logoUrl} alt="" />}
+                {logoUrl && <Image className="h-8 w-auto" src={logoUrl} alt="" width={32} height={32} />}
               </a>
               <button
                 type="button"

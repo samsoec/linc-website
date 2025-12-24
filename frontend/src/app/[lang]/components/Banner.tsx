@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import type { NotificationBanner } from "@/types/strapi";
 
 function colors(type: string) {
   switch (type) {
@@ -14,18 +15,7 @@ function colors(type: string) {
 }
 
 interface BannerProps {
-  data: {
-    heading: string;
-    text: string;
-    type: string;
-    show: boolean;
-    link: {
-      id: number;
-      url: string;
-      newTab: boolean;
-      text: string;
-    };
-  } | null;
+  data: NotificationBanner | null;
 }
 
 export default function Banner({ data }: BannerProps) {

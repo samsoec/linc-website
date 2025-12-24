@@ -2,6 +2,7 @@ import {Metadata} from "next";
 import {getPageBySlug} from "@/app/[lang]/utils/get-page-by-slug";
 import {FALLBACK_SEO} from "@/app/[lang]/utils/constants";
 import componentResolver from "../utils/component-resolver";
+import type { PageSection } from "@/types/strapi";
 
 
 type Props = {
@@ -31,5 +32,5 @@ export default async function PageRoute({params}: Props) {
     const page = await getPageBySlug(slug, lang);
     if (page.data.length === 0) return null;
     const contentSections = page.data[0].contentSections;
-    return contentSections.map((section: any, index: number) => componentResolver(section, index));
+    return contentSections.map((section: PageSection, index: number) => componentResolver(section, index));
 }

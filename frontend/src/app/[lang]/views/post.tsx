@@ -1,37 +1,7 @@
 import { formatDate, getStrapiMedia } from '@/app/[lang]/utils/api-helpers';
 import Image from 'next/image';
 import componentResolver from '../utils/component-resolver';
-
-interface Cover {
-    id: number;
-    documentId: string;
-    url: string;
-}
-
-interface Avatar {
-    id: number;
-    documentId: string;
-    url: string;
-}
-
-interface AuthorsBio {
-    id: number;
-    documentId: string;
-    name: string;
-    avatar: Avatar;
-}
-
-interface Article {
-    id: number;
-    documentId: string;
-    title: string;
-    description: string;
-    slug: string;
-    cover: Cover;
-    authorsBio: AuthorsBio;
-    blocks: any[];
-    publishedAt: string;
-}
+import type { Article, ArticleBlock } from '@/types/strapi';
 
 export default function Post({ data }: { data: Article }) {
     const { title, description, publishedAt, cover, authorsBio } = data;
@@ -64,7 +34,7 @@ export default function Post({ data }: { data: Article }) {
                             />
                         )}
                         <p className="text-md dark:text-violet-400">
-                            {author && author.name} • {formatDate(publishedAt)}
+                            {author && author.name} • {publishedAt ? formatDate(publishedAt) : ''}
                         </p>
                     </div>
                 </div>
@@ -73,7 +43,7 @@ export default function Post({ data }: { data: Article }) {
             <div className="dark:text-gray-100">
                 <p>{description}</p>
 
-                {data.blocks.map((section: any, index: number) => componentResolver(section, index))}
+                {data.blocks.map((section: ArticleBlock, index: number) => componentResolver(section, index))}
             </div>
         </article>
     );
