@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { FeaturesSection, Feature as FeatureType } from "@/types/strapi";
+import type { FeaturesSection, Feature as FeatureType } from "@/types/generated";
 
 interface FeaturesProps {
   data: FeaturesSection;

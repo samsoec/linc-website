@@ -2,13 +2,7 @@
 import { useState } from "react";
 import { getStrapiURL } from "../utils/api-helpers";
 
-export default function FormSubmit({
-  placeholder,
-  text,
-}: {
-  placeholder: string;
-  text: string;
-}) {
+export default function FormSubmit({ placeholder, text }: { placeholder: string; text: string }) {
   const [email, setEmail] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -50,9 +44,7 @@ export default function FormSubmit({
       <div className="flex flex-col">
         <div className="flex flex-row">
           {successMessage ? (
-            <p className="text-green-700 bg-green-300 px-4 py-2 rounded-lg">
-              {successMessage}
-            </p>
+            <p className="text-green-700 bg-green-300 px-4 py-2 rounded-lg">{successMessage}</p>
           ) : (
             <>
               <input
@@ -74,9 +66,7 @@ export default function FormSubmit({
         </div>
 
         {errorMessage && (
-          <p className="text-red-500 bg-red-200 px-4 py-2 rounded-lg my-2">
-            {errorMessage}
-          </p>
+          <p className="text-red-500 bg-red-200 px-4 py-2 rounded-lg my-2">{errorMessage}</p>
         )}
       </div>
     </div>

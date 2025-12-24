@@ -3,7 +3,7 @@ import Image from "next/image";
 import HighlightedText from "./HighlightedText";
 import { getStrapiMedia } from "../utils/api-helpers";
 import { renderButtonStyle } from "../utils/render-button-style";
-import type { HeroSection } from "@/types/strapi";
+import type { HeroSection } from "@/types/generated";
 
 interface HeroProps {
   data: HeroSection;
@@ -45,9 +45,7 @@ export default function Hero({ data }: HeroProps) {
         <div className="flex items-center justify-center p-6 mt-8 lg:mt-0 h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128">
           <Image
             src={imgUrl || ""}
-            alt={
-              data.picture.alternativeText || "none provided"
-            }
+            alt={data.picture.alternativeText || "none provided"}
             className="object-contain h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128 "
             width={600}
             height={600}

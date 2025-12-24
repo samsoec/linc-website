@@ -1,6 +1,6 @@
 import ArticleSelect from "@/app/[lang]/components/ArticleSelect";
 import { fetchAPI } from "@/app/[lang]/utils/fetch-api";
-import type { Category, Article } from "@/types/strapi";
+import type { Category, Article } from "@/types/generated";
 
 interface SideMenuData {
   articles: Article[];
@@ -12,11 +12,7 @@ async function fetchSideMenuData(filter: string): Promise<SideMenuData | undefin
     const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
     const options = { headers: { Authorization: `Bearer ${token}` } };
 
-    const categoriesResponse = await fetchAPI(
-      "/categories",
-      { populate: "*" },
-      options
-    );
+    const categoriesResponse = await fetchAPI("/categories", { populate: "*" }, options);
 
     const articlesResponse = await fetchAPI(
       "/articles",
@@ -56,11 +52,11 @@ export default async function LayoutRoute({
   const resolvedParams = await params;
   const { category } = resolvedParams;
   const sideMenuData = await fetchSideMenuData(category);
-  
+
   if (!sideMenuData) {
     return <section>{children}</section>;
   }
-  
+
   const { categories, articles } = sideMenuData;
 
   return (
@@ -68,11 +64,7 @@ export default async function LayoutRoute({
       <div className="grid grid-cols-1 md:grid-cols-3 gap-2 lg:gap-4">
         <div className="col-span-2">{children}</div>
         <aside>
-          <ArticleSelect
-            categories={categories}
-            articles={articles}
-            params={resolvedParams}
-          />
+          <ArticleSelect categories={categories} articles={articles} params={resolvedParams} />
         </aside>
       </div>
     </section>

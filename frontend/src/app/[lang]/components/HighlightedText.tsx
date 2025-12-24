@@ -5,12 +5,7 @@ interface HighlightedTextProps {
   color?: string;
 }
 
-export default function HighlightedText({
-  text,
-  tag,
-  className,
-  color,
-}: HighlightedTextProps) {
+export default function HighlightedText({ text, tag, className, color }: HighlightedTextProps) {
   const tempText = text.split(" ");
   const result = [];
 
@@ -19,9 +14,7 @@ export default function HighlightedText({
   tempText.forEach((word: string, index: number) => {
     if (word.includes("[")) {
       const highlight = word.replace("[", "").replace("]", "");
-      result.push(
-        `<span key=${index} class="${color ? color : ""}">${highlight}</span> `
-      );
+      result.push(`<span key=${index} class="${color ? color : ""}">${highlight}</span> `);
     } else result.push(word + " ");
   });
 

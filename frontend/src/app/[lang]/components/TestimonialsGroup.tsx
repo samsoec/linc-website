@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { getStrapiMedia } from "../utils/api-helpers";
-import type { TestimonialsGroupSection, Testimonial as TestimonialType } from "@/types/strapi";
+import type { TestimonialsGroupSection, Testimonial as TestimonialType } from "@/types/generated";
 
 interface TestimonialsProps {
   data: TestimonialsGroupSection;
@@ -52,9 +52,7 @@ export default function Testimonials({ data }: TestimonialsProps) {
   return (
     <section className="dark:bg-black dark:text-gray-100  m:py-12 lg:py-24">
       <div className="container mx-auto py-4 space-y-2 text-center">
-        <h1 className="text-4xl font-semibold leading-none text-center">
-          {data.title}
-        </h1>
+        <h1 className="text-4xl font-semibold leading-none text-center">{data.title}</h1>
         <p className="mt-4 text-lg text-center">{data.description}</p>
       </div>
       <div className="container mx-auto grid grid-cols-1 gap-8 lg:gap-20 md:px-10 md:pb-10 lg:grid-cols-2">

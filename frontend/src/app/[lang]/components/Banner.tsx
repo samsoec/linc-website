@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import type { NotificationBanner } from "@/types/strapi";
+import type { NotificationBanner } from "@/types/generated";
 
 function colors(type: string) {
   switch (type) {

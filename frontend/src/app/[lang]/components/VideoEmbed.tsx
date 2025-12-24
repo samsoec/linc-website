@@ -1,12 +1,11 @@
-import type { VideoEmbedBlock } from "@/types/strapi";
+import type { VideoEmbedBlock } from "@/types/generated";
 
 interface VideoEmbedProps {
   data: VideoEmbedBlock;
 }
 
 const getEmbedUrl = (videoUrl: string): string | null => {
-  const youtubeRegex =
-    /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|watch\?v%3D)([\w-]{11}).*/;
+  const youtubeRegex = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|watch\?v%3D)([\w-]{11}).*/;
   const youtubeMatch = videoUrl.match(youtubeRegex);
 
   if (youtubeMatch && youtubeMatch[2].length === 11) {

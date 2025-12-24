@@ -1,4 +1,4 @@
-import type { QuoteBlock } from "@/types/strapi";
+import type { QuoteBlock } from "@/types/generated";
 
 interface QuoteProps {
   data: QuoteBlock;

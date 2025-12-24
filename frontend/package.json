@@ -7,6 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json}\"",
     "types:sync": "node scripts/copyTypes.js"
   },
   "dependencies": {

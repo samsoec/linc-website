@@ -5,7 +5,7 @@ import Logo from "./Logo";
 import { CgWebsite } from "react-icons/cg";
 import { FaDiscord } from "react-icons/fa";
 import { AiFillTwitterCircle, AiFillYoutube } from "react-icons/ai";
-import type { Link as LinkType, SocialLink as SocialLinkType, Category } from "@/types/strapi";
+import type { Link as LinkType, SocialLink as SocialLinkType, Category } from "@/types/generated";
 
 function FooterLink({ url, text }: LinkType) {
   const path = usePathname();
@@ -26,10 +26,7 @@ function FooterLink({ url, text }: LinkType) {
 function CategoryLink({ name, slug }: { name: string; slug: string }) {
   return (
     <li className="flex">
-      <Link
-        href={`/blog/${slug}`}
-        className="hover:dark:text-violet-400"
-      >
+      <Link href={`/blog/${slug}`} className="hover:dark:text-violet-400">
         {name}
       </Link>
     </li>
@@ -66,7 +63,6 @@ export default function Footer({
   legalLinks: LinkType[];
   socialLinks: SocialLinkType[];
 }) {
-
   return (
     <footer className="py-6 dark:bg-black dark:text-gray-50">
       <div className="container px-6 mx-auto space-y-6 divide-y divide-gray-400 md:space-y-12 divide-opacity-50">
@@ -97,9 +93,7 @@ export default function Footer({
         </div>
         <div className="grid justify-center pt-6 lg:justify-between">
           <div className="flex">
-            <span className="mr-2">
-              ©{new Date().getFullYear()} All rights reserved
-            </span>
+            <span className="mr-2">©{new Date().getFullYear()} All rights reserved</span>
             <ul className="flex">
               {legalLinks.map((link) => (
                 <Link

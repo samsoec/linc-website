@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getStrapiMedia, formatDate } from "../utils/api-helpers";
-import type { Article } from "@/types/strapi";
+import type { Article } from "@/types/generated";
 
 export default function PostList({
   data: articles,
@@ -51,12 +51,10 @@ export default function PostList({
 
                 <div className="flex justify-between items-center">
                   <span className="text-xs dark:text-gray-400">
-                    {article.publishedAt ? formatDate(article.publishedAt) : ''}
+                    {article.publishedAt ? formatDate(article.publishedAt) : ""}
                   </span>
                   {authorsBio && (
-                    <span className="text-xs dark:text-gray-400">
-                      {authorsBio.name}
-                    </span>
+                    <span className="text-xs dark:text-gray-400">{authorsBio.name}</span>
                   )}
                 </div>
                 <p className="py-4">{article.description}</p>

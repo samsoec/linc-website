@@ -1,6 +1,6 @@
 import { getStrapiMedia } from "../utils/api-helpers";
 import Image from "next/image";
-import type { MediaBlock } from "@/types/strapi";
+import type { MediaBlock } from "@/types/generated";
 
 interface MediaProps {
   data: MediaBlock;

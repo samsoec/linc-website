@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { Category, Article } from "@/types/strapi";
+import type { Category, Article } from "@/types/generated";
 import type { RouteParams } from "@/app/[lang]/blog/[category]/[slug]/layout";
 
 function selectedFilter(current: string, selected: string) {
@@ -17,7 +17,6 @@ export default function ArticleSelect({
   articles: Article[];
   params: RouteParams;
 }) {
-
   return (
     <div className="p-4 rounded-lg dark:bg-gray-900 min-h-91.25 relative">
       <h4 className="text-xl font-semibold">Browse By Category</h4>
@@ -30,10 +29,7 @@ export default function ArticleSelect({
               <Link
                 key={category.id}
                 href={`/blog/${category.slug}`}
-                className={selectedFilter(
-                  category.slug,
-                  params.category
-                )}
+                className={selectedFilter(category.slug, params.category)}
               >
                 #{category.name}
               </Link>
@@ -54,8 +50,7 @@ export default function ArticleSelect({
                     rel="noopener noreferrer"
                     href={`/blog/${params.category}/${article.slug}`}
                     className={`${
-                      params.slug === article.slug &&
-                      "text-violet-400"
+                      params.slug === article.slug && "text-violet-400"
                     }  hover:underline hover:text-violet-400 transition-colors duration-200`}
                   >
                     {article.title}

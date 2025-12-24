@@ -1,4 +1,4 @@
-import type { PricingSection } from "@/types/strapi";
+import type { PricingSection } from "@/types/generated";
 
 interface PriceProps {
   data: PricingSection;
@@ -9,17 +9,12 @@ export default function Pricing({ data }: PriceProps) {
     <section className="py-20 dark:bg-black dark:text-gray-100 m:py-12 lg:py-24">
       <div className="container px-4 mx-auto ">
         <div className="max-w-2xl mx-auto mb-16 text-center">
-          <span className="font-bold tracking-wider uppercase dark:text-violet-400">
-            Pricing
-          </span>
+          <span className="font-bold tracking-wider uppercase dark:text-violet-400">Pricing</span>
           <h2 className="text-4xl font-bold lg:text-5xl">{data.title}</h2>
         </div>
         <div className="flex flex-wrap items-stretch max-w-5xl mx-auto">
           {data.plans.map((plan) => (
-            <div
-              key={plan.id}
-              className="w-full p-4 mb-8  sm:mx-40 lg:mx-0 lg:w-1/3 lg:mb-0"
-            >
+            <div key={plan.id} className="w-full p-4 mb-8  sm:mx-40 lg:mx-0 lg:w-1/3 lg:mb-0">
               <div
                 className={`flex flex-col p-6 space-y-6 rounded shadow sm:p-8 min-h-118.75 min-w-75 ${
                   plan.isRecommended ? "dark:bg-violet-600" : "dark:bg-gray-800"
@@ -31,9 +26,7 @@ export default function Pricing({ data }: PriceProps) {
                     {plan.price}
                     <span
                       className={`ml-1 text-sm tracking-wid ${
-                        plan.isRecommended
-                          ? "dark:text-gray-900"
-                          : "dark:text-violet-500"
+                        plan.isRecommended ? "dark:text-gray-900" : "dark:text-violet-500"
                       }`}
                     >
                       {plan.pricePeriod.toLowerCase()}
@@ -42,18 +35,14 @@ export default function Pricing({ data }: PriceProps) {
                 </div>
                 <p
                   className={`mt-3 leading-relaxed text-lg font-bold ${
-                    plan.isRecommended
-                      ? "dark:text-gray-900"
-                      : "dark:text-gray-400"
+                    plan.isRecommended ? "dark:text-gray-900" : "dark:text-gray-400"
                   }`}
                 >
                   {plan.description}
                 </p>
                 <ul
                   className={`flex-1 mb-6 ${
-                    plan.isRecommended
-                      ? "dark:text-gray-900 font-semibold"
-                      : "dark:text-gray-400"
+                    plan.isRecommended ? "dark:text-gray-900 font-semibold" : "dark:text-gray-400"
                   }`}
                 >
                   {plan.product_features.map((feature) => (
@@ -63,9 +52,7 @@ export default function Pricing({ data }: PriceProps) {
                         viewBox="0 0 20 20"
                         fill="currentColor"
                         className={`shrink-0 w-6 h-6 ${
-                          plan.isRecommended
-                            ? "dark:text-gray-900"
-                            : "dark:text-gray-400"
+                          plan.isRecommended ? "dark:text-gray-900" : "dark:text-gray-400"
                         }`}
                       >
                         <path

@@ -7,9 +7,8 @@ import { i18n, Locale } from "../../../i18n-config";
 import Banner from "./components/Banner";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
-import {FALLBACK_SEO} from "@/app/[lang]/utils/constants";
-import type { Global, StrapiResponse } from "@/types/strapi";
-
+import { FALLBACK_SEO } from "@/app/[lang]/utils/constants";
+import type { Global, StrapiResponse } from "@/types/generated";
 
 async function getGlobal(lang: string): Promise<StrapiResponse<Global> | null> {
   const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
@@ -37,13 +36,17 @@ async function getGlobal(lang: string): Promise<StrapiResponse<Global> | null> {
   return await fetchAPI(path, urlParamsObject, options);
 }
 
-export async function generateMetadata({ params } : { params: Promise<{lang: string}>}): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
   const { lang } = await params;
-  
+
   if (!i18n.locales.includes(lang as Locale)) {
     return FALLBACK_SEO;
   }
-  
+
   const meta = await getGlobal(lang);
 
   if (!meta?.data) return FALLBACK_SEO;
@@ -68,7 +71,7 @@ export default async function RootLayout({
   readonly params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
-  
+
   // Validate locale to prevent invalid requests (e.g., favicon.ico being treated as a locale)
   if (!i18n.locales.includes(lang as Locale)) {
     return (
@@ -77,30 +80,24 @@ export default async function RootLayout({
       </html>
     );
   }
-  
-  const global = await getGlobal(lang);  
+
+  const global = await getGlobal(lang);
   // TODO: CREATE A CUSTOM ERROR PAGE
   if (!global?.data) {
     return (
       <html lang={lang}>
         <body>
-          <main className="dark:bg-black dark:text-gray-100 min-h-screen">
-            {children}
-          </main>
+          <main className="dark:bg-black dark:text-gray-100 min-h-screen">{children}</main>
         </body>
       </html>
     );
   }
-  
+
   const { notificationBanner, navbar, footer } = global.data;
 
-  const navbarLogoUrl = getStrapiMedia(
-    navbar.navbarLogo.logoImg.url
-  );
+  const navbarLogoUrl = getStrapiMedia(navbar.navbarLogo.logoImg.url);
 
-  const footerLogoUrl = getStrapiMedia(
-    footer.footerLogo.logoImg.url
-  );
+  const footerLogoUrl = getStrapiMedia(footer.footerLogo.logoImg.url);
 
   return (
     <html lang={lang}>
@@ -111,11 +108,9 @@ export default async function RootLayout({
           logoText={navbar.navbarLogo.logoText ?? null}
         />
 
-        <main className="dark:bg-black dark:text-gray-100 min-h-screen">
-          {children}
-        </main>
+        <main className="dark:bg-black dark:text-gray-100 min-h-screen">{children}</main>
 
-        <Banner data={notificationBanner} />
+        <Banner data={notificationBanner ?? null} />
 
         <Footer
           logoUrl={footerLogoUrl}
