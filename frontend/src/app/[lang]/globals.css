@@ -1,197 +1,130 @@
-@import "tailwindcss";
 @import "react-slideshow-image/dist/styles.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply dark:bg-black;
+}
 
 /******************************************* 
   Rich Text Styles
-*******************************************/ 
+*******************************************/
 
 /* Headers */
 .rich-text h1 {
-  font-size: 2.25rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-  color: #8b5cf6;
+  @apply text-4xl font-bold mb-4 text-violet-400;
 }
 
 .rich-text h2 {
-  font-size: 1.875rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-  color: #8b5cf6;
+  @apply text-3xl font-bold mb-4 text-violet-400;
 }
 
 .rich-text h3 {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-  color: #8b5cf6;
+  @apply text-2xl font-bold mb-4 text-violet-400;
 }
 
 .rich-text h4 {
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-  color: #8b5cf6;
+  @apply text-xl font-bold mb-4 text-violet-400;
 }
 
 .rich-text h5 {
-  font-size: 1.125rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-  color: #8b5cf6;
+  @apply text-lg font-bold mb-4 text-violet-400;
 }
 
 .rich-text h6 {
-  font-size: 1rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-  color: #c4b5fd;
+  @apply text-base font-bold mb-4 text-violet-200;
 }
 
 /* Horizontal rules */
 .rich-text hr {
-  border-color: #d1d5db;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  @apply border-gray-300 my-8;
 }
 
 .rich-text a {
-  color: #8b5cf6;
-  text-decoration: underline;
+  @apply text-violet-400 underline;
 }
 
 /* Typographic replacements */
 .rich-text p {
-  margin-bottom: 1rem;
+  @apply mb-4;
 }
 
 /* Emphasis */
 .rich-text strong {
-  font-weight: bold;
+  @apply font-bold;
 }
 
 .rich-text em {
-  font-style: italic;
+  @apply italic;
 }
 
 .rich-text del {
-  text-decoration: line-through;
+  @apply line-through;
 }
 
 /* Blockquotes */
 .rich-text blockquote {
-  border-left: 4px solid #9ca3af;
-  padding-left: 1rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  margin-bottom: 1rem;
+  @apply border-l-4 border-gray-400 pl-4 py-2 mb-4;
 }
 
 /* Lists */
 .rich-text ul {
-  list-style-type: disc;
-  padding-left: 1rem;
-  margin-bottom: 1rem;
+  @apply list-disc pl-4 mb-4;
 }
 
 .rich-text ol {
-  list-style-type: decimal;
-  padding-left: 1rem;
-  margin-bottom: 1rem;
+  @apply list-decimal pl-4 mb-4;
 }
 
 .rich-text li {
-  margin-bottom: 0.5rem;
+  @apply mb-2;
 }
 
 .rich-text li > ul {
-  list-style-type: disc;
-  padding-left: 1rem;
-  margin-bottom: 0.5rem;
+  @apply list-disc pl-4 mb-2;
 }
 
 .rich-text li > ol {
-  list-style-type: decimal;
-  padding-left: 1rem;
-  margin-bottom: 0.5rem;
+  @apply list-decimal pl-4 mb-2;
 }
 
 /* Code blocks */
 .rich-text pre {
-  font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
-  background-color: #111827;
-  color: #f3f4f6;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
+  @apply font-mono bg-gray-900 text-gray-100 rounded p-4  my-6;
 }
 
 .rich-text code {
-  font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
-  background-color: #111827;
-  color: #f3f4f6;
-  border-radius: 0.25rem;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+  @apply font-mono bg-gray-900 text-gray-100 rounded px-2 py-1;
 }
 
 /* Tables */
 .rich-text table {
-  width: 100%;
-  border-collapse: collapse;
-  border-color: #d1d5db;
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
+  @apply w-full border-collapse border-gray-300 my-6;
 }
 
 .rich-text th {
-  background-color: #111827;
-  text-align: left;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  font-weight: 600;
-  border-bottom: 1px solid #d1d5db;
+  @apply bg-gray-900 text-left py-2 px-4 font-semibold border-b border-gray-300;
 }
 
 .rich-text td {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  border-bottom: 1px solid #d1d5db;
+  @apply py-2 px-4 border-b border-gray-300;
 }
 
 /* Images */
 .rich-text img {
-  width: 100%;
-  object-fit: cover;
-  border-radius: 0.75rem;
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
+  @apply w-full object-cover rounded-xl my-6;
 }
 
 /* Custom containers */
 .rich-text .warning {
-  background-color: #fef3c7;
-  border-color: #f59e0b;
-  color: #92400e;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
+  @apply bg-yellow-100 border-yellow-500 text-yellow-700 px-4 py-2 rounded-lg mb-4;
 }
-
 
 /******************************************* 
   React Slideshow Styles
-*******************************************/   
+*******************************************/
 
 .react-slideshow-container [aria-label="Previous Slide"] {
   margin-left: 1rem;
