@@ -1,8 +1,8 @@
-import Link from "next/link";
+"use client";
 import Image from "next/image";
-import HighlightedText from "./HighlightedText";
 import { getStrapiMedia } from "../utils/api-helpers";
-import { renderButtonStyle } from "../utils/render-button-style";
+import { ChevronDownIcon, PlayIcon } from "@heroicons/react/24/outline";
+import Button from "./Button";
 import type { HeroSection } from "@/types/generated";
 
 interface HeroProps {
@@ -11,46 +11,109 @@ interface HeroProps {
 
 export default function Hero({ data }: HeroProps) {
   const imgUrl = getStrapiMedia(data.picture.url);
+  const mobileImgUrl = data.mobilePicture ? getStrapiMedia(data.mobilePicture.url) : imgUrl;
 
   return (
-    <section className="dark:bg-black dark:text-gray-100">
-      <div className="container flex flex-col justify-center p-6 mx-auto sm:py-12 lg:py-24 lg:flex-row lg:justify-between">
-        <div className="flex flex-col justify-center p-6 text-center rounded-lg lg:max-w-md xl:max-w-lg lg:text-left">
-          <HighlightedText
-            text={data.title}
-            tag="h1"
-            className="text-5xl font-bold leading-none sm:text-6xl mb-8"
-            color="dark:text-violet-400"
+    <section className="relative min-h-screen">
+      {/* Background Image - Desktop */}
+      {imgUrl && (
+        <div className="absolute inset-0 hidden md:block">
+          <Image
+            src={imgUrl}
+            alt={data.picture.alternativeText || "Hero background"}
+            fill
+            className="object-cover"
+            priority
           />
+          {/* Dark overlay for better text readability */}
+          <div className="absolute inset-0 bg-black/40" />
+        </div>
+      )}
 
-          <HighlightedText
-            text={data.description}
-            tag="p"
-            className="tmt-6 mb-8 text-lg sm:mb-12"
-            color="dark:text-violet-400"
+      {/* Background Image - Mobile */}
+      {mobileImgUrl && (
+        <div className="absolute inset-0 md:hidden">
+          <Image
+            src={mobileImgUrl}
+            alt={data.picture.alternativeText || "Hero background"}
+            fill
+            className="object-cover"
+            priority
           />
-          <div className="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
-            {data.buttons.map((button, index) => (
-              <Link
-                key={index}
-                href={button.url}
-                target={button.newTab ? "_blank" : "_self"}
-                className={renderButtonStyle(button.type)}
-              >
-                {button.text}
-              </Link>
-            ))}
+          {/* Dark overlay for better text readability */}
+          <div className="absolute inset-0 bg-black/40" />
+        </div>
+      )}
+
+      {/* Content */}
+      <div className="relative z-10 flex flex-col min-h-screen">
+        {/* Main Hero Content */}
+        <div className="flex-1 flex items-center">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
+            <div className="max-w-2xl">
+              {/* Title */}
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                {data.title}
+              </h1>
+
+              {/* Description */}
+              <p className="text-base sm:text-lg text-gray-200 mb-8 max-w-xl leading-relaxed">
+                {data.description}
+              </p>
+
+              {/* Buttons */}
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                {/* Primary Buttons from Strapi */}
+                {data.buttons?.map((button, index) => (
+                  <Button
+                    key={index}
+                    as="link"
+                    href={button.url}
+                    target={button.newTab ? "_blank" : "_self"}
+                    type={button.type}
+                    color="secondary"
+                    size="lg"
+                    className="w-full sm:w-auto"
+                  >
+                    {button.text}
+                  </Button>
+                ))}
+
+                {/* Video Button */}
+                {data.videoButton && (
+                  <Button
+                    className="inline-flex items-center gap-2 w-full sm:w-auto"
+                    type={data.videoButton.type}
+                    color="secondary"
+                    size="lg"
+                  >
+                    <PlayIcon className="h-5 w-5" />
+                    {data.videoButton.text}
+                    <ChevronDownIcon className="h-4 w-4" />
+                  </Button>
+                )}
+              </div>
+            </div>
           </div>
         </div>
-        <div className="flex items-center justify-center p-6 mt-8 lg:mt-0 h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128">
-          <Image
-            src={imgUrl || ""}
-            alt={data.picture.alternativeText || "none provided"}
-            className="object-contain h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128 "
-            width={600}
-            height={600}
-          />
-        </div>
+
+        {/* Highlights/Stats Section */}
+        {data.highlights && data.highlights.length > 0 && (
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-12 lg:pb-16">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-12">
+              {data.highlights.map((highlight, index) => (
+                <div key={index} className="text-center lg:text-left">
+                  <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-2">
+                    {highlight.value}
+                  </div>
+                  <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
+                    {highlight.caption}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

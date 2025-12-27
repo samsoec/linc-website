@@ -15,6 +15,7 @@ export default async function RootRoute({ params }: { params: Promise<{ lang: st
     if (page.data.length == 0 && lang !== "en") return <LangRedirect />;
     if (page.data.length === 0) return null;
     const contentSections = page.data[0].contentSections;
+    // console.log("Page contentSections:", contentSections);
     return contentSections.map((section: PageSection, index: number) =>
       componentResolver(section, index)
     );

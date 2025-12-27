@@ -4,7 +4,6 @@ import { getStrapiMedia, getStrapiURL } from "./utils/api-helpers";
 import { fetchAPI } from "./utils/fetch-api";
 
 import { i18n, Locale } from "../../../i18n-config";
-import Banner from "./components/Banner";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import { FALLBACK_SEO } from "@/app/[lang]/utils/constants";
@@ -22,14 +21,16 @@ async function getGlobal(lang: string): Promise<StrapiResponse<Global> | null> {
     populate: [
       "metadata",
       "favicon",
-      "notificationBanner.link",
-      "navbar.links",
+      "navbar.links.children",
+      "navbar.button",
       "navbar.navbarLogo.logoImg",
       "footer.footerLogo.logoImg",
+      "footer.holdingLogo.logoImg",
       "footer.menuLinks",
-      "footer.legalLinks",
+      "footer.aboutLinks",
       "footer.socialLinks",
       "footer.categories",
+      "footer.services",
     ],
     locale: lang,
   };
@@ -93,11 +94,14 @@ export default async function RootLayout({
     );
   }
 
-  const { notificationBanner, navbar, footer } = global.data;
+  const { navbar, footer } = global.data;
 
   const navbarLogoUrl = getStrapiMedia(navbar.navbarLogo.logoImg.url);
 
   const footerLogoUrl = getStrapiMedia(footer.footerLogo.logoImg.url);
+  const holdingLogoUrl = footer.holdingLogo?.logoImg?.url
+    ? getStrapiMedia(footer.holdingLogo.logoImg.url)
+    : null;
 
   return (
     <html lang={lang}>
@@ -106,19 +110,24 @@ export default async function RootLayout({
           links={navbar.links}
           logoUrl={navbarLogoUrl}
           logoText={navbar.navbarLogo.logoText ?? null}
+          button={navbar.button}
+          enableSearch={navbar.enableSearch}
+          enableI18n={navbar.enableI18n}
         />
 
         <main className="dark:bg-black dark:text-gray-100 min-h-screen">{children}</main>
 
-        <Banner data={notificationBanner ?? null} />
-
         <Footer
           logoUrl={footerLogoUrl}
           logoText={footer.footerLogo.logoText ?? null}
-          menuLinks={footer.menuLinks}
-          categoryLinks={footer.categories}
-          legalLinks={footer.legalLinks}
-          socialLinks={footer.socialLinks}
+          holdingLogoUrl={holdingLogoUrl}
+          menuLinks={footer.menuLinks ?? []}
+          aboutLinks={footer.aboutLinks ?? []}
+          services={footer.services ?? []}
+          categoryLinks={footer.categories ?? []}
+          socialLinks={footer.socialLinks ?? []}
+          about={footer.about}
+          copyright={footer.copyright}
         />
       </body>
     </html>

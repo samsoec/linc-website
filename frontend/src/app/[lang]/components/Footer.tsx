@@ -1,128 +1,205 @@
 "use client";
-import { usePathname } from "next/navigation";
 import Link from "next/link";
-import Logo from "./Logo";
-import { CgWebsite } from "react-icons/cg";
-import { FaDiscord } from "react-icons/fa";
-import { AiFillTwitterCircle, AiFillYoutube } from "react-icons/ai";
-import type { Link as LinkType, SocialLink as SocialLinkType, Category } from "@/types/generated";
+import Image from "next/image";
+import {
+  FaInstagram,
+  FaFacebookF,
+  FaLinkedinIn,
+  FaYoutube,
+  FaTiktok,
+  FaTwitter,
+  FaGlobe,
+} from "react-icons/fa";
+import type { ChildLink, SocialLink as SocialLinkType, Category, Service } from "@/types/generated";
 
-function FooterLink({ url, text }: LinkType) {
-  const path = usePathname();
+interface FooterProps {
+  logoUrl: string | null;
+  logoText: string | null;
+  holdingLogoUrl?: string | null;
+  menuLinks: ChildLink[];
+  aboutLinks?: ChildLink[];
+  services?: Service[];
+  categoryLinks?: Category[];
+  socialLinks: SocialLinkType[];
+  about?: string;
+  copyright?: string;
+}
+
+function FooterLink({ url, text }: { url: string; text: string }) {
   return (
-    <li className="flex">
-      <Link
-        href={url}
-        className={`hover:dark:text-violet-400 ${
-          path === url && "dark:text-violet-400 dark:border-violet-400"
-        }}`}
-      >
+    <li>
+      <Link href={url} className="text-gray-300 hover:text-white transition-colors duration-200">
         {text}
       </Link>
     </li>
   );
 }
 
-function CategoryLink({ name, slug }: { name: string; slug: string }) {
-  return (
-    <li className="flex">
-      <Link href={`/blog/${slug}`} className="hover:dark:text-violet-400">
-        {name}
-      </Link>
-    </li>
-  );
-}
-
 function RenderSocialIcon({ social }: { social: string | undefined }) {
+  const iconClass = "w-5 h-5";
   switch (social) {
-    case "WEBSITE":
-      return <CgWebsite />;
-    case "TWITTER":
-      return <AiFillTwitterCircle />;
+    case "INSTAGRAM":
+      return <FaInstagram className={iconClass} />;
+    case "FACEBOOK":
+      return <FaFacebookF className={iconClass} />;
+    case "LINKEDIN":
+      return <FaLinkedinIn className={iconClass} />;
     case "YOUTUBE":
-      return <AiFillYoutube />;
-    case "DISCORD":
-      return <FaDiscord />;
+      return <FaYoutube className={iconClass} />;
+    case "TIKTOK":
+      return <FaTiktok className={iconClass} />;
+    case "TWITTER":
+      return <FaTwitter className={iconClass} />;
     default:
-      return null;
+      return <FaGlobe className={iconClass} />;
   }
 }
 
 export default function Footer({
   logoUrl,
   logoText,
+  holdingLogoUrl,
   menuLinks,
-  categoryLinks,
-  legalLinks,
+  aboutLinks = [],
+  services = [],
+  categoryLinks = [],
   socialLinks,
-}: {
-  logoUrl: string | null;
-  logoText: string | null;
-  menuLinks: LinkType[];
-  categoryLinks: Category[];
-  legalLinks: LinkType[];
-  socialLinks: SocialLinkType[];
-}) {
+  about,
+  copyright,
+}: FooterProps) {
+  // Build the "Updates" links from categories (News, Events, CSR, etc.)
+  const updatesLinks = categoryLinks.map((cat) => ({
+    text: cat.name,
+    url: `/blog/${cat.slug}`,
+  }));
+
   return (
-    <footer className="py-6 dark:bg-black dark:text-gray-50">
-      <div className="container px-6 mx-auto space-y-6 divide-y divide-gray-400 md:space-y-12 divide-opacity-50">
-        <div className="grid grid-cols-12">
-          <div className="pb-6 col-span-full md:pb-0 md:col-span-6">
-            <Logo src={logoUrl}>
-              {logoText && <h2 className="text-2xl font-bold">{logoText}</h2>}
-            </Logo>
+    <footer className="bg-primary text-white">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+        {/* Main Footer Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12 mb-12 lg:mb-16">
+          {/* Column 1: Linc Group / Main Menu */}
+          {menuLinks.length > 0 && (
+            <div>
+              <h3 className="text-lg font-semibold mb-4 lg:mb-6">Linc Group</h3>
+              <ul className="space-y-3">
+                {menuLinks.map((link, index) => (
+                  <FooterLink key={index} url={link.url} text={link.text} />
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Column 2: Services */}
+          {services.length > 0 && (
+            <div>
+              <h3 className="text-lg font-semibold mb-4 lg:mb-6">Services</h3>
+              <ul className="space-y-3">
+                {services.map((service, index) => (
+                  <FooterLink
+                    key={index}
+                    url={`/services/${service.name.toLowerCase().replace(/\s+/g, "-")}`}
+                    text={service.name}
+                  />
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Column 3: About */}
+          {aboutLinks.length > 0 && (
+            <div>
+              <h3 className="text-lg font-semibold mb-4 lg:mb-6">About</h3>
+              <ul className="space-y-3">
+                {aboutLinks.map((link, index) => (
+                  <FooterLink key={index} url={link.url} text={link.text} />
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Column 4: Updates */}
+          {updatesLinks.length > 0 && (
+            <div>
+              <h3 className="text-lg font-semibold mb-4 lg:mb-6">Updates</h3>
+              <ul className="space-y-3">
+                {updatesLinks.map((link, index) => (
+                  <FooterLink key={index} url={link.url} text={link.text} />
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+
+        {/* Bottom Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+          {/* Left Side - Logo and Description */}
+          <div>
+            {/* Logo */}
+            {logoUrl && (
+              <div className="mb-6">
+                <Image
+                  src={logoUrl}
+                  alt={logoText || "Linc Group"}
+                  width={140}
+                  height={50}
+                  className="h-12 w-auto"
+                />
+              </div>
+            )}
+
+            {/* Description */}
+            {about && (
+              <p className="text-gray-400 text-sm leading-relaxed mb-8 max-w-lg">{about}</p>
+            )}
+
+            {/* Part Of Section */}
+            {holdingLogoUrl && (
+              <div className="flex items-center gap-4">
+                <span className="text-white font-medium">Part Of</span>
+                <div className="p-0.5 bg-white rounded-sm">
+                  <Image
+                    src={holdingLogoUrl}
+                    alt="Holding Company"
+                    width={120}
+                    height={40}
+                    className="h-10 w-auto"
+                  />
+                </div>
+              </div>
+            )}
           </div>
 
-          <div className="col-span-6 text-center md:text-left md:col-span-3">
-            <p className="pb-1 text-lg font-medium">Categories</p>
-            <ul>
-              {categoryLinks.map((link) => (
-                <CategoryLink key={link.id} {...link} />
-              ))}
-            </ul>
-          </div>
+          {/* Right Side - Social & Copyright */}
+          <div className="lg:text-right">
+            {/* Follow Us */}
+            {socialLinks.length > 0 && (
+              <div className="mb-6">
+                <h4 className="text-lg font-semibold mb-4">Follow Us On</h4>
+                <div className="flex gap-3 lg:justify-end">
+                  {socialLinks.map((link) => (
+                    <a
+                      key={link.id}
+                      rel="noopener noreferrer"
+                      href={link.url}
+                      title={link.text}
+                      target={link.newTab ? "_blank" : "_self"}
+                      className="flex items-center justify-center w-10 h-10 rounded-md bg-accent-dark text-white hover:bg-accent transition-colors duration-200"
+                    >
+                      <RenderSocialIcon social={link.social} />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
 
-          <div className="col-span-6 text-center md:text-left md:col-span-3">
-            <p className="pb-1 text-lg font-medium">Menu</p>
-            <ul>
-              {menuLinks.map((link) => (
-                <FooterLink key={link.id} {...link} />
-              ))}
-            </ul>
+            {/* Copyright */}
+            {copyright && <p className="text-gray-500 text-sm">{copyright}</p>}
           </div>
         </div>
-        <div className="grid justify-center pt-6 lg:justify-between">
-          <div className="flex">
-            <span className="mr-2">©{new Date().getFullYear()} All rights reserved</span>
-            <ul className="flex">
-              {legalLinks.map((link) => (
-                <Link
-                  href={link.url}
-                  className="text-gray-400 hover:text-gray-300 mr-2"
-                  key={link.id}
-                >
-                  {link.text}
-                </Link>
-              ))}
-            </ul>
-          </div>
-          <div className="flex justify-center pt-4 space-x-4 lg:pt-0 lg:col-end-13">
-            {socialLinks.map((link) => {
-              return (
-                <a
-                  key={link.id}
-                  rel="noopener noreferrer"
-                  href={link.url}
-                  title={link.text}
-                  target={link.newTab ? "_blank" : "_self"}
-                  className="flex items-center justify-center w-10 h-10 rounded-full dark:bg-violet-400 dark:text-gray-900"
-                >
-                  <RenderSocialIcon social={link.social} />
-                </a>
-              );
-            })}
-          </div>
-        </div>
+
+        {/* Divider */}
+        <div className="mt-8 pt-8 border-t border-dashed border-gray-700" />
       </div>
     </footer>
   );
