@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_sections_hero_highlights",
+  "info": {
+    "displayName": "Hero Highlight"
+  },
+  "options": {},
+  "attributes": {
+    "value": {
+      "type": "string",
+      "required": true
+    },
+    "caption": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "config": {}
+}

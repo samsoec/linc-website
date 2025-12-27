@@ -2,7 +2,7 @@
   "collectionName": "components_links_links",
   "info": {
     "name": "Link",
-    "displayName": "Link",
+    "displayName": "Link (Nested)",
     "icon": "link",
     "description": ""
   },
@@ -19,6 +19,11 @@
     "text": {
       "type": "string",
       "required": true
+    },
+    "children": {
+      "type": "component",
+      "component": "links.child-link",
+      "repeatable": true
     }
   }
 }

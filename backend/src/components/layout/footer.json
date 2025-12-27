@@ -6,30 +6,46 @@
   },
   "options": {},
   "attributes": {
+    "about": {
+      "type": "text"
+    },
     "footerLogo": {
       "type": "component",
-      "repeatable": false,
-      "component": "layout.logo"
+      "component": "layout.logo",
+      "repeatable": false
+    },
+    "holdingLogo": {
+      "type": "component",
+      "component": "layout.logo",
+      "repeatable": false
     },
     "menuLinks": {
       "type": "component",
-      "repeatable": true,
-      "component": "links.link"
+      "component": "links.child-link",
+      "repeatable": true
     },
-    "legalLinks": {
+    "aboutLinks": {
       "type": "component",
-      "repeatable": true,
-      "component": "links.link"
+      "component": "links.child-link",
+      "repeatable": true
     },
     "socialLinks": {
       "type": "component",
-      "repeatable": true,
-      "component": "links.social-link"
+      "component": "links.social-link",
+      "repeatable": true
     },
     "categories": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::category.category"
+    },
+    "services": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::service.service"
+    },
+    "copyright": {
+      "type": "string"
     }
   }
 }

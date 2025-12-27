@@ -20,7 +20,15 @@
     },
     "social": {
       "type": "enumeration",
-      "enum": ["YOUTUBE", "TWITTER", "DISCORD", "WEBSITE"]
+      "enum": [
+        "YOUTUBE",
+        "TWITTER",
+        "DISCORD",
+        "WEBSITE",
+        "INSTAGRAM",
+        "FACEBOOK",
+        "TIKTOK"
+      ]
     }
   }
 }

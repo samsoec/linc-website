@@ -14,7 +14,16 @@ module.exports = (config, { strapi }) => {
               picture: {
                 fields: ["url", "alternativeText", "caption", "width", "height"],
               },
+              mobilePicture: {
+                fields: ["url", "alternativeText", "caption", "width", "height"],
+              },
               buttons: {
+                populate: true,
+              },
+              videoButton: {
+                populate: true,
+              },
+              highlights: {
                 populate: true,
               },
             },
@@ -71,13 +80,6 @@ module.exports = (config, { strapi }) => {
           },
           'sections.rich-text': {
             populate: '*',
-          },
-          'sections.pricing': {
-            populate: {
-              plans: {
-                populate: ["product_features"],
-              },
-            },
           },
           'sections.lead-form': {
             populate: {

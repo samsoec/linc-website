@@ -20,12 +20,31 @@
       "type": "media",
       "multiple": false,
       "required": true,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "mobilePicture": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
     },
     "buttons": {
       "type": "component",
-      "repeatable": true,
-      "component": "links.button-link"
+      "component": "links.button-link",
+      "repeatable": true
+    },
+    "videoButton": {
+      "type": "component",
+      "component": "links.button",
+      "repeatable": false
+    },
+    "highlights": {
+      "type": "component",
+      "component": "sections.hero-highlight",
+      "repeatable": true
     }
   }
 }

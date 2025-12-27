@@ -10,18 +10,24 @@
   "attributes": {
     "links": {
       "type": "component",
-      "repeatable": true,
-      "component": "links.link"
+      "component": "links.link",
+      "repeatable": true
     },
     "button": {
       "type": "component",
-      "repeatable": false,
-      "component": "links.button-link"
+      "component": "links.button-link",
+      "repeatable": false
     },
     "navbarLogo": {
       "type": "component",
-      "repeatable": false,
-      "component": "layout.logo"
+      "component": "layout.logo",
+      "repeatable": false
+    },
+    "enableSearch": {
+      "type": "boolean"
+    },
+    "enableI18n": {
+      "type": "boolean"
     }
   }
 }

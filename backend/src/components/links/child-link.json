@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_links_child_links",
+  "info": {
+    "displayName": "Child Link (Flat)"
+  },
+  "options": {},
+  "attributes": {
+    "url": {
+      "type": "string",
+      "required": true
+    },
+    "newTab": {
+      "type": "boolean"
+    },
+    "text": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "config": {}
+}

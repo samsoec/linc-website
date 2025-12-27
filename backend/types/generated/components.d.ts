@@ -106,10 +106,6 @@ export interface ElementsPlan extends Struct.ComponentSchema {
     name: Schema.Attribute.String;
     price: Schema.Attribute.Decimal;
     pricePeriod: Schema.Attribute.String;
-    product_features: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::product-feature.product-feature'
-    >;
   };
 }
 
@@ -135,13 +131,17 @@ export interface LayoutFooter extends Struct.ComponentSchema {
     displayName: 'Footer';
   };
   attributes: {
+    about: Schema.Attribute.Text;
+    aboutLinks: Schema.Attribute.Component<'links.child-link', true>;
     categories: Schema.Attribute.Relation<
       'oneToMany',
       'api::category.category'
     >;
+    copyright: Schema.Attribute.String;
     footerLogo: Schema.Attribute.Component<'layout.logo', false>;
-    legalLinks: Schema.Attribute.Component<'links.link', true>;
-    menuLinks: Schema.Attribute.Component<'links.link', true>;
+    holdingLogo: Schema.Attribute.Component<'layout.logo', false>;
+    menuLinks: Schema.Attribute.Component<'links.child-link', true>;
+    services: Schema.Attribute.Relation<'oneToMany', 'api::service.service'>;
     socialLinks: Schema.Attribute.Component<'links.social-link', true>;
   };
 }
@@ -169,6 +169,8 @@ export interface LayoutNavbar extends Struct.ComponentSchema {
   };
   attributes: {
     button: Schema.Attribute.Component<'links.button-link', false>;
+    enableI18n: Schema.Attribute.Boolean;
+    enableSearch: Schema.Attribute.Boolean;
     links: Schema.Attribute.Component<'links.link', true>;
     navbarLogo: Schema.Attribute.Component<'layout.logo', false>;
   };
@@ -184,7 +186,7 @@ export interface LinksButton extends Struct.ComponentSchema {
   };
   attributes: {
     text: Schema.Attribute.String;
-    type: Schema.Attribute.Enumeration<['primary', 'secondary']>;
+    type: Schema.Attribute.Enumeration<['primary', 'secondary', 'tertiary']>;
   };
 }
 
@@ -199,8 +201,20 @@ export interface LinksButtonLink extends Struct.ComponentSchema {
   attributes: {
     newTab: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     text: Schema.Attribute.String;
-    type: Schema.Attribute.Enumeration<['primary', 'secondary']>;
+    type: Schema.Attribute.Enumeration<['primary', 'secondary', 'tertiary']>;
     url: Schema.Attribute.String;
+  };
+}
+
+export interface LinksChildLink extends Struct.ComponentSchema {
+  collectionName: 'components_links_child_links';
+  info: {
+    displayName: 'Child Link (Flat)';
+  };
+  attributes: {
+    newTab: Schema.Attribute.Boolean;
+    text: Schema.Attribute.String & Schema.Attribute.Required;
+    url: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -208,11 +222,12 @@ export interface LinksLink extends Struct.ComponentSchema {
   collectionName: 'components_links_links';
   info: {
     description: '';
-    displayName: 'Link';
+    displayName: 'Link (Nested)';
     icon: 'link';
     name: 'Link';
   };
   attributes: {
+    children: Schema.Attribute.Component<'links.child-link', true>;
     newTab: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     text: Schema.Attribute.String & Schema.Attribute.Required;
     url: Schema.Attribute.String & Schema.Attribute.Required;
@@ -228,7 +243,15 @@ export interface LinksSocialLink extends Struct.ComponentSchema {
   attributes: {
     newTab: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     social: Schema.Attribute.Enumeration<
-      ['YOUTUBE', 'TWITTER', 'DISCORD', 'WEBSITE']
+      [
+        'YOUTUBE',
+        'TWITTER',
+        'DISCORD',
+        'WEBSITE',
+        'INSTAGRAM',
+        'FACEBOOK',
+        'TIKTOK',
+      ]
     >;
     text: Schema.Attribute.String & Schema.Attribute.Required;
     url: Schema.Attribute.String & Schema.Attribute.Required;
@@ -323,8 +346,22 @@ export interface SectionsHero extends Struct.ComponentSchema {
   attributes: {
     buttons: Schema.Attribute.Component<'links.button-link', true>;
     description: Schema.Attribute.String & Schema.Attribute.Required;
+    highlights: Schema.Attribute.Component<'sections.hero-highlight', true>;
+    mobilePicture: Schema.Attribute.Media<'images'>;
     picture: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     title: Schema.Attribute.String & Schema.Attribute.Required;
+    videoButton: Schema.Attribute.Component<'links.button', false>;
+  };
+}
+
+export interface SectionsHeroHighlight extends Struct.ComponentSchema {
+  collectionName: 'components_sections_hero_highlights';
+  info: {
+    displayName: 'Hero Highlight';
+  };
+  attributes: {
+    caption: Schema.Attribute.String & Schema.Attribute.Required;
+    value: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -492,6 +529,7 @@ declare module '@strapi/strapi' {
       'layout.navbar': LayoutNavbar;
       'links.button': LinksButton;
       'links.button-link': LinksButtonLink;
+      'links.child-link': LinksChildLink;
       'links.link': LinksLink;
       'links.social-link': LinksSocialLink;
       'meta.metadata': MetaMetadata;
@@ -501,6 +539,7 @@ declare module '@strapi/strapi' {
       'sections.features': SectionsFeatures;
       'sections.heading': SectionsHeading;
       'sections.hero': SectionsHero;
+      'sections.hero-highlight': SectionsHeroHighlight;
       'sections.large-video': SectionsLargeVideo;
       'sections.lead-form': SectionsLeadForm;
       'sections.pricing': SectionsPricing;
