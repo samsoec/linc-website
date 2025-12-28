@@ -7,23 +7,31 @@
   },
   "options": {},
   "attributes": {
-    "title": {
+    "heading": {
+      "type": "string",
+      "required": true
+    },
+    "subheading": {
       "type": "string"
     },
     "description": {
       "type": "string"
     },
     "video": {
-      "allowedTypes": ["videos"],
       "type": "media",
       "multiple": false,
-      "required": true
+      "required": true,
+      "allowedTypes": [
+        "videos"
+      ]
     },
     "poster": {
-      "allowedTypes": ["images"],
       "type": "media",
       "multiple": false,
-      "required": false
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }

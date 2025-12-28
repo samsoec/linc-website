@@ -1,0 +1,45 @@
+{
+  "collectionName": "components_sections_about_companies",
+  "info": {
+    "displayName": "About Company"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true
+    },
+    "subheading": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "moreButton": {
+      "type": "component",
+      "component": "links.button-link",
+      "repeatable": false
+    },
+    "awards": {
+      "type": "component",
+      "component": "elements.award",
+      "repeatable": true
+    },
+    "media": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "videos"
+      ]
+    },
+    "mediaCaption": {
+      "type": "string"
+    },
+    "mediaSubtitle": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

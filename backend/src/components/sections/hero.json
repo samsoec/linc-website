@@ -43,7 +43,7 @@
     },
     "highlights": {
       "type": "component",
-      "component": "sections.hero-highlight",
+      "component": "elements.hero-highlight",
       "repeatable": true
     }
   }

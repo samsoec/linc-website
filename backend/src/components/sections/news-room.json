@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_sections_news_rooms",
+  "info": {
+    "displayName": "News Room"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true
+    },
+    "subheading": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "articles": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::article.article"
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_sections_client_marquees",
+  "info": {
+    "displayName": "Client Marquee"
+  },
+  "options": {},
+  "attributes": {
+    "clients": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  },
+  "config": {}
+}

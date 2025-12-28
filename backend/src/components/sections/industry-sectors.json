@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_sections_industry_sectors",
+  "info": {
+    "displayName": "Industry Sectors"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true
+    },
+    "subheading": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "sectors": {
+      "type": "component",
+      "component": "elements.industry-sector",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_elements_industry_sectors",
+  "info": {
+    "displayName": "Industry Sector"
+  },
+  "options": {},
+  "attributes": {
+    "media": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "caption": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "config": {}
+}

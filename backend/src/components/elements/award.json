@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_elements_awards",
+  "info": {
+    "displayName": "Award"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}

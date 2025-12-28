@@ -1,0 +1,57 @@
+{
+  "collectionName": "components_sections_hero_simples",
+  "info": {
+    "displayName": "Hero Simple"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string",
+      "required": true
+    },
+    "isPictureBlank": {
+      "type": "boolean",
+      "default": false
+    },
+    "picture": {
+      "type": "media",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "isPictureBlank"
+            },
+            false
+          ]
+        }
+      },
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "mobilePicture": {
+      "type": "media",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "isPictureBlank"
+            },
+            false
+          ]
+        }
+      },
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  },
+  "config": {}
+}

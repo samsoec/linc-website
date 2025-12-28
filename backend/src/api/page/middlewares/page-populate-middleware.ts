@@ -9,13 +9,25 @@ module.exports = (config, { strapi }) => {
     const populate = {
       contentSections: {
         on: {
-          'sections.hero': {
+          "sections.hero": {
             populate: {
               picture: {
-                fields: ["url", "alternativeText", "caption", "width", "height"],
+                fields: [
+                  "url",
+                  "alternativeText",
+                  "caption",
+                  "width",
+                  "height",
+                ],
               },
               mobilePicture: {
-                fields: ["url", "alternativeText", "caption", "width", "height"],
+                fields: [
+                  "url",
+                  "alternativeText",
+                  "caption",
+                  "width",
+                  "height",
+                ],
               },
               buttons: {
                 populate: true,
@@ -28,47 +40,7 @@ module.exports = (config, { strapi }) => {
               },
             },
           },
-          'sections.bottom-actions': {
-            populate: {
-              buttons: {
-                populate: true,
-              },
-            },
-          },
-          'sections.feature-columns-group': {
-            populate: {
-              features: {
-                populate: {
-                  icon: {
-                    fields: ["url", "alternativeText"],
-                  },
-                },
-              },
-            },
-          },
-          'sections.feature-rows-group': {
-            populate: {
-              features: {
-                populate: {
-                  media: {
-                    fields: ["url", "alternativeText", "caption", "width", "height"],
-                  },
-                },
-              },
-            },
-          },
-          'sections.testimonials-group': {
-            populate: {
-              testimonials: {
-                populate: {
-                  picture: {
-                    fields: ["url", "alternativeText", "caption", "width", "height"],
-                  },
-                },
-              },
-            },
-          },
-          'sections.large-video': {
+          "sections.large-video": {
             populate: {
               video: {
                 fields: ["url", "alternativeText"],
@@ -78,38 +50,128 @@ module.exports = (config, { strapi }) => {
               },
             },
           },
-          'sections.rich-text': {
-            populate: '*',
-          },
-          'sections.lead-form': {
+          "sections.hero-simple": {
             populate: {
-              submitButton: {
+              picture: {
+                fields: [
+                  "url",
+                  "alternativeText",
+                  "caption",
+                  "width",
+                  "height",
+                ],
+              },
+              mobilePicture: {
+                fields: [
+                  "url",
+                  "alternativeText",
+                  "caption",
+                  "width",
+                  "height",
+                ],
+              },
+            },
+          },
+          "sections.banner": {
+            populate: {
+              buttons: {
+                populate: true,
+              },
+              videoButton: {
                 populate: true,
               },
             },
           },
-          'sections.features': {
+          "sections.about-company": {
             populate: {
-              feature: {
+              moreButton: {
+                populate: true,
+              },
+              awards: {
+                populate: true,
+              },
+              media: {
+                fields: [
+                  "url",
+                  "alternativeText",
+                  "caption",
+                  "width",
+                  "height",
+                ],
+              },
+            },
+          },
+          "sections.client-marquee": {
+            populate: {
+              clients: {
+                fields: [
+                  "url",
+                  "alternativeText",
+                  "caption",
+                  "width",
+                  "height",
+                ],
+              },
+            },
+          },
+          "sections.industry-sectors": {
+            populate: {
+              sectors: {
                 populate: {
-                  media: {
-                    fields: ["url", "alternativeText", "caption", "width", "height"],
+                  icon: {
+                    fields: ["url", "alternativeText"],
                   },
                 },
               },
             },
           },
-          'sections.heading': {
-            populate: '*',
+          "sections.news-room": {
+            populate: {
+              articles: {
+                populate: {
+                  cover: {
+                    fields: [
+                      "url",
+                      "alternativeText",
+                      "caption",
+                      "width",
+                      "height",
+                    ],
+                  },
+                  category: {
+                    fields: ["name", "slug"],
+                  },
+                  author: {
+                    fields: ["name"],
+                    populate: {
+                      avatar: {
+                        fields: ["url", "alternativeText"],
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+          "sections.services": {
+            populate: {
+              services: {
+                populate: {
+                  icon: {
+                    fields: ["url", "alternativeText"],
+                  },
+                },
+              },
+            },
           },
         },
       },
       seo: {
         fields: ["metaTitle", "metaDescription"],
         populate: { shareImage: true },
-      }
+      },
     };
-    
+
     ctx.query = {
       populate,
       filters: { slug: ctx.query.filters.slug },
