@@ -162,7 +162,21 @@ module.exports = (config, { strapi }) => {
           "sections.services": {
             populate: {
               services: {
-                fields: ["name", "caption"],
+                fields: ["name", "caption", "slug", "description", "features"],
+                populate: {
+                  picture: {
+                    fields: [
+                      "url",
+                      "alternativeText",
+                      "caption",
+                      "width",
+                      "height",
+                    ],
+                  },
+                  icon: {
+                    fields: ["url", "alternativeText", "width", "height"],
+                  },
+                },
               },
             },
           },

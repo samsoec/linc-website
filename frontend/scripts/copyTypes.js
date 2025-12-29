@@ -7,32 +7,32 @@
  * Usage: node scripts/copyTypes.js
  */
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
-const BACKEND_PATH = path.join(__dirname, '../../backend');
-const OUTPUT_FILE = path.join(__dirname, '../src/types/generated/index.ts');
+const BACKEND_PATH = path.join(__dirname, "../../backend");
+const OUTPUT_FILE = path.join(__dirname, "../src/types/generated/index.ts");
 
 // =============================================================================
 // SCHEMA PARSING
 // =============================================================================
 
 function loadComponentSchemas() {
-  const componentsDir = path.join(BACKEND_PATH, 'src/components');
+  const componentsDir = path.join(BACKEND_PATH, "src/components");
   const schemas = {};
 
-  const categories = fs.readdirSync(componentsDir).filter(f => 
-    fs.statSync(path.join(componentsDir, f)).isDirectory()
-  );
+  const categories = fs
+    .readdirSync(componentsDir)
+    .filter((f) => fs.statSync(path.join(componentsDir, f)).isDirectory());
 
   for (const category of categories) {
     const categoryDir = path.join(componentsDir, category);
-    const files = fs.readdirSync(categoryDir).filter(f => f.endsWith('.json'));
+    const files = fs.readdirSync(categoryDir).filter((f) => f.endsWith(".json"));
 
     for (const file of files) {
-      const name = file.replace('.json', '');
+      const name = file.replace(".json", "");
       const uid = `${category}.${name}`;
-      const content = JSON.parse(fs.readFileSync(path.join(categoryDir, file), 'utf8'));
+      const content = JSON.parse(fs.readFileSync(path.join(categoryDir, file), "utf8"));
       schemas[uid] = {
         uid,
         category,
@@ -47,18 +47,18 @@ function loadComponentSchemas() {
 }
 
 function loadContentTypeSchemas() {
-  const apiDir = path.join(BACKEND_PATH, 'src/api');
+  const apiDir = path.join(BACKEND_PATH, "src/api");
   const schemas = {};
 
-  const apis = fs.readdirSync(apiDir).filter(f => {
+  const apis = fs.readdirSync(apiDir).filter((f) => {
     const stat = fs.statSync(path.join(apiDir, f));
-    return stat.isDirectory() && f !== '.gitkeep';
+    return stat.isDirectory() && f !== ".gitkeep";
   });
 
   for (const api of apis) {
-    const schemaPath = path.join(apiDir, api, 'content-types', api, 'schema.json');
+    const schemaPath = path.join(apiDir, api, "content-types", api, "schema.json");
     if (fs.existsSync(schemaPath)) {
-      const content = JSON.parse(fs.readFileSync(schemaPath, 'utf8'));
+      const content = JSON.parse(fs.readFileSync(schemaPath, "utf8"));
       schemas[`api::${api}.${api}`] = {
         uid: `api::${api}.${api}`,
         name: api,
@@ -77,89 +77,96 @@ function loadContentTypeSchemas() {
 // =============================================================================
 
 function toPascalCase(str) {
-  return str.split(/[-_]/).map(p => p.charAt(0).toUpperCase() + p.slice(1)).join('');
+  return str
+    .split(/[-_]/)
+    .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
+    .join("");
 }
 
 function toTypeName(category, name) {
   const pascalName = toPascalCase(name);
-  if (category === 'sections') return `${pascalName}Section`;
-  if (category === 'shared') return `${pascalName}Block`;
+  if (category === "sections") return `${pascalName}Section`;
+  if (category === "shared") return `${pascalName}Block`;
   return pascalName;
 }
 
 function attributeToTsType(attr, attrName, componentSchemas) {
   const { type, component, components, target, relation, multiple, repeatable } = attr;
   let tsType;
-  let isOptional = ['seo', 'notificationBanner'].includes(attrName);
+  let isOptional = ["seo", "notificationBanner"].includes(attrName);
 
   switch (type) {
-    case 'string':
-    case 'text':
-    case 'richtext':
-    case 'email':
-    case 'password':
-    case 'uid':
-      tsType = 'string';
+    case "string":
+    case "text":
+    case "richtext":
+    case "email":
+    case "password":
+    case "uid":
+      tsType = "string";
       break;
-    case 'integer':
-    case 'biginteger':
-    case 'float':
-    case 'decimal':
-      tsType = 'number';
+    case "integer":
+    case "biginteger":
+    case "float":
+    case "decimal":
+      tsType = "number";
       break;
-    case 'boolean':
-      tsType = 'boolean';
+    case "boolean":
+      tsType = "boolean";
       break;
-    case 'datetime':
-    case 'date':
-    case 'time':
-    case 'timestamp':
-      tsType = 'string';
+    case "datetime":
+    case "date":
+    case "time":
+    case "timestamp":
+      tsType = "string";
       break;
-    case 'json':
-      tsType = 'unknown';
+    case "json":
+      tsType = attr.tsType || "unknown";
       break;
-    case 'enumeration':
-      tsType = attr.enum?.map(v => `'${v}'`).join(' | ') || 'string';
+    case "enumeration":
+      tsType = attr.enum?.map((v) => `'${v}'`).join(" | ") || "string";
       break;
-    case 'media':
-      tsType = multiple ? 'StrapiMedia[]' : 'StrapiMedia';
+    case "media":
+      tsType = multiple ? "StrapiMedia[]" : "StrapiMedia";
       break;
-    case 'component':
+    case "component":
       if (component && componentSchemas[component]) {
         const comp = componentSchemas[component];
         const typeName = toTypeName(comp.category, comp.name);
         tsType = repeatable ? `${typeName}[]` : typeName;
       } else {
-        tsType = 'unknown';
+        tsType = "unknown";
       }
       break;
-    case 'dynamiczone':
+    case "dynamiczone":
       if (components?.length) {
         const types = components
-          .map(c => componentSchemas[c] ? toTypeName(componentSchemas[c].category, componentSchemas[c].name) : null)
+          .map((c) =>
+            componentSchemas[c]
+              ? toTypeName(componentSchemas[c].category, componentSchemas[c].name)
+              : null
+          )
           .filter(Boolean);
-        tsType = types.length ? `(${types.join(' | ')})[]` : 'unknown[]';
+        tsType = types.length ? `(${types.join(" | ")})[]` : "unknown[]";
       } else {
-        tsType = 'unknown[]';
+        tsType = "unknown[]";
       }
       break;
-    case 'relation':
+    case "relation":
       if (target) {
         const match = target.match(/api::([\w-]+)\.([\w-]+)/);
         if (match) {
           const typeName = toPascalCase(match[1]);
-          const isToMany = relation?.includes('ToMany') || relation === 'oneToMany';
+          const isToMany = relation?.includes("ToMany") || relation === "oneToMany";
           tsType = isToMany ? `${typeName}[]` : typeName;
         } else {
-          tsType = 'unknown';
+          tsType = "unknown";
         }
       } else {
-        tsType = 'unknown';
+        tsType = "unknown";
       }
       break;
     default:
-      tsType = 'unknown';
+      tsType = "unknown";
   }
 
   return { tsType, isOptional };
@@ -170,21 +177,31 @@ function generateInterface(schema, componentSchemas, isContentType = false) {
   const typeName = isContentType ? toPascalCase(schema.name) : toTypeName(category, name);
 
   const lines = [];
-  
+
   if (!isContentType && category) {
     lines.push(`  __component: '${category}.${name}';`);
   }
 
   for (const [attrName, attr] of Object.entries(attributes)) {
-    if (['createdBy', 'updatedBy', 'createdAt', 'updatedAt', 'publishedAt', 'localizations', 'locale'].includes(attrName)) {
+    if (
+      [
+        "createdBy",
+        "updatedBy",
+        "createdAt",
+        "updatedAt",
+        "publishedAt",
+        "localizations",
+        "locale",
+      ].includes(attrName)
+    ) {
       continue;
     }
     const { tsType, isOptional } = attributeToTsType(attr, attrName, componentSchemas);
-    lines.push(`  ${attrName}${isOptional ? '?' : ''}: ${tsType};`);
+    lines.push(`  ${attrName}${isOptional ? "?" : ""}: ${tsType};`);
   }
 
-  const ext = isContentType ? ' extends StrapiBaseEntity' : ' extends BaseComponent';
-  return { typeName, code: `export interface ${typeName}${ext} {\n${lines.join('\n')}\n}` };
+  const ext = isContentType ? " extends StrapiBaseEntity" : " extends BaseComponent";
+  return { typeName, code: `export interface ${typeName}${ext} {\n${lines.join("\n")}\n}` };
 }
 
 function generateOutput(componentSchemas, contentTypeSchemas) {
@@ -242,47 +259,47 @@ export interface StrapiMedia {
 // LINK COMPONENTS
 // =============================================================================
 
-${groups.links.map(t => t.code).join('\n\n')}
+${groups.links.map((t) => t.code).join("\n\n")}
 
 // =============================================================================
 // META COMPONENTS
 // =============================================================================
 
-${groups.meta.map(t => t.code).join('\n\n')}
+${groups.meta.map((t) => t.code).join("\n\n")}
 
 // =============================================================================
 // ELEMENT COMPONENTS
 // =============================================================================
 
-${groups.elements.map(t => t.code).join('\n\n')}
+${groups.elements.map((t) => t.code).join("\n\n")}
 
 // =============================================================================
 // LAYOUT COMPONENTS
 // =============================================================================
 
-${groups.layout.map(t => t.code).join('\n\n')}
+${groups.layout.map((t) => t.code).join("\n\n")}
 
 // =============================================================================
 // CONTENT TYPES
 // =============================================================================
 
-${contentTypes.map(t => t.code).join('\n\n')}
+${contentTypes.map((t) => t.code).join("\n\n")}
 
 // =============================================================================
 // PAGE SECTIONS
 // =============================================================================
 
-${groups.sections.map(t => t.code).join('\n\n')}
+${groups.sections.map((t) => t.code).join("\n\n")}
 
-export type PageSection = ${groups.sections.map(t => t.typeName).join(' | ') || 'never'};
+export type PageSection = ${groups.sections.map((t) => t.typeName).join(" | ") || "never"};
 
 // =============================================================================
 // ARTICLE BLOCKS
 // =============================================================================
 
-${groups.shared.map(t => t.code).join('\n\n')}
+${groups.shared.map((t) => t.code).join("\n\n")}
 
-export type ArticleBlock = ${groups.shared.map(t => t.typeName).join(' | ') || 'never'};
+export type ArticleBlock = ${groups.shared.map((t) => t.typeName).join(" | ") || "never"};
 
 // =============================================================================
 // API RESPONSE TYPES
@@ -318,7 +335,7 @@ export interface StrapiListResponse<T> {
 // MAIN
 // =============================================================================
 
-console.log('Generating Strapi types from backend schemas...\n');
+console.log("Generating Strapi types from backend schemas...\n");
 
 const outputDir = path.dirname(OUTPUT_FILE);
 if (!fs.existsSync(outputDir)) {
@@ -335,4 +352,4 @@ const output = generateOutput(componentSchemas, contentTypeSchemas);
 fs.writeFileSync(OUTPUT_FILE, output);
 
 console.log(`\n✓ Generated: src/types/generated/index.ts`);
-console.log('\nDone!');
+console.log("\nDone!");
