@@ -137,8 +137,6 @@ function ServiceCard({ service, isActive, onActivate }: ServiceCardProps) {
 }
 
 export default function Services({ data }: ServicesProps) {
-  console.log("Services data:", data);
-
   const { heading, subheading, services } = data;
   const [activeIndex, setActiveIndex] = useState(0);
 

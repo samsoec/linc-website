@@ -17,10 +17,13 @@
     "description": {
       "type": "string"
     },
+    "embedUrl": {
+      "type": "string"
+    },
     "video": {
       "type": "media",
       "multiple": false,
-      "required": true,
+      "required": false,
       "allowedTypes": [
         "videos"
       ]

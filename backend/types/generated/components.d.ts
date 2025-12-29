@@ -463,10 +463,11 @@ export interface SectionsLargeVideo extends Struct.ComponentSchema {
   };
   attributes: {
     description: Schema.Attribute.String;
+    embedUrl: Schema.Attribute.String;
     heading: Schema.Attribute.String & Schema.Attribute.Required;
     poster: Schema.Attribute.Media<'images'>;
     subheading: Schema.Attribute.String;
-    video: Schema.Attribute.Media<'videos'> & Schema.Attribute.Required;
+    video: Schema.Attribute.Media<'videos'>;
   };
 }
 
