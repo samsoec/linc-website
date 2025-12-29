@@ -118,8 +118,14 @@ module.exports = (config, { strapi }) => {
             populate: {
               sectors: {
                 populate: {
-                  icon: {
-                    fields: ["url", "alternativeText"],
+                  media: {
+                    fields: [
+                      "url",
+                      "alternativeText",
+                      "caption",
+                      "width",
+                      "height",
+                    ],
                   },
                 },
               },
@@ -141,7 +147,7 @@ module.exports = (config, { strapi }) => {
                   category: {
                     fields: ["name", "slug"],
                   },
-                  author: {
+                  authorsBio: {
                     fields: ["name"],
                     populate: {
                       avatar: {
@@ -156,11 +162,7 @@ module.exports = (config, { strapi }) => {
           "sections.services": {
             populate: {
               services: {
-                populate: {
-                  icon: {
-                    fields: ["url", "alternativeText"],
-                  },
-                },
+                fields: ["name", "caption"],
               },
             },
           },
