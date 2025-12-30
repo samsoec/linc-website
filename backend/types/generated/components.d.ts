@@ -90,7 +90,7 @@ export interface ElementsIndustrySector extends Struct.ComponentSchema {
   };
   attributes: {
     caption: Schema.Attribute.String & Schema.Attribute.Required;
-    media: Schema.Attribute.Media<'images', true> & Schema.Attribute.Required;
+    media: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
   };
 }
 
