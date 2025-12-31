@@ -18,6 +18,13 @@
       "type": "component",
       "component": "links.button",
       "repeatable": false
+    },
+    "background": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
     }
   },
   "config": {}

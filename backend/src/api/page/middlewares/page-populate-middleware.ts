@@ -80,6 +80,15 @@ module.exports = (config, { strapi }) => {
               videoButton: {
                 populate: true,
               },
+              background: {
+                fields: [
+                  "url",
+                  "alternativeText",
+                  "caption",
+                  "width",
+                  "height",
+                ],
+              },
             },
           },
           "sections.about-company": {

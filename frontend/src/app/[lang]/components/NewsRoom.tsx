@@ -21,13 +21,8 @@ function ArticleCard({ article }: ArticleCardProps) {
   const imageUrl = getStrapiMedia(article.cover?.url);
   const category = article.category;
 
-  console.log("Article:", article);
-
   return (
-    <Link
-      href={`/blog/${category?.slug}/${article.slug}`}
-      className="group block h-full"
-    >
+    <Link href={`/blog/${category?.slug}/${article.slug}`} className="group block h-full">
       <div className="flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-shadow duration-300 hover:shadow-md">
         {/* Cover Image */}
         <div className="relative aspect-[4/3] w-full overflow-hidden">
@@ -50,9 +45,7 @@ function ArticleCard({ article }: ArticleCardProps) {
         <div className="flex flex-1 flex-col p-5">
           {/* Category */}
           {category && (
-            <span className="mb-2 text-sm font-medium text-gray-500">
-              {category.name}
-            </span>
+            <span className="mb-2 text-sm font-medium text-gray-500">{category.name}</span>
           )}
 
           {/* Title */}
@@ -82,13 +75,7 @@ function CustomDot({ active }: { active: boolean }) {
 }
 
 // Custom arrow button component
-function PrevArrow({
-  onClick,
-  disabled,
-}: {
-  onClick?: () => void;
-  disabled?: boolean;
-}) {
+function PrevArrow({ onClick, disabled }: { onClick?: () => void; disabled?: boolean }) {
   if (disabled) return null;
 
   return (
@@ -102,13 +89,7 @@ function PrevArrow({
   );
 }
 
-function NextArrow({
-  onClick,
-  disabled,
-}: {
-  onClick?: () => void;
-  disabled?: boolean;
-}) {
+function NextArrow({ onClick, disabled }: { onClick?: () => void; disabled?: boolean }) {
   if (disabled) return null;
 
   return (
@@ -171,9 +152,7 @@ export default function NewsRoom({ data }: NewsRoomProps) {
     },
   ];
 
-  const indicators = (index?: number) => (
-    <CustomDot active={index === currentSlide} />
-  );
+  const indicators = (index?: number) => <CustomDot active={index === currentSlide} />;
 
   return (
     <section className="w-full bg-white py-16 md:py-24">
@@ -188,12 +167,8 @@ export default function NewsRoom({ data }: NewsRoomProps) {
                   {subheading}
                 </p>
               )}
-              <h2 className="mb-4 text-4xl font-bold text-gray-900 lg:text-5xl">
-                {heading}
-              </h2>
-              {description && (
-                <p className="text-lg text-gray-600">{description}</p>
-              )}
+              <h2 className="mb-4 text-4xl font-bold text-gray-900 lg:text-5xl">{heading}</h2>
+              {description && <p className="text-lg text-gray-600">{description}</p>}
             </div>
 
             {/* See All News Link - Desktop */}
@@ -214,9 +189,7 @@ export default function NewsRoom({ data }: NewsRoomProps) {
               </p>
             )}
             <h2 className="mb-4 text-3xl font-bold text-gray-900">{heading}</h2>
-            {description && (
-              <p className="mb-4 text-base text-gray-600">{description}</p>
-            )}
+            {description && <p className="mb-4 text-base text-gray-600">{description}</p>}
 
             {/* See All News Link - Mobile */}
             <Link
@@ -294,28 +267,18 @@ export default function NewsRoom({ data }: NewsRoomProps) {
           justify-content: center;
         }
 
-        .news-room-slider
-          .react-slideshow-container
-          + ul.indicators
-          li.active
-          > div {
+        .news-room-slider .react-slideshow-container + ul.indicators li.active > div {
           width: 1.5rem;
           background-color: #9e2045;
         }
 
-        .news-room-slider
-          .react-slideshow-container
-          + ul.indicators
-          li:not(.active)
-          > div {
+        .news-room-slider .react-slideshow-container + ul.indicators li:not(.active) > div {
           width: 0.5rem;
           background-color: #d1d5db;
         }
 
         @media (max-width: 767px) {
-          .news-room-slider
-            .react-slideshow-container
-            + ul.indicators {
+          .news-room-slider .react-slideshow-container + ul.indicators {
             left: 0;
             justify-content: center;
           }

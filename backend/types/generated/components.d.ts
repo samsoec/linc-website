@@ -328,6 +328,7 @@ export interface SectionsBanner extends Struct.ComponentSchema {
     displayName: 'Banner';
   };
   attributes: {
+    background: Schema.Attribute.Media<'images'>;
     buttons: Schema.Attribute.Component<'links.button-link', true>;
     heading: Schema.Attribute.String & Schema.Attribute.Required;
     videoButton: Schema.Attribute.Component<'links.button', false>;
