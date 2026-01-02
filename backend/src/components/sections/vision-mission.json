@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_sections_vision_missions",
+  "info": {
+    "displayName": "Vision Mission"
+  },
+  "options": {},
+  "attributes": {
+    "background": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "visionMission": {
+      "type": "component",
+      "component": "elements.vision-mission",
+      "repeatable": false,
+      "required": true
+    },
+    "coreValues": {
+      "type": "component",
+      "component": "elements.core-values",
+      "repeatable": false
+    }
+  },
+  "config": {}
+}

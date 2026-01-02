@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_elements_phone_numbers",
+  "info": {
+    "displayName": "Phone Number"
+  },
+  "options": {},
+  "attributes": {
+    "phoneNumber": {
+      "type": "string",
+      "required": true,
+      "regex": "\\+?([ -]?\\d+)+|\\(\\d+\\)([ -]\\d+)"
+    }
+  },
+  "config": {}
+}

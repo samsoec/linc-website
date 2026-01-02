@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_elements_locations",
+  "info": {
+    "displayName": "Location"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "address": {
+      "type": "text",
+      "required": true
+    },
+    "phoneNumbers": {
+      "type": "component",
+      "component": "elements.phone-number",
+      "repeatable": true
+    },
+    "emails": {
+      "type": "component",
+      "component": "elements.email",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

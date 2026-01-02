@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_elements_vision_missions",
+  "info": {
+    "displayName": "Vision Mission"
+  },
+  "options": {},
+  "attributes": {
+    "subheading": {
+      "type": "string"
+    },
+    "visionHeading": {
+      "type": "string",
+      "required": true
+    },
+    "visionDescription": {
+      "type": "text"
+    },
+    "missionHeading": {
+      "type": "string",
+      "required": true
+    },
+    "missionDescription": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}

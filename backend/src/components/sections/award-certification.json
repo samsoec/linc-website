@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_sections_award_certifications",
+  "info": {
+    "displayName": "Award Certification"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true
+    },
+    "subheading": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "items": {
+      "type": "component",
+      "component": "elements.award",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

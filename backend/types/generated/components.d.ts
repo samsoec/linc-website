@@ -1,61 +1,48 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface ElementsAssociation extends Struct.ComponentSchema {
+  collectionName: 'components_elements_associations';
+  info: {
+    displayName: 'Association';
+  };
+  attributes: {
+    text: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface ElementsAward extends Struct.ComponentSchema {
   collectionName: 'components_elements_awards';
   info: {
     displayName: 'Award';
   };
   attributes: {
+    code: Schema.Attribute.String & Schema.Attribute.Required;
     description: Schema.Attribute.Text;
-    title: Schema.Attribute.String & Schema.Attribute.Required;
-  };
-}
-
-export interface ElementsFeature extends Struct.ComponentSchema {
-  collectionName: 'components_elements_features';
-  info: {
-    displayName: 'Feature';
-  };
-  attributes: {
-    description: Schema.Attribute.Text;
-    media: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    newTab: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    showLink: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    text: Schema.Attribute.String;
+    logo: Schema.Attribute.Media<'images'>;
     title: Schema.Attribute.String;
-    url: Schema.Attribute.String;
   };
 }
 
-export interface ElementsFeatureColumn extends Struct.ComponentSchema {
-  collectionName: 'components_slices_feature_columns';
+export interface ElementsCoreValues extends Struct.ComponentSchema {
+  collectionName: 'components_elements_core_values';
   info: {
-    description: '';
-    displayName: 'Feature column';
-    icon: 'align-center';
-    name: 'FeatureColumn';
+    displayName: 'Core Values';
   };
   attributes: {
     description: Schema.Attribute.Text;
-    icon: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
-    title: Schema.Attribute.String & Schema.Attribute.Required;
+    heading: Schema.Attribute.String & Schema.Attribute.Required;
+    subheading: Schema.Attribute.String;
+    values: Schema.Attribute.JSON & Schema.Attribute.Required;
   };
 }
 
-export interface ElementsFeatureRow extends Struct.ComponentSchema {
-  collectionName: 'components_slices_feature_rows';
+export interface ElementsEmail extends Struct.ComponentSchema {
+  collectionName: 'components_elements_emails';
   info: {
-    description: '';
-    displayName: 'Feature row';
-    icon: 'arrows-alt-h';
-    name: 'FeatureRow';
+    displayName: 'Email';
   };
   attributes: {
-    description: Schema.Attribute.Text;
-    link: Schema.Attribute.Component<'links.link', false>;
-    media: Schema.Attribute.Media<'images' | 'videos'> &
-      Schema.Attribute.Required;
-    title: Schema.Attribute.String & Schema.Attribute.Required;
+    email: Schema.Attribute.Email & Schema.Attribute.Required;
   };
 }
 
@@ -94,6 +81,19 @@ export interface ElementsIndustrySector extends Struct.ComponentSchema {
   };
 }
 
+export interface ElementsLocation extends Struct.ComponentSchema {
+  collectionName: 'components_elements_locations';
+  info: {
+    displayName: 'Location';
+  };
+  attributes: {
+    address: Schema.Attribute.Text & Schema.Attribute.Required;
+    emails: Schema.Attribute.Component<'elements.email', true>;
+    phoneNumbers: Schema.Attribute.Component<'elements.phone-number', true>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface ElementsLogos extends Struct.ComponentSchema {
   collectionName: 'components_elements_logos';
   info: {
@@ -125,6 +125,16 @@ export interface ElementsNotificationBanner extends Struct.ComponentSchema {
   };
 }
 
+export interface ElementsPhoneNumber extends Struct.ComponentSchema {
+  collectionName: 'components_elements_phone_numbers';
+  info: {
+    displayName: 'Phone Number';
+  };
+  attributes: {
+    phoneNumber: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface ElementsPlan extends Struct.ComponentSchema {
   collectionName: 'components_elements_plans';
   info: {
@@ -142,6 +152,19 @@ export interface ElementsPlan extends Struct.ComponentSchema {
   };
 }
 
+export interface ElementsTeamMember extends Struct.ComponentSchema {
+  collectionName: 'components_elements_team_members';
+  info: {
+    displayName: 'Team Member';
+  };
+  attributes: {
+    description: Schema.Attribute.RichText;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    photo: Schema.Attribute.Media<'images'>;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface ElementsTestimonial extends Struct.ComponentSchema {
   collectionName: 'components_slices_testimonials';
   info: {
@@ -154,6 +177,20 @@ export interface ElementsTestimonial extends Struct.ComponentSchema {
     authorName: Schema.Attribute.String & Schema.Attribute.Required;
     picture: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     text: Schema.Attribute.Text & Schema.Attribute.Required;
+  };
+}
+
+export interface ElementsVisionMission extends Struct.ComponentSchema {
+  collectionName: 'components_elements_vision_missions';
+  info: {
+    displayName: 'Vision Mission';
+  };
+  attributes: {
+    missionDescription: Schema.Attribute.Text;
+    missionHeading: Schema.Attribute.String & Schema.Attribute.Required;
+    subheading: Schema.Attribute.String;
+    visionDescription: Schema.Attribute.Text;
+    visionHeading: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -319,6 +356,32 @@ export interface SectionsAboutCompany extends Struct.ComponentSchema {
     mediaSubtitle: Schema.Attribute.String;
     moreButton: Schema.Attribute.Component<'links.button-link', false>;
     subheading: Schema.Attribute.String;
+    videoEmbedUrl: Schema.Attribute.String;
+  };
+}
+
+export interface SectionsAssociations extends Struct.ComponentSchema {
+  collectionName: 'components_sections_associations';
+  info: {
+    displayName: 'Associations';
+  };
+  attributes: {
+    background: Schema.Attribute.Media<'images'>;
+    items: Schema.Attribute.Component<'elements.association', true>;
+    subheading: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface SectionsAwardCertification extends Struct.ComponentSchema {
+  collectionName: 'components_sections_award_certifications';
+  info: {
+    displayName: 'Award Certification';
+  };
+  attributes: {
+    description: Schema.Attribute.String;
+    heading: Schema.Attribute.String & Schema.Attribute.Required;
+    items: Schema.Attribute.Component<'elements.award', true>;
+    subheading: Schema.Attribute.String;
   };
 }
 
@@ -357,43 +420,6 @@ export interface SectionsClientMarquee extends Struct.ComponentSchema {
   };
   attributes: {
     clients: Schema.Attribute.Media<'images', true> & Schema.Attribute.Required;
-  };
-}
-
-export interface SectionsFeatureColumnsGroup extends Struct.ComponentSchema {
-  collectionName: 'components_slices_feature_columns_groups';
-  info: {
-    displayName: 'Feature columns group';
-    icon: 'star-of-life';
-    name: 'FeatureColumnsGroup';
-  };
-  attributes: {
-    features: Schema.Attribute.Component<'elements.feature-column', true>;
-  };
-}
-
-export interface SectionsFeatureRowsGroup extends Struct.ComponentSchema {
-  collectionName: 'components_slices_feature_rows_groups';
-  info: {
-    displayName: 'Feaures row group';
-    icon: 'bars';
-    name: 'FeatureRowsGroup';
-  };
-  attributes: {
-    features: Schema.Attribute.Component<'elements.feature-row', true>;
-  };
-}
-
-export interface SectionsFeatures extends Struct.ComponentSchema {
-  collectionName: 'components_layout_features';
-  info: {
-    description: '';
-    displayName: 'Features';
-  };
-  attributes: {
-    description: Schema.Attribute.Text;
-    feature: Schema.Attribute.Component<'elements.feature', true>;
-    heading: Schema.Attribute.String;
   };
 }
 
@@ -526,6 +552,18 @@ export interface SectionsServices extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionsTeams extends Struct.ComponentSchema {
+  collectionName: 'components_sections_teams';
+  info: {
+    displayName: 'Teams';
+  };
+  attributes: {
+    heading: Schema.Attribute.String & Schema.Attribute.Required;
+    members: Schema.Attribute.Component<'elements.team-member', true>;
+    subheading: Schema.Attribute.String;
+  };
+}
+
 export interface SectionsTestimonialsGroup extends Struct.ComponentSchema {
   collectionName: 'components_slices_testimonials_groups';
   info: {
@@ -538,6 +576,22 @@ export interface SectionsTestimonialsGroup extends Struct.ComponentSchema {
     description: Schema.Attribute.Text;
     testimonials: Schema.Attribute.Component<'elements.testimonial', true>;
     title: Schema.Attribute.String;
+  };
+}
+
+export interface SectionsVisionMission extends Struct.ComponentSchema {
+  collectionName: 'components_sections_vision_missions';
+  info: {
+    displayName: 'Vision Mission';
+  };
+  attributes: {
+    background: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    coreValues: Schema.Attribute.Component<'elements.core-values', false>;
+    visionMission: Schema.Attribute.Component<
+      'elements.vision-mission',
+      false
+    > &
+      Schema.Attribute.Required;
   };
 }
 
@@ -620,17 +674,21 @@ export interface SharedVideoEmbed extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'elements.association': ElementsAssociation;
       'elements.award': ElementsAward;
-      'elements.feature': ElementsFeature;
-      'elements.feature-column': ElementsFeatureColumn;
-      'elements.feature-row': ElementsFeatureRow;
+      'elements.core-values': ElementsCoreValues;
+      'elements.email': ElementsEmail;
       'elements.footer-section': ElementsFooterSection;
       'elements.hero-highlight': ElementsHeroHighlight;
       'elements.industry-sector': ElementsIndustrySector;
+      'elements.location': ElementsLocation;
       'elements.logos': ElementsLogos;
       'elements.notification-banner': ElementsNotificationBanner;
+      'elements.phone-number': ElementsPhoneNumber;
       'elements.plan': ElementsPlan;
+      'elements.team-member': ElementsTeamMember;
       'elements.testimonial': ElementsTestimonial;
+      'elements.vision-mission': ElementsVisionMission;
       'layout.footer': LayoutFooter;
       'layout.logo': LayoutLogo;
       'layout.navbar': LayoutNavbar;
@@ -641,12 +699,11 @@ declare module '@strapi/strapi' {
       'links.social-link': LinksSocialLink;
       'meta.metadata': MetaMetadata;
       'sections.about-company': SectionsAboutCompany;
+      'sections.associations': SectionsAssociations;
+      'sections.award-certification': SectionsAwardCertification;
       'sections.banner': SectionsBanner;
       'sections.bottom-actions': SectionsBottomActions;
       'sections.client-marquee': SectionsClientMarquee;
-      'sections.feature-columns-group': SectionsFeatureColumnsGroup;
-      'sections.feature-rows-group': SectionsFeatureRowsGroup;
-      'sections.features': SectionsFeatures;
       'sections.heading': SectionsHeading;
       'sections.hero': SectionsHero;
       'sections.hero-simple': SectionsHeroSimple;
@@ -656,7 +713,9 @@ declare module '@strapi/strapi' {
       'sections.news-room': SectionsNewsRoom;
       'sections.rich-text': SectionsRichText;
       'sections.services': SectionsServices;
+      'sections.teams': SectionsTeams;
       'sections.testimonials-group': SectionsTestimonialsGroup;
+      'sections.vision-mission': SectionsVisionMission;
       'shared.media': SharedMedia;
       'shared.quote': SharedQuote;
       'shared.rich-text': SharedRichText;

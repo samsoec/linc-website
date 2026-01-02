@@ -14,8 +14,6 @@ export default function Banner({ data }: BannerProps) {
 
   const backgroundUrl = getStrapiMedia(background?.url);
 
-  console.log("Banner data:", data);
-
   return (
     <section className="relative w-full min-h-[320px] md:min-h-[480px] flex items-center justify-center overflow-hidden">
       {/* Overlay for better text contrast */}

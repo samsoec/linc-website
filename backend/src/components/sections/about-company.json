@@ -39,6 +39,9 @@
     },
     "mediaSubtitle": {
       "type": "string"
+    },
+    "videoEmbedUrl": {
+      "type": "string"
     }
   },
   "config": {}

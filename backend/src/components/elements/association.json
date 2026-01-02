@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_elements_associations",
+  "info": {
+    "displayName": "Association"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "config": {}
+}

@@ -189,6 +189,73 @@ module.exports = (config, { strapi }) => {
               },
             },
           },
+          "sections.vision-mission": {
+            populate: {
+              background: {
+                fields: [
+                  "url",
+                  "alternativeText",
+                  "caption",
+                  "width",
+                  "height",
+                ],
+              },
+              visionMission: {
+                populate: true,
+              },
+              coreValues: {
+                populate: true,
+              },
+            },
+          },
+          "sections.award-certification": {
+            populate: {
+              items: {
+                populate: {
+                  logo: {
+                    fields: [
+                      "url",
+                      "alternativeText",
+                      "caption",
+                      "width",
+                      "height",
+                    ],
+                  },
+                },
+              },
+            },
+          },
+          "sections.associations": {
+            populate: {
+              background: {
+                fields: [
+                  "url",
+                  "alternativeText",
+                  "caption",
+                  "width",
+                  "height",
+                ],
+              },
+              items: true,
+            },
+          },
+          "sections.teams": {
+            populate: {
+              members: {
+                populate: {
+                  photo: {
+                    fields: [
+                      "url",
+                      "alternativeText",
+                      "caption",
+                      "width",
+                      "height",
+                    ],
+                  },
+                },
+              },
+            },
+          },
         },
       },
       seo: {

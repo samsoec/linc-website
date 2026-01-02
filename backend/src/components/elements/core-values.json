@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_elements_core_values",
+  "info": {
+    "displayName": "Core Values"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true
+    },
+    "subheading": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "values": {
+      "type": "json",
+      "required": true
+    }
+  },
+  "config": {}
+}

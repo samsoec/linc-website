@@ -690,6 +690,10 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'sections.banner',
         'sections.about-company',
         'sections.services',
+        'sections.vision-mission',
+        'sections.award-certification',
+        'sections.associations',
+        'sections.teams',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{

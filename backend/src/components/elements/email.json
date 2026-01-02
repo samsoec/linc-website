@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_elements_emails",
+  "info": {
+    "displayName": "Email"
+  },
+  "options": {},
+  "attributes": {
+    "email": {
+      "type": "email",
+      "required": true
+    }
+  },
+  "config": {}
+}

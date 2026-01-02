@@ -42,7 +42,11 @@
         "sections.client-marquee",
         "sections.banner",
         "sections.about-company",
-        "sections.services"
+        "sections.services",
+        "sections.vision-mission",
+        "sections.award-certification",
+        "sections.associations",
+        "sections.teams"
       ]
     },
     "slug": {
