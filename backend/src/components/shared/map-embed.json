@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_shared_map_embeds",
+  "info": {
+    "displayName": "Map Embed"
+  },
+  "options": {},
+  "attributes": {
+    "mapUrl": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "config": {}
+}

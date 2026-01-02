@@ -46,7 +46,9 @@
         "sections.vision-mission",
         "sections.award-certification",
         "sections.associations",
-        "sections.teams"
+        "sections.teams",
+        "shared.map-embed",
+        "sections.faq"
       ]
     },
     "slug": {

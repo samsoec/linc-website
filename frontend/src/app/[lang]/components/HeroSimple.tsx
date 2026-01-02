@@ -12,9 +12,7 @@ interface HeroSimpleProps {
 
 export default function HeroSimple({ data }: HeroSimpleProps) {
   const imgUrl = getStrapiMedia(data.picture?.url);
-  const mobileImgUrl = data.mobilePicture
-    ? getStrapiMedia(data.mobilePicture.url)
-    : imgUrl;
+  const mobileImgUrl = data.mobilePicture ? getStrapiMedia(data.mobilePicture.url) : imgUrl;
 
   return (
     <section className="relative w-full py-20 md:py-32">
@@ -49,9 +47,7 @@ export default function HeroSimple({ data }: HeroSimpleProps) {
       )}
 
       {/* White background when isPictureBlank is true */}
-      {data.isPictureBlank && (
-        <div className="absolute inset-0 bg-white" />
-      )}
+      {data.isPictureBlank && <div className="absolute inset-0 bg-white" />}
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
@@ -69,15 +65,9 @@ export default function HeroSimple({ data }: HeroSimpleProps) {
               HOME
             </Link>
             <ChevronRightIcon
-              className={`h-4 w-4 ${
-                data.isPictureBlank ? "text-gray-400" : "text-gray-400"
-              }`}
+              className={`h-4 w-4 ${data.isPictureBlank ? "text-gray-400" : "text-gray-400"}`}
             />
-            <span
-              className={`uppercase ${
-                data.isPictureBlank ? "text-gray-900" : "text-white"
-              }`}
-            >
+            <span className={`uppercase ${data.isPictureBlank ? "text-gray-900" : "text-white"}`}>
               {data.title}
             </span>
           </nav>

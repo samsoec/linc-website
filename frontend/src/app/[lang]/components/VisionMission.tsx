@@ -22,8 +22,8 @@ export default function VisionMission({ data }: VisionMissionProps) {
     ? typeof coreValues.values === "string"
       ? JSON.parse(coreValues.values)
       : Array.isArray(coreValues.values)
-      ? coreValues.values
-      : []
+        ? coreValues.values
+        : []
     : [];
 
   return (
@@ -116,9 +116,7 @@ export default function VisionMission({ data }: VisionMissionProps) {
             {/* Description */}
             {coreValues.description && (
               <>
-                <p className="mb-6 text-white/90 md:text-left">
-                  {coreValues.description}
-                </p>
+                <p className="mb-6 text-white/90 md:text-left">{coreValues.description}</p>
                 <div className="mx-auto mb-12 h-1 w-16 rounded-full bg-white md:mx-0" />
               </>
             )}
@@ -126,26 +124,28 @@ export default function VisionMission({ data }: VisionMissionProps) {
             {/* Core Values Grid */}
             {coreValuesArray.length > 0 && (
               <div className="grid gap-8 sm:grid-cols-2 md:gap-12">
-                {coreValuesArray.map((value: { text?: string; description?: string } | string, index: number) => (
-                  <div key={index} className="flex items-start gap-6">
-                    {/* Number */}
-                    <div className="flex-shrink-0">
-                      <span className="text-5xl font-bold text-white md:text-6xl">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
+                {coreValuesArray.map(
+                  (value: { text?: string; description?: string } | string, index: number) => (
+                    <div key={index} className="flex items-start gap-6">
+                      {/* Number */}
+                      <div className="flex-shrink-0">
+                        <span className="text-5xl font-bold text-white md:text-6xl">
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                      </div>
+                      {/* Text */}
+                      <div className="flex-1 pt-2">
+                        <p className="text-lg leading-relaxed text-white">
+                          {typeof value === "string"
+                            ? value
+                            : (value as { text?: string; description?: string }).text ||
+                              (value as { text?: string; description?: string }).description ||
+                              ""}
+                        </p>
+                      </div>
                     </div>
-                    {/* Text */}
-                    <div className="flex-1 pt-2">
-                      <p className="text-lg leading-relaxed text-white">
-                        {typeof value === "string"
-                          ? value
-                          : (value as { text?: string; description?: string }).text ||
-                            (value as { text?: string; description?: string }).description ||
-                            ""}
-                      </p>
-                    </div>
-                  </div>
-                ))}
+                  )
+                )}
               </div>
             )}
           </div>

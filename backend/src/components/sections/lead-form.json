@@ -8,22 +8,25 @@
   },
   "options": {},
   "attributes": {
-    "title": {
-      "type": "string"
+    "heading": {
+      "type": "string",
+      "required": true
     },
-    "emailPlaceholder": {
-      "type": "string"
-    },
-    "submitButton": {
-      "type": "component",
-      "repeatable": false,
-      "component": "links.button"
-    },
-    "location": {
+    "subheading": {
       "type": "string"
     },
     "description": {
       "type": "text"
+    },
+    "submitButton": {
+      "type": "component",
+      "component": "links.button",
+      "repeatable": false
+    },
+    "locations": {
+      "type": "component",
+      "component": "elements.location",
+      "repeatable": true
     }
   }
 }

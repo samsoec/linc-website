@@ -140,6 +140,19 @@ module.exports = (config, { strapi }) => {
               },
             },
           },
+          "sections.lead-form": {
+            populate: {
+              submitButton: {
+                populate: true,
+              },
+              locations: {
+                populate: {
+                  phoneNumbers: true,
+                  emails: true,
+                },
+              },
+            },
+          },
           "sections.news-room": {
             populate: {
               articles: {
@@ -254,6 +267,14 @@ module.exports = (config, { strapi }) => {
                   },
                 },
               },
+            },
+          },
+          "shared.map-embed": {
+            populate: false,
+          },
+          "sections.faq": {
+            populate: {
+              items: true,
             },
           },
         },

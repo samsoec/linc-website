@@ -46,6 +46,17 @@ export interface ElementsEmail extends Struct.ComponentSchema {
   };
 }
 
+export interface ElementsFaqItem extends Struct.ComponentSchema {
+  collectionName: 'components_elements_faq_items';
+  info: {
+    displayName: 'FAQ Item';
+  };
+  attributes: {
+    answer: Schema.Attribute.RichText & Schema.Attribute.Required;
+    question: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface ElementsFooterSection extends Struct.ComponentSchema {
   collectionName: 'components_links_footer_sections';
   info: {
@@ -162,21 +173,6 @@ export interface ElementsTeamMember extends Struct.ComponentSchema {
     name: Schema.Attribute.String & Schema.Attribute.Required;
     photo: Schema.Attribute.Media<'images'>;
     title: Schema.Attribute.String;
-  };
-}
-
-export interface ElementsTestimonial extends Struct.ComponentSchema {
-  collectionName: 'components_slices_testimonials';
-  info: {
-    description: '';
-    displayName: 'Testimonial';
-    icon: 'user-check';
-    name: 'Testimonial';
-  };
-  attributes: {
-    authorName: Schema.Attribute.String & Schema.Attribute.Required;
-    picture: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
-    text: Schema.Attribute.Text & Schema.Attribute.Required;
   };
 }
 
@@ -398,21 +394,6 @@ export interface SectionsBanner extends Struct.ComponentSchema {
   };
 }
 
-export interface SectionsBottomActions extends Struct.ComponentSchema {
-  collectionName: 'components_slices_bottom_actions';
-  info: {
-    description: '';
-    displayName: 'Bottom actions';
-    icon: 'angle-double-right';
-    name: 'BottomActions';
-  };
-  attributes: {
-    buttons: Schema.Attribute.Component<'links.button-link', true>;
-    description: Schema.Attribute.Text;
-    title: Schema.Attribute.String;
-  };
-}
-
 export interface SectionsClientMarquee extends Struct.ComponentSchema {
   collectionName: 'components_sections_client_marquees';
   info: {
@@ -423,14 +404,15 @@ export interface SectionsClientMarquee extends Struct.ComponentSchema {
   };
 }
 
-export interface SectionsHeading extends Struct.ComponentSchema {
-  collectionName: 'components_sections_headings';
+export interface SectionsFaq extends Struct.ComponentSchema {
+  collectionName: 'components_sections_faqs';
   info: {
-    displayName: 'Heading';
+    displayName: 'FAQ';
   };
   attributes: {
-    description: Schema.Attribute.String;
     heading: Schema.Attribute.String & Schema.Attribute.Required;
+    items: Schema.Attribute.Component<'elements.faq-item', true>;
+    subheading: Schema.Attribute.String;
   };
 }
 
@@ -508,10 +490,10 @@ export interface SectionsLeadForm extends Struct.ComponentSchema {
   };
   attributes: {
     description: Schema.Attribute.Text;
-    emailPlaceholder: Schema.Attribute.String;
-    location: Schema.Attribute.String;
+    heading: Schema.Attribute.String & Schema.Attribute.Required;
+    locations: Schema.Attribute.Component<'elements.location', true>;
+    subheading: Schema.Attribute.String;
     submitButton: Schema.Attribute.Component<'links.button', false>;
-    title: Schema.Attribute.String;
   };
 }
 
@@ -525,18 +507,6 @@ export interface SectionsNewsRoom extends Struct.ComponentSchema {
     description: Schema.Attribute.Text;
     heading: Schema.Attribute.String & Schema.Attribute.Required;
     subheading: Schema.Attribute.String;
-  };
-}
-
-export interface SectionsRichText extends Struct.ComponentSchema {
-  collectionName: 'components_sections_rich_texts';
-  info: {
-    displayName: 'Rich text';
-    icon: 'text-height';
-    name: 'RichText';
-  };
-  attributes: {
-    content: Schema.Attribute.RichText;
   };
 }
 
@@ -564,21 +534,6 @@ export interface SectionsTeams extends Struct.ComponentSchema {
   };
 }
 
-export interface SectionsTestimonialsGroup extends Struct.ComponentSchema {
-  collectionName: 'components_slices_testimonials_groups';
-  info: {
-    description: '';
-    displayName: 'Testimonials group';
-    icon: 'user-friends';
-    name: 'TestimonialsGroup';
-  };
-  attributes: {
-    description: Schema.Attribute.Text;
-    testimonials: Schema.Attribute.Component<'elements.testimonial', true>;
-    title: Schema.Attribute.String;
-  };
-}
-
 export interface SectionsVisionMission extends Struct.ComponentSchema {
   collectionName: 'components_sections_vision_missions';
   info: {
@@ -592,6 +547,16 @@ export interface SectionsVisionMission extends Struct.ComponentSchema {
       false
     > &
       Schema.Attribute.Required;
+  };
+}
+
+export interface SharedMapEmbed extends Struct.ComponentSchema {
+  collectionName: 'components_shared_map_embeds';
+  info: {
+    displayName: 'Map Embed';
+  };
+  attributes: {
+    mapUrl: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -678,6 +643,7 @@ declare module '@strapi/strapi' {
       'elements.award': ElementsAward;
       'elements.core-values': ElementsCoreValues;
       'elements.email': ElementsEmail;
+      'elements.faq-item': ElementsFaqItem;
       'elements.footer-section': ElementsFooterSection;
       'elements.hero-highlight': ElementsHeroHighlight;
       'elements.industry-sector': ElementsIndustrySector;
@@ -687,7 +653,6 @@ declare module '@strapi/strapi' {
       'elements.phone-number': ElementsPhoneNumber;
       'elements.plan': ElementsPlan;
       'elements.team-member': ElementsTeamMember;
-      'elements.testimonial': ElementsTestimonial;
       'elements.vision-mission': ElementsVisionMission;
       'layout.footer': LayoutFooter;
       'layout.logo': LayoutLogo;
@@ -702,20 +667,18 @@ declare module '@strapi/strapi' {
       'sections.associations': SectionsAssociations;
       'sections.award-certification': SectionsAwardCertification;
       'sections.banner': SectionsBanner;
-      'sections.bottom-actions': SectionsBottomActions;
       'sections.client-marquee': SectionsClientMarquee;
-      'sections.heading': SectionsHeading;
+      'sections.faq': SectionsFaq;
       'sections.hero': SectionsHero;
       'sections.hero-simple': SectionsHeroSimple;
       'sections.industry-sectors': SectionsIndustrySectors;
       'sections.large-video': SectionsLargeVideo;
       'sections.lead-form': SectionsLeadForm;
       'sections.news-room': SectionsNewsRoom;
-      'sections.rich-text': SectionsRichText;
       'sections.services': SectionsServices;
       'sections.teams': SectionsTeams;
-      'sections.testimonials-group': SectionsTestimonialsGroup;
       'sections.vision-mission': SectionsVisionMission;
+      'shared.map-embed': SharedMapEmbed;
       'shared.media': SharedMedia;
       'shared.quote': SharedQuote;
       'shared.rich-text': SharedRichText;

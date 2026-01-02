@@ -23,9 +23,9 @@ export default function AboutCompany({ data }: AboutCompanyProps) {
     mediaCaption,
     mediaSubtitle,
   } = data;
-  
+
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+
   // Access videoEmbedUrl property (may not be in generated types yet)
   const videoEmbedUrl = (data as AboutCompanySection & { videoEmbedUrl?: string }).videoEmbedUrl;
 
@@ -34,7 +34,7 @@ export default function AboutCompany({ data }: AboutCompanyProps) {
   }
 
   const imageUrl = getStrapiMedia(media?.url);
-  
+
   const openModal = () => {
     if (videoEmbedUrl) {
       setIsModalOpen(true);
@@ -138,11 +138,15 @@ export default function AboutCompany({ data }: AboutCompanyProps) {
             onClick={videoEmbedUrl ? openModal : undefined}
             role={videoEmbedUrl ? "button" : undefined}
             tabIndex={videoEmbedUrl ? 0 : undefined}
-            onKeyDown={videoEmbedUrl ? (e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                openModal();
-              }
-            } : undefined}
+            onKeyDown={
+              videoEmbedUrl
+                ? (e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      openModal();
+                    }
+                  }
+                : undefined
+            }
           >
             <div className="aspect-[16/9] md:aspect-[21/9]">
               <Image
@@ -155,7 +159,7 @@ export default function AboutCompany({ data }: AboutCompanyProps) {
                 sizes="(max-width: 768px) 100vw, 1280px"
               />
             </div>
-            
+
             {/* Play Button Overlay */}
             {videoEmbedUrl && (
               <div className="absolute inset-0 flex items-center justify-center bg-black/20 transition-colors group-hover:bg-black/30">
@@ -164,7 +168,7 @@ export default function AboutCompany({ data }: AboutCompanyProps) {
                 </div>
               </div>
             )}
-            
+
             {/* Caption Overlay */}
             {(mediaCaption || mediaSubtitle) && (
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6 md:p-8">

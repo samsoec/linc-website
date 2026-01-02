@@ -109,10 +109,7 @@ export default function Associations({ data }: AssociationsProps) {
             onChange={handleSlideChange}
           >
             {items.map((item, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-center px-4 py-16 md:py-32"
-              >
+              <div key={index} className="flex items-center justify-center px-4 py-16 md:py-32">
                 <div className="max-w-7xl mx-auto text-center">
                   <p className="text-white text-sm md:text-base font-light tracking-[0.3em] mb-8 uppercase">
                     {subheading}
@@ -124,7 +121,7 @@ export default function Associations({ data }: AssociationsProps) {
               </div>
             ))}
           </Slide>
-          
+
           {/* Desktop Arrow Controls on Sides */}
           <div className="absolute left-8 top-1/2 -translate-y-1/2 z-30">
             <PrevArrow onClick={handlePrev} />
@@ -150,17 +147,12 @@ export default function Associations({ data }: AssociationsProps) {
             onChange={handleSlideChange}
           >
             {items.map((item, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-center px-4 py-16"
-              >
+              <div key={index} className="flex items-center justify-center px-4 py-16">
                 <div className="max-w-7xl mx-auto text-center">
                   <p className="text-white text-sm font-light tracking-[0.3em] mb-8 uppercase">
                     {subheading}
                   </p>
-                  <h2 className="text-white text-xl font-bold leading-relaxed px-4">
-                    {item.text}
-                  </h2>
+                  <h2 className="text-white text-xl font-bold leading-relaxed px-4">{item.text}</h2>
                 </div>
               </div>
             ))}
@@ -209,8 +201,16 @@ export default function Associations({ data }: AssociationsProps) {
           background-color: white;
         }
 
-        .associations-slider-desktop .react-slideshow-container + ul.indicators li:not(.active) > div,
-        .associations-slider-mobile .react-slideshow-container + ul.indicators li:not(.active) > div {
+        .associations-slider-desktop
+          .react-slideshow-container
+          + ul.indicators
+          li:not(.active)
+          > div,
+        .associations-slider-mobile
+          .react-slideshow-container
+          + ul.indicators
+          li:not(.active)
+          > div {
           width: 2.5rem;
           background-color: rgba(255, 255, 255, 0.4);
         }

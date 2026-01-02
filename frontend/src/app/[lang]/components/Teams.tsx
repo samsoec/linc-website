@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
+import ReactMarkdown from "react-markdown";
 import { Slide, SlideshowRef } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/outline";
@@ -42,16 +43,20 @@ function TeamMemberCard({ member }: TeamMemberCardProps) {
 
         {/* Content */}
         <div className="flex flex-1 flex-col justify-center py-4">
-          <h3 className="mb-3 text-3xl font-bold text-gray-900 lg:text-4xl">
-            {member.name}
-          </h3>
-          <p className="mb-6 text-base font-medium text-gray-500">
-            {member.title}
-          </p>
-          <div
-            className="text-base leading-relaxed text-gray-600 space-y-4"
-            dangerouslySetInnerHTML={{ __html: member.description }}
-          />
+          <h3 className="mb-3 text-3xl font-bold text-gray-900 lg:text-4xl">{member.name}</h3>
+          <p className="mb-6 text-base font-medium text-gray-500">{member.title}</p>
+          <div className="prose prose-base max-w-none text-gray-600">
+            <ReactMarkdown
+              components={{
+                ul: ({ children }) => <ul className="list-disc space-y-2 pl-5 mb-4">{children}</ul>,
+                ol: ({ children }) => <ol className="list-decimal space-y-2 pl-5 mb-4">{children}</ol>,
+                li: ({ children }) => <li className="text-gray-600">{children}</li>,
+                p: ({ children }) => <p className="mb-4">{children}</p>,
+              }}
+            >
+              {member.description}
+            </ReactMarkdown>
+          </div>
         </div>
       </div>
 
@@ -76,16 +81,20 @@ function TeamMemberCard({ member }: TeamMemberCardProps) {
 
         {/* Content */}
         <div className="flex flex-col">
-          <h3 className="mb-3 text-2xl font-bold text-gray-900">
-            {member.name}
-          </h3>
-          <p className="mb-6 text-sm font-medium text-gray-500">
-            {member.title}
-          </p>
-          <div
-            className="text-sm leading-relaxed text-gray-600 space-y-4"
-            dangerouslySetInnerHTML={{ __html: member.description }}
-          />
+          <h3 className="mb-3 text-2xl font-bold text-gray-900">{member.name}</h3>
+          <p className="mb-6 text-sm font-medium text-gray-500">{member.title}</p>
+          <div className="prose prose-sm max-w-none text-gray-600">
+            <ReactMarkdown
+              components={{
+                ul: ({ children }) => <ul className="list-disc space-y-2 pl-5 mb-4">{children}</ul>,
+                ol: ({ children }) => <ol className="list-decimal space-y-2 pl-5 mb-4">{children}</ol>,
+                li: ({ children }) => <li className="text-gray-600">{children}</li>,
+                p: ({ children }) => <p className="mb-4">{children}</p>,
+              }}
+            >
+              {member.description}
+            </ReactMarkdown>
+          </div>
         </div>
       </div>
     </div>

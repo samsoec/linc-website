@@ -41,23 +41,17 @@ function AwardCard({ award }: AwardCardProps) {
 
         {/* Code/Title */}
         {award.code && (
-          <h3 className="mb-2 text-center text-xl font-bold text-gray-900">
-            {award.code}
-          </h3>
+          <h3 className="mb-2 text-center text-xl font-bold text-gray-900">{award.code}</h3>
         )}
 
         {/* Subtitle */}
         {award.title && (
-          <p className="mb-4 text-center text-sm font-medium text-gray-500">
-            {award.title}
-          </p>
+          <p className="mb-4 text-center text-sm font-medium text-gray-500">{award.title}</p>
         )}
 
         {/* Description */}
         {award.description && (
-          <p className="text-center text-sm leading-relaxed text-gray-600">
-            {award.description}
-          </p>
+          <p className="text-center text-sm leading-relaxed text-gray-600">{award.description}</p>
         )}
       </div>
     </div>
@@ -172,9 +166,7 @@ export default function AwardCertification({ data }: AwardCertificationProps) {
             </h2>
           )}
           {description && (
-            <p className="mx-auto max-w-3xl text-base text-gray-600 md:text-lg">
-              {description}
-            </p>
+            <p className="mx-auto max-w-3xl text-base text-gray-600 md:text-lg">{description}</p>
           )}
 
           {/* Accent Line */}
@@ -241,11 +233,7 @@ export default function AwardCertification({ data }: AwardCertificationProps) {
           justify-content: center;
         }
 
-        .award-certification-slider
-          .react-slideshow-container
-          + ul.indicators
-          li.active
-          > div {
+        .award-certification-slider .react-slideshow-container + ul.indicators li.active > div {
           width: 1.5rem;
           background-color: #9e2045;
         }
