@@ -48,7 +48,10 @@
         "sections.associations",
         "sections.teams",
         "shared.map-embed",
-        "sections.faq"
+        "sections.faq",
+        "sections.services-grid",
+        "sections.service-value",
+        "sections.large-image"
       ]
     },
     "slug": {

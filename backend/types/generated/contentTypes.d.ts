@@ -667,6 +667,9 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'sections.teams',
         'shared.map-embed',
         'sections.faq',
+        'sections.services-grid',
+        'sections.service-value',
+        'sections.large-image',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{

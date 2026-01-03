@@ -163,6 +163,17 @@ export interface ElementsPlan extends Struct.ComponentSchema {
   };
 }
 
+export interface ElementsServiceValue extends Struct.ComponentSchema {
+  collectionName: 'components_elements_service_values';
+  info: {
+    displayName: 'Service Value';
+  };
+  attributes: {
+    description: Schema.Attribute.RichText & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface ElementsTeamMember extends Struct.ComponentSchema {
   collectionName: 'components_elements_team_members';
   info: {
@@ -463,6 +474,19 @@ export interface SectionsIndustrySectors extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionsLargeImage extends Struct.ComponentSchema {
+  collectionName: 'components_sections_large_images';
+  info: {
+    displayName: 'Large Image';
+  };
+  attributes: {
+    desktopImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    heading: Schema.Attribute.String & Schema.Attribute.Required;
+    mobileImage: Schema.Attribute.Media<'images'>;
+    subheading: Schema.Attribute.String;
+  };
+}
+
 export interface SectionsLargeVideo extends Struct.ComponentSchema {
   collectionName: 'components_slices_large_videos';
   info: {
@@ -510,12 +534,39 @@ export interface SectionsNewsRoom extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionsServiceValue extends Struct.ComponentSchema {
+  collectionName: 'components_sections_service_values';
+  info: {
+    displayName: 'Service Value';
+  };
+  attributes: {
+    background: Schema.Attribute.Media<'images'>;
+    description: Schema.Attribute.Text;
+    heading: Schema.Attribute.String & Schema.Attribute.Required;
+    items: Schema.Attribute.Component<'elements.service-value', true>;
+    subheading: Schema.Attribute.String;
+  };
+}
+
 export interface SectionsServices extends Struct.ComponentSchema {
   collectionName: 'components_sections_services';
   info: {
     displayName: 'Services';
   };
   attributes: {
+    heading: Schema.Attribute.String & Schema.Attribute.Required;
+    services: Schema.Attribute.Relation<'oneToMany', 'api::service.service'>;
+    subheading: Schema.Attribute.String;
+  };
+}
+
+export interface SectionsServicesGrid extends Struct.ComponentSchema {
+  collectionName: 'components_sections_services_grids';
+  info: {
+    displayName: 'Services Grid';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
     heading: Schema.Attribute.String & Schema.Attribute.Required;
     services: Schema.Attribute.Relation<'oneToMany', 'api::service.service'>;
     subheading: Schema.Attribute.String;
@@ -652,6 +703,7 @@ declare module '@strapi/strapi' {
       'elements.notification-banner': ElementsNotificationBanner;
       'elements.phone-number': ElementsPhoneNumber;
       'elements.plan': ElementsPlan;
+      'elements.service-value': ElementsServiceValue;
       'elements.team-member': ElementsTeamMember;
       'elements.vision-mission': ElementsVisionMission;
       'layout.footer': LayoutFooter;
@@ -672,10 +724,13 @@ declare module '@strapi/strapi' {
       'sections.hero': SectionsHero;
       'sections.hero-simple': SectionsHeroSimple;
       'sections.industry-sectors': SectionsIndustrySectors;
+      'sections.large-image': SectionsLargeImage;
       'sections.large-video': SectionsLargeVideo;
       'sections.lead-form': SectionsLeadForm;
       'sections.news-room': SectionsNewsRoom;
+      'sections.service-value': SectionsServiceValue;
       'sections.services': SectionsServices;
+      'sections.services-grid': SectionsServicesGrid;
       'sections.teams': SectionsTeams;
       'sections.vision-mission': SectionsVisionMission;
       'shared.map-embed': SharedMapEmbed;

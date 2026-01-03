@@ -72,6 +72,28 @@ module.exports = (config, { strapi }) => {
               },
             },
           },
+          "sections.large-image": {
+            populate: {
+              desktopImage: {
+                fields: [
+                  "url",
+                  "alternativeText",
+                  "caption",
+                  "width",
+                  "height",
+                ],
+              },
+              mobileImage: {
+                fields: [
+                  "url",
+                  "alternativeText",
+                  "caption",
+                  "width",
+                  "height",
+                ],
+              },
+            },
+          },
           "sections.banner": {
             populate: {
               buttons: {
@@ -200,6 +222,41 @@ module.exports = (config, { strapi }) => {
                   },
                 },
               },
+            },
+          },
+          "sections.services-grid": {
+            populate: {
+              services: {
+                fields: ["name", "caption", "slug", "description", "features"],
+                populate: {
+                  picture: {
+                    fields: [
+                      "url",
+                      "alternativeText",
+                      "caption",
+                      "width",
+                      "height",
+                    ],
+                  },
+                  icon: {
+                    fields: ["url", "alternativeText", "width", "height"],
+                  },
+                },
+              },
+            },
+          },
+          "sections.service-value": {
+            populate: {
+              background: {
+                fields: [
+                  "url",
+                  "alternativeText",
+                  "caption",
+                  "width",
+                  "height",
+                ],
+              },
+              items: true,
             },
           },
           "sections.vision-mission": {
