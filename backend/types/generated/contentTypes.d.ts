@@ -597,6 +597,35 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiHighlightedArticleHighlightedArticle
+  extends Struct.SingleTypeSchema {
+  collectionName: 'highlighted_articles';
+  info: {
+    displayName: 'Highlighted Article';
+    pluralName: 'highlighted-articles';
+    singularName: 'highlighted-article';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    articles: Schema.Attribute.Relation<'oneToMany', 'api::article.article'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::highlighted-article.highlighted-article'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiLeadFormSubmissionLeadFormSubmission
   extends Struct.CollectionTypeSchema {
   collectionName: 'lead_form_submissions';
@@ -670,6 +699,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'sections.services-grid',
         'sections.service-value',
         'sections.large-image',
+        'sections.blog-content',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{
@@ -1295,6 +1325,7 @@ declare module '@strapi/strapi' {
       'api::author.author': ApiAuthorAuthor;
       'api::category.category': ApiCategoryCategory;
       'api::global.global': ApiGlobalGlobal;
+      'api::highlighted-article.highlighted-article': ApiHighlightedArticleHighlightedArticle;
       'api::lead-form-submission.lead-form-submission': ApiLeadFormSubmissionLeadFormSubmission;
       'api::page.page': ApiPagePage;
       'api::service.service': ApiServiceService;

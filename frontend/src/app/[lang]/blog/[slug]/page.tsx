@@ -1,6 +1,7 @@
 import { fetchAPI } from "@/app/[lang]/utils/fetch-api";
 import Post from "@/app/[lang]/views/post";
 import type { Metadata } from "next";
+import { FALLBACK_SEO } from "../../utils/constants";
 
 async function getPostBySlug(slug: string) {
   const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
@@ -48,7 +49,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const meta = await getMetaData(slug);
-  const metadata = meta[0].seo;
+  
+  const metadata = meta[0].seo || FALLBACK_SEO;
 
   return {
     title: metadata.metaTitle,

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Category, Article } from "@/types/generated";
-import type { RouteParams } from "@/app/[lang]/blog/[category]/[slug]/layout";
+import type { RouteParams } from "@/app/[lang]/blog/[slug]/layout";
 
 function selectedFilter(current: string, selected: string) {
   return current === selected

@@ -49,7 +49,9 @@ function TeamMemberCard({ member }: TeamMemberCardProps) {
             <ReactMarkdown
               components={{
                 ul: ({ children }) => <ul className="list-disc space-y-2 pl-5 mb-4">{children}</ul>,
-                ol: ({ children }) => <ol className="list-decimal space-y-2 pl-5 mb-4">{children}</ol>,
+                ol: ({ children }) => (
+                  <ol className="list-decimal space-y-2 pl-5 mb-4">{children}</ol>
+                ),
                 li: ({ children }) => <li className="text-gray-600">{children}</li>,
                 p: ({ children }) => <p className="mb-4">{children}</p>,
               }}
@@ -87,7 +89,9 @@ function TeamMemberCard({ member }: TeamMemberCardProps) {
             <ReactMarkdown
               components={{
                 ul: ({ children }) => <ul className="list-disc space-y-2 pl-5 mb-4">{children}</ul>,
-                ol: ({ children }) => <ol className="list-decimal space-y-2 pl-5 mb-4">{children}</ol>,
+                ol: ({ children }) => (
+                  <ol className="list-decimal space-y-2 pl-5 mb-4">{children}</ol>
+                ),
                 li: ({ children }) => <li className="text-gray-600">{children}</li>,
                 p: ({ children }) => <p className="mb-4">{children}</p>,
               }}

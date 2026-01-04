@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "highlighted_articles",
+  "info": {
+    "singularName": "highlighted-article",
+    "pluralName": "highlighted-articles",
+    "displayName": "Highlighted Article"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "articles": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::article.article"
+    }
+  }
+}

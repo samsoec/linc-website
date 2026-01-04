@@ -81,6 +81,17 @@ export interface ElementsHeroHighlight extends Struct.ComponentSchema {
   };
 }
 
+export interface ElementsHighlightedArticle extends Struct.ComponentSchema {
+  collectionName: 'components_elements_highlighted_articles';
+  info: {
+    displayName: 'Highlighted Article';
+  };
+  attributes: {
+    maxCount: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<5>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface ElementsIndustrySector extends Struct.ComponentSchema {
   collectionName: 'components_elements_industry_sectors';
   info: {
@@ -405,6 +416,19 @@ export interface SectionsBanner extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionsBlogContent extends Struct.ComponentSchema {
+  collectionName: 'components_sections_blog_contents';
+  info: {
+    displayName: 'Blog Content';
+  };
+  attributes: {
+    highlight: Schema.Attribute.Component<
+      'elements.highlighted-article',
+      false
+    >;
+  };
+}
+
 export interface SectionsClientMarquee extends Struct.ComponentSchema {
   collectionName: 'components_sections_client_marquees';
   info: {
@@ -453,6 +477,7 @@ export interface SectionsHeroSimple extends Struct.ComponentSchema {
   };
   attributes: {
     description: Schema.Attribute.String & Schema.Attribute.Required;
+    hasSearch: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     isPictureBlank: Schema.Attribute.Boolean &
       Schema.Attribute.DefaultTo<false>;
     mobilePicture: Schema.Attribute.Media<'images'>;
@@ -697,6 +722,7 @@ declare module '@strapi/strapi' {
       'elements.faq-item': ElementsFaqItem;
       'elements.footer-section': ElementsFooterSection;
       'elements.hero-highlight': ElementsHeroHighlight;
+      'elements.highlighted-article': ElementsHighlightedArticle;
       'elements.industry-sector': ElementsIndustrySector;
       'elements.location': ElementsLocation;
       'elements.logos': ElementsLogos;
@@ -719,6 +745,7 @@ declare module '@strapi/strapi' {
       'sections.associations': SectionsAssociations;
       'sections.award-certification': SectionsAwardCertification;
       'sections.banner': SectionsBanner;
+      'sections.blog-content': SectionsBlogContent;
       'sections.client-marquee': SectionsClientMarquee;
       'sections.faq': SectionsFaq;
       'sections.hero': SectionsHero;

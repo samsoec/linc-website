@@ -1,51 +1,58 @@
-import { formatDate, getStrapiMedia } from "@/app/[lang]/utils/api-helpers";
-import Image from "next/image";
+import { formatDate } from "@/app/[lang]/utils/api-helpers";
 import componentResolver from "../utils/component-resolver";
-import type { Article, ArticleBlock } from "@/types/generated";
+import type { Article, ArticleBlock, HeroSimpleSection } from "@/types/generated";
+import HeroSimple from "../components/HeroSimple";
+import SearchBar from "../components/SearchBar";
+import HighlightedPosts from "../components/HighlightedPosts";
 
 export default function Post({ data }: { data: Article }) {
-  const { title, description, publishedAt, cover, authorsBio } = data;
-  const author = authorsBio;
-  const imageUrl = getStrapiMedia(cover?.url);
-  const authorImgUrl = getStrapiMedia(authorsBio?.avatar?.url);
+  const { title, publishedAt, cover, category } = data;
+
+  // Build description with category and date
+  const categoryName = category?.name || "";
+  const dateStr = publishedAt ? formatDate(publishedAt) : "";
+  const description = [categoryName, dateStr].filter(Boolean).join(" · ");
+
+  // Create hero data for HeroSimple
+  const heroData: HeroSimpleSection = {
+    id: 0,
+    __component: "sections.hero-simple",
+    title,
+    description,
+    isPictureBlank: false,
+    picture: cover,
+    mobilePicture: cover,
+    hasSearch: false,
+  };
 
   return (
-    <article className="space-y-8 dark:bg-black dark:text-gray-50">
-      {imageUrl && (
-        <Image
-          src={imageUrl}
-          alt="article cover image"
-          width={400}
-          height={400}
-          className="w-full h-96 object-cover rounded-lg"
-        />
-      )}
-      <div className="space-y-6">
-        <h1 className="leading-tight text-5xl font-bold ">{title}</h1>
-        <div className="flex flex-col items-start justify-between w-full md:flex-row md:items-center dark:text-gray-400">
-          <div className="flex items-center md:space-x-2">
-            {authorImgUrl && (
-              <Image
-                src={authorImgUrl}
-                alt="article cover image"
-                width={400}
-                height={400}
-                className="w-14 h-14 border rounded-full dark:bg-gray-500 dark:border-gray-700"
-              />
-            )}
-            <p className="text-md dark:text-violet-400">
-              {author && author.name} • {publishedAt ? formatDate(publishedAt) : ""}
-            </p>
+    <article>
+      {/* Hero Section */}
+      <HeroSimple data={heroData} />
+
+      {/* Content Layout */}
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Left Side - Main Content */}
+          <div className="lg:col-span-2">
+            <div className="prose prose-lg max-w-none">
+              {data.blocks.map((section: ArticleBlock, index: number) =>
+                componentResolver(section, index)
+              )}
+            </div>
+          </div>
+
+          {/* Right Side - Sidebar */}
+          <div className="lg:col-span-1">
+            <div className="sticky top-24 space-y-6">
+              {/* Search Bar */}
+              <SearchBar size="small" />
+
+              {/* Highlighted Posts */}
+              <HighlightedPosts />
+            </div>
           </div>
         </div>
-      </div>
-
-      <div className="dark:text-gray-100">
-        <p>{description}</p>
-
-        {data.blocks.map((section: ArticleBlock, index: number) =>
-          componentResolver(section, index)
-        )}
       </div>
     </article>
   );

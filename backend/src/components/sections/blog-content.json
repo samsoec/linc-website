@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_sections_blog_contents",
+  "info": {
+    "displayName": "Blog Content"
+  },
+  "options": {},
+  "attributes": {
+    "highlight": {
+      "type": "component",
+      "component": "elements.highlighted-article",
+      "repeatable": false
+    }
+  },
+  "config": {}
+}

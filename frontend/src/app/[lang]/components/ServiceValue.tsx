@@ -39,10 +39,7 @@ export default function ServiceValue({ data }: ServiceValueProps) {
   const leftItems = items.slice(0, midpoint);
   const rightItems = items.slice(midpoint);
 
-  const renderAccordionItem = (
-    item: (typeof items)[0],
-    originalIndex: number,
-  ) => (
+  const renderAccordionItem = (item: (typeof items)[0], originalIndex: number) => (
     <div key={item.id || originalIndex} className="border-b border-white/30">
       {/* Question Button */}
       <button
@@ -62,9 +59,7 @@ export default function ServiceValue({ data }: ServiceValueProps) {
       {/* Answer Content */}
       <div
         className={`grid transition-all duration-300 ease-in-out ${
-          openItems.has(originalIndex)
-            ? "grid-rows-[1fr] opacity-100"
-            : "grid-rows-[0fr] opacity-0"
+          openItems.has(originalIndex) ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
         }`}
       >
         <div className="overflow-hidden">
@@ -72,18 +67,10 @@ export default function ServiceValue({ data }: ServiceValueProps) {
             <div className="prose prose-sm max-w-none text-white/90 prose-ul:ml-0 prose-ul:list-disc prose-ul:pl-5 prose-li:marker:text-white/90">
               <ReactMarkdown
                 components={{
-                  ul: ({ children }) => (
-                    <ul className="list-disc space-y-1 pl-5">{children}</ul>
-                  ),
-                  ol: ({ children }) => (
-                    <ol className="list-decimal space-y-1 pl-5">{children}</ol>
-                  ),
-                  li: ({ children }) => (
-                    <li className="text-sm text-white/90">{children}</li>
-                  ),
-                  p: ({ children }) => (
-                    <p className="mb-3 text-sm text-white/90">{children}</p>
-                  ),
+                  ul: ({ children }) => <ul className="list-disc space-y-1 pl-5">{children}</ul>,
+                  ol: ({ children }) => <ol className="list-decimal space-y-1 pl-5">{children}</ol>,
+                  li: ({ children }) => <li className="text-sm text-white/90">{children}</li>,
+                  p: ({ children }) => <p className="mb-3 text-sm text-white/90">{children}</p>,
                 }}
               >
                 {item.description}
@@ -147,9 +134,7 @@ export default function ServiceValue({ data }: ServiceValueProps) {
 
           {/* Right Column */}
           <div className="flex-1">
-            {rightItems.map((item, index) =>
-              renderAccordionItem(item, index + midpoint),
-            )}
+            {rightItems.map((item, index) => renderAccordionItem(item, index + midpoint))}
           </div>
         </div>
       </div>

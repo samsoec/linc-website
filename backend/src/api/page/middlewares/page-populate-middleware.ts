@@ -334,6 +334,11 @@ module.exports = (config, { strapi }) => {
               items: true,
             },
           },
+          "sections.blog-content": {
+            populate: {
+              highlight: true,
+            },
+          },
         },
       },
       seo: {

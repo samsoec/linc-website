@@ -51,6 +51,10 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "hasSearch": {
+      "type": "boolean",
+      "default": false
     }
   },
   "config": {}

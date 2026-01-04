@@ -51,7 +51,8 @@
         "sections.faq",
         "sections.services-grid",
         "sections.service-value",
-        "sections.large-image"
+        "sections.large-image",
+        "sections.blog-content"
       ]
     },
     "slug": {

@@ -1,88 +1,88 @@
-"use client";
-import { useState, useEffect, useCallback } from "react";
-import { fetchAPI } from "../utils/fetch-api";
-import type { Article } from "@/types/generated";
+/**
+ * Blog Page
+ * 
+ * Fully CMS-configurable page that fetches configuration from Strapi using getPageBySlug('blog').
+ * All sections including BlogContent are configured through the CMS.
+ * 
+ * To configure in Strapi:
+ * 1. Create a Page with slug "blog"
+ * 2. Add sections (HeroSimple, BlogContent, Banner, etc.)
+ * 3. For BlogContent section:
+ *    - Set pageSize for pagination (default: 10)
+ *    - Select highlightedArticles to show in sidebar
+ * 
+ * The BlogContent section handles:
+ * - Article listing with client-side pagination
+ * - Category filtering via URL params (?category=slug)
+ * - Search functionality via URL params (?q=keyword)
+ * - Highlighted articles sidebar (from CMS selection)
+ */
 
+import { Suspense } from "react";
+import type { PageSection } from "@/types/generated";
+import componentResolver from "../utils/component-resolver";
+import { getPageBySlug } from "@/app/[lang]/utils/get-page-by-slug";
 import Loader from "../components/Loader";
-import Blog from "../views/blog-list";
-import PageHeader from "../components/PageHeader";
 
-interface Meta {
-  pagination: {
-    start: number;
-    limit: number;
-    total: number;
-  };
+interface PageProps {
+  params: Promise<{ lang: string }>;
+  searchParams: Promise<{
+    q?: string;
+    category?: string;
+    page?: string;
+  }>;
 }
 
-export default function Profile() {
-  const [meta, setMeta] = useState<Meta | undefined>();
-  const [data, setData] = useState<Article[]>([]);
-  const [isLoading, setLoading] = useState(true);
+export default async function BlogPage({ params }: PageProps) {
+  const { lang } = await params;
 
-  const fetchData = useCallback(async (start: number, limit: number) => {
-    setLoading(true);
-    try {
-      const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
-      const path = `/articles`;
-      const urlParamsObject = {
-        sort: { createdAt: "desc" },
-        populate: {
-          cover: { fields: ["url"] },
-          category: { populate: "*" },
-          authorsBio: {
-            populate: "*",
-          },
-        },
-        pagination: {
-          start: start,
-          limit: limit,
-        },
-      };
-      const options = { headers: { Authorization: `Bearer ${token}` } };
-      const responseData = await fetchAPI(path, urlParamsObject, options);
+  try {
+    // Fetch the blog page configuration from Strapi
+    const page = await getPageBySlug("blog", lang);
 
-      if (start === 0) {
-        setData(responseData.data);
-      } else {
-        setData((prevData: Article[]) => [...prevData, ...responseData.data]);
-      }
-
-      setMeta(responseData.meta);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
+    if (page.error && page.error.status === 401) {
+      throw new Error(
+        "Missing or invalid credentials. Have you created an access token using the Strapi admin panel?"
+      );
     }
-  }, []);
 
-  function loadMorePosts(): void {
-    const nextPosts = meta!.pagination.start + meta!.pagination.limit;
-    fetchData(nextPosts, Number(process.env.NEXT_PUBLIC_PAGE_LIMIT));
-  }
+    console.log("Blog Page data:", page); // Debug log
 
-  useEffect(() => {
-    fetchData(0, Number(process.env.NEXT_PUBLIC_PAGE_LIMIT));
-  }, [fetchData]);
+    // If no page found, show error
+    if (page.data.length === 0) {
+      return (
+        <div className="container mx-auto px-4 py-12 text-center">
+          <h1 className="text-2xl font-bold text-gray-900">Blog Page Not Configured</h1>
+          <p className="text-gray-600 mt-4">
+            Please create a page with slug &quot;blog&quot; in Strapi and add a BlogContent section.
+          </p>
+        </div>
+      );
+    }
 
-  if (isLoading) return <Loader />;
+    const contentSections = page.data[0]?.contentSections || [];
 
-  return (
-    <div>
-      <PageHeader heading="Our Blog" text="Checkout Something Cool" />
-      <Blog data={data}>
-        {meta!.pagination.start + meta!.pagination.limit < meta!.pagination.total && (
-          <div className="flex justify-center">
-            <button
-              type="button"
-              className="px-6 py-3 text-sm rounded-lg hover:underline dark:bg-gray-900 dark:text-gray-400"
-              onClick={loadMorePosts}
-            >
-              Load more posts...
-            </button>
-          </div>
+    return (
+      <Suspense fallback={<Loader />}>
+        <div>
+          {/* Render all CMS sections including BlogContent */}
+          {contentSections.map((section: PageSection, index: number) =>
+            componentResolver(section, index)
+          )}
+        </div>
+      </Suspense>
+    );
+  } catch (error: unknown) {
+    console.error("Blog page error:", error);
+    return (
+      <div className="container mx-auto px-4 py-12 text-center">
+        <h1 className="text-2xl font-bold text-red-600">Error loading blog page</h1>
+        <p className="text-gray-600 mt-4">Please check your configuration.</p>
+        {error instanceof Error && (
+          <p className="text-sm text-gray-500 mt-2">{error.message}</p>
         )}
-      </Blog>
-    </div>
-  );
+      </div>
+    );
+  }
 }
+

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { getStrapiMedia } from "../utils/api-helpers";
 import type { HeroSimpleSection } from "@/types/generated";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import SearchBar from "./SearchBar";
 
 interface HeroSimpleProps {
   data: HeroSimpleSection;
@@ -94,6 +95,9 @@ export default function HeroSimple({ data }: HeroSimpleProps) {
 
           {/* Accent Line */}
           <div className="h-1 w-16 rounded-full bg-accent" />
+
+          {/* Search Component */}
+          {data.hasSearch && <SearchBar />}
         </div>
       </div>
     </section>

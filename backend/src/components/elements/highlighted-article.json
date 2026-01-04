@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_elements_highlighted_articles",
+  "info": {
+    "displayName": "Highlighted Article"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "maxCount": {
+      "type": "integer",
+      "default": 5
+    }
+  },
+  "config": {}
+}
