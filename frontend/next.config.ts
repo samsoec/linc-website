@@ -12,6 +12,12 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'images.pexels.com',
+      },
+      // Strapi Cloud CDN
+      {
+        protocol: 'https',
+        hostname: 'respected-attraction-ae8b5b8914.media.strapiapp.com',
+        pathname: '/uploads/**',
       }
     ],
     dangerouslyAllowSVG: true,
