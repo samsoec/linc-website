@@ -9,8 +9,8 @@ interface LargeImageProps {
 export default function LargeImage({ data }: LargeImageProps) {
   const { heading, subheading, desktopImage, mobileImage } = data;
 
-  const desktopImageUrl = getStrapiMedia(desktopImage?.url);
-  const mobileImageUrl = getStrapiMedia(mobileImage?.url);
+  const desktopImageUrl = getStrapiMedia(desktopImage?.url || null);
+  const mobileImageUrl = getStrapiMedia(mobileImage?.url || null);
 
   // Use desktop image as fallback if mobile image not provided
   const fallbackImageUrl = desktopImageUrl as string;

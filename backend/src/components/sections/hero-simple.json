@@ -52,9 +52,10 @@
         "images"
       ]
     },
-    "hasSearch": {
-      "type": "boolean",
-      "default": false
+    "searchBar": {
+      "type": "component",
+      "component": "elements.search-bar",
+      "repeatable": false
     }
   },
   "config": {}

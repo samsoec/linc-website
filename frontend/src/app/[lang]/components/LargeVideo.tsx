@@ -14,8 +14,8 @@ export default function LargeVideo({ data }: LargeVideoProps) {
   const { heading, subheading, description, embedUrl, video, poster } = data;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const posterUrl = getStrapiMedia(poster?.url);
-  const videoUrl = getStrapiMedia(video?.url);
+  const posterUrl = getStrapiMedia(poster?.url || null);
+  const videoUrl = getStrapiMedia(video?.url || null);
 
   if (!heading && !posterUrl) {
     return null;

@@ -21,7 +21,7 @@ interface ArticleCardProps {
 }
 
 function ArticleCard({ article, variant = "default" }: ArticleCardProps) {
-  const imageUrl = getStrapiMedia(article.cover?.url);
+  const imageUrl = getStrapiMedia(article.cover?.url || null);
   const category = article.category;
   const articleUrl = `/blog/${article.slug}`;
 

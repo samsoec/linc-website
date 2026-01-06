@@ -68,7 +68,7 @@ export default function Hero({ data }: HeroProps) {
                   <Button
                     key={index}
                     as="link"
-                    href={button.url}
+                    href={button.url || "#"}
                     target={button.newTab ? "_blank" : "_self"}
                     type={button.type}
                     color="secondary"

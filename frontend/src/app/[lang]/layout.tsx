@@ -56,8 +56,8 @@ export async function generateMetadata({
   const { url } = favicon;
 
   return {
-    title: metadata.metaTitle,
-    description: metadata.metaDescription,
+    title: metadata?.metaTitle,
+    description: metadata?.metaDescription,
     icons: {
       icon: [new URL(url, getStrapiURL())],
     },
@@ -96,10 +96,10 @@ export default async function RootLayout({
 
   const { navbar, footer } = global.data;
 
-  const navbarLogoUrl = getStrapiMedia(navbar.navbarLogo.logoImg.url);
+  const navbarLogoUrl = getStrapiMedia(navbar?.navbarLogo?.logoImg.url || null);
 
-  const footerLogoUrl = getStrapiMedia(footer.footerLogo.logoImg.url);
-  const holdingLogoUrl = footer.holdingLogo?.logoImg?.url
+  const footerLogoUrl = getStrapiMedia(footer?.footerLogo?.logoImg.url || null);
+  const holdingLogoUrl = footer?.holdingLogo?.logoImg?.url
     ? getStrapiMedia(footer.holdingLogo.logoImg.url)
     : null;
 
@@ -107,27 +107,27 @@ export default async function RootLayout({
     <html lang={lang}>
       <body>
         <Navbar
-          links={navbar.links}
+          links={navbar?.links ?? []}
           logoUrl={navbarLogoUrl}
-          logoText={navbar.navbarLogo.logoText ?? null}
-          button={navbar.button}
-          enableSearch={navbar.enableSearch}
-          enableI18n={navbar.enableI18n}
+          logoText={navbar?.navbarLogo?.logoText ?? null}
+          button={navbar?.button}
+          enableSearch={navbar?.enableSearch ?? false}
+          enableI18n={navbar?.enableI18n ?? false}
         />
 
         <main className="dark:bg-black dark:text-gray-100 min-h-screen">{children}</main>
 
         <Footer
           logoUrl={footerLogoUrl}
-          logoText={footer.footerLogo.logoText ?? null}
+          logoText={footer?.footerLogo?.logoText ?? null}
           holdingLogoUrl={holdingLogoUrl}
-          menuLinks={footer.menuLinks ?? []}
-          aboutLinks={footer.aboutLinks ?? []}
-          services={footer.services ?? []}
-          categoryLinks={footer.categories ?? []}
-          socialLinks={footer.socialLinks ?? []}
-          about={footer.about}
-          copyright={footer.copyright}
+          menuLinks={footer?.menuLinks ?? []}
+          aboutLinks={footer?.aboutLinks ?? []}
+          services={footer?.services ?? []}
+          categoryLinks={footer?.categories ?? []}
+          socialLinks={footer?.socialLinks ?? []}
+          about={footer?.about}
+          copyright={footer?.copyright}
         />
       </body>
     </html>

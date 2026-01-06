@@ -2,13 +2,10 @@ import { fetchAPI } from "@/app/[lang]/utils/fetch-api";
 
 export interface RouteParams {
   slug: string;
+  category?: string;
 }
 
-export default async function LayoutRoute({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function LayoutRoute({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
@@ -24,9 +21,5 @@ export async function generateStaticParams() {
     options
   );
 
-  return articleResponse.data.map(
-    (article: {
-      slug: string;
-    }) => ({ slug: article.slug })
-  );
+  return articleResponse.data.map((article: { slug: string }) => ({ slug: article.slug }));
 }

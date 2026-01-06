@@ -2,7 +2,6 @@ import Image from "next/image";
 import type { BannerSection } from "@/types/generated";
 import Button from "./Button";
 import { ChevronDownIcon, PlayIcon } from "@heroicons/react/24/outline";
-import { getStrapiMedia } from "../utils/api-helpers";
 
 interface BannerProps {
   data: BannerSection;
@@ -10,9 +9,7 @@ interface BannerProps {
 
 export default function Banner({ data }: BannerProps) {
   if (!data) return null;
-  const { heading, buttons, videoButton, background } = data;
-
-  const backgroundUrl = getStrapiMedia(background?.url);
+  const { heading, buttons, videoButton } = data;
 
   return (
     <section className="relative w-full min-h-[320px] md:min-h-[480px] flex items-center justify-center overflow-hidden">
@@ -20,17 +17,15 @@ export default function Banner({ data }: BannerProps) {
       <div className="absolute inset-0 bg-accent-dark/90" />
 
       {/* Background image */}
-      {backgroundUrl && (
-        <div className="absolute inset-0">
-          <Image
-            src={backgroundUrl}
-            alt={background?.alternativeText || "Banner background"}
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
-      )}
+      <div className="absolute inset-0">
+        <Image
+          src={`${process.env.NEXT_PUBLIC_HOSTNAME}/background-banner.png`}
+          alt={"Banner background"}
+          fill
+          className="object-cover"
+          priority
+        />
+      </div>
 
       {/* Content */}
       <div className="relative z-20 w-full max-w-7xl mx-auto px-4 flex flex-col py-16 md:py-32">
@@ -42,7 +37,7 @@ export default function Banner({ data }: BannerProps) {
             <Button
               key={index}
               as="link"
-              href={button.url}
+              href={button.url || "#"}
               target={button.newTab ? "_blank" : "_self"}
               type={button.type}
               color="secondary"
@@ -57,12 +52,12 @@ export default function Banner({ data }: BannerProps) {
           {videoButton && (
             <Button
               className="inline-flex items-center gap-2 w-full sm:w-auto"
-              type={data.videoButton.type}
+              type={videoButton.type}
               color="secondary"
               size="lg"
             >
               <PlayIcon className="h-5 w-5" />
-              {data.videoButton.text}
+              {videoButton.text}
               <ChevronDownIcon className="h-4 w-4" />
             </Button>
           )}

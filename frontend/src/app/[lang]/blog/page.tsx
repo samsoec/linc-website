@@ -1,16 +1,16 @@
 /**
  * Blog Page
- * 
+ *
  * Fully CMS-configurable page that fetches configuration from Strapi using getPageBySlug('blog').
  * All sections including BlogContent are configured through the CMS.
- * 
+ *
  * To configure in Strapi:
  * 1. Create a Page with slug "blog"
  * 2. Add sections (HeroSimple, BlogContent, Banner, etc.)
  * 3. For BlogContent section:
  *    - Set pageSize for pagination (default: 10)
  *    - Select highlightedArticles to show in sidebar
- * 
+ *
  * The BlogContent section handles:
  * - Article listing with client-side pagination
  * - Category filtering via URL params (?category=slug)
@@ -78,11 +78,8 @@ export default async function BlogPage({ params }: PageProps) {
       <div className="container mx-auto px-4 py-12 text-center">
         <h1 className="text-2xl font-bold text-red-600">Error loading blog page</h1>
         <p className="text-gray-600 mt-4">Please check your configuration.</p>
-        {error instanceof Error && (
-          <p className="text-sm text-gray-500 mt-2">{error.message}</p>
-        )}
+        {error instanceof Error && <p className="text-sm text-gray-500 mt-2">{error.message}</p>}
       </div>
     );
   }
 }
-

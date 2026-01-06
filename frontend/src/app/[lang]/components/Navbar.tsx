@@ -237,7 +237,7 @@ export default function Navbar({
             {button && (
               <Button
                 as="link"
-                href={button.url}
+                href={button.url || "#"}
                 target={button.newTab ? "_blank" : undefined}
                 type={button.type}
                 color={isScrolled ? "primary" : "secondary"}
@@ -320,7 +320,7 @@ export default function Navbar({
                 <div className="py-6">
                   <Button
                     as="link"
-                    href={button.url}
+                    href={button.url || "#"}
                     target={button.newTab ? "_blank" : undefined}
                     onClick={closeMenu}
                     type={button.type}

@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_elements_corporate_jargons",
+  "info": {
+    "displayName": "Corporate Jargon"
+  },
+  "options": {},
+  "attributes": {
+    "jargon": {
+      "type": "string",
+      "required": true
+    },
+    "index": {
+      "type": "integer",
+      "required": true
+    },
+    "heading": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}

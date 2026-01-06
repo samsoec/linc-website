@@ -17,6 +17,7 @@ export default function AboutCompany({ data }: AboutCompanyProps) {
     heading,
     subheading,
     description,
+    highlights,
     moreButton,
     awards,
     media,
@@ -33,7 +34,7 @@ export default function AboutCompany({ data }: AboutCompanyProps) {
     return null;
   }
 
-  const imageUrl = getStrapiMedia(media?.url);
+  const imageUrl = getStrapiMedia(media?.url || null);
 
   const openModal = () => {
     if (videoEmbedUrl) {
@@ -83,7 +84,7 @@ export default function AboutCompany({ data }: AboutCompanyProps) {
             )}
           </div>
 
-          {/* Right: Description + Button */}
+          {/* Right: Description + Highlights + Button */}
           <div className="flex flex-col justify-center">
             {paragraphs.length > 0 && (
               <div className="space-y-4">
@@ -94,6 +95,21 @@ export default function AboutCompany({ data }: AboutCompanyProps) {
                 ))}
               </div>
             )}
+
+            {/* Highlights */}
+            {highlights && highlights.length > 0 && (
+              <div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-6">
+                {highlights.map((highlight, index) => (
+                  <div key={index} className="flex flex-col">
+                    <div className="text-xl md:text-3xl font-bold text-accent">
+                      {highlight.value}
+                    </div>
+                    <div className="mt-2 text-sm text-gray-600">{highlight.caption}</div>
+                  </div>
+                ))}
+              </div>
+            )}
+
             {moreButton && (
               <div className="mt-8">
                 <Link

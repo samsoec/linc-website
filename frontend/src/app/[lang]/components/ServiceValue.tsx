@@ -5,7 +5,6 @@ import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import type { ServiceValueSection } from "@/types/generated";
 import { PlusIcon, MinusIcon } from "@heroicons/react/24/outline";
-import { getStrapiMedia } from "../utils/api-helpers";
 
 interface ServiceValueProps {
   data: ServiceValueSection;
@@ -14,9 +13,7 @@ interface ServiceValueProps {
 export default function ServiceValue({ data }: ServiceValueProps) {
   const [openItems, setOpenItems] = useState<Set<number>>(new Set([0]));
 
-  const { heading, subheading, description, items, background } = data;
-
-  const backgroundUrl = getStrapiMedia(background?.url);
+  const { heading, subheading, description, items } = data;
 
   if (!items || items.length === 0) {
     return null;
@@ -88,16 +85,14 @@ export default function ServiceValue({ data }: ServiceValueProps) {
       <div className="absolute inset-0 bg-accent" />
 
       {/* Background Image */}
-      {backgroundUrl && (
-        <div className="absolute inset-0 opacity-20">
-          <Image
-            src={backgroundUrl}
-            alt={background?.alternativeText || "Service Value background"}
-            fill
-            className="object-cover"
-          />
-        </div>
-      )}
+      <div className="absolute inset-0">
+        <Image
+          src={`${process.env.NEXT_PUBLIC_HOSTNAME}/background-banner.png`}
+          alt={"Service Value background"}
+          fill
+          className="object-cover"
+        />
+      </div>
 
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

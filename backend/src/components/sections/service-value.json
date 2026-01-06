@@ -19,14 +19,6 @@
       "type": "component",
       "component": "elements.service-value",
       "repeatable": true
-    },
-    "background": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images"
-      ]
     }
   },
   "config": {}

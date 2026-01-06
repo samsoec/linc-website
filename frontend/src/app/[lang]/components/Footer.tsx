@@ -124,7 +124,7 @@ export default function Footer({
               <h3 className="text-lg font-semibold mb-4 lg:mb-6">Updates</h3>
               <ul className="space-y-3">
                 {updatesLinks.map((link, index) => (
-                  <FooterLink key={index} url={link.url} text={link.text} />
+                  <FooterLink key={index} url={link.url} text={link.text || ""} />
                 ))}
               </ul>
             </div>

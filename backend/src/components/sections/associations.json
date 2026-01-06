@@ -13,13 +13,6 @@
       "type": "component",
       "component": "elements.association",
       "repeatable": true
-    },
-    "background": {
-      "type": "media",
-      "multiple": false,
-      "allowedTypes": [
-        "images"
-      ]
     }
   },
   "config": {}

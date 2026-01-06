@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_elements_corporate_benefits",
+  "info": {
+    "displayName": "Corporate Benefit"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string",
+      "required": false
+    }
+  },
+  "config": {}
+}

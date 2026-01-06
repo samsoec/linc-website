@@ -15,8 +15,8 @@ interface ServiceCardProps {
 }
 
 function ServiceCard({ service }: ServiceCardProps) {
-  const imageUrl = getStrapiMedia(service.picture?.url);
-  const iconUrl = getStrapiMedia(service.icon?.url);
+  const imageUrl = getStrapiMedia(service.picture?.url || null);
+  const iconUrl = getStrapiMedia(service.icon?.url || null);
 
   return (
     <Link

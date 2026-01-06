@@ -70,6 +70,9 @@ module.exports = (config, { strapi }) => {
                   "height",
                 ],
               },
+              searchBar: {
+                populate: true,
+              }
             },
           },
           "sections.large-image": {
@@ -102,24 +105,28 @@ module.exports = (config, { strapi }) => {
               videoButton: {
                 populate: true,
               },
-              background: {
-                fields: [
-                  "url",
-                  "alternativeText",
-                  "caption",
-                  "width",
-                  "height",
-                ],
-              },
             },
           },
           "sections.about-company": {
             populate: {
+              highlights: {
+                populate: true,
+              },
               moreButton: {
                 populate: true,
               },
               awards: {
-                populate: true,
+                populate: {
+                  logo: {
+                    fields: [
+                      "url",
+                      "alternativeText",
+                      "caption",
+                      "width",
+                      "height",
+                    ],
+                  },
+                },
               },
               media: {
                 fields: [
@@ -247,15 +254,6 @@ module.exports = (config, { strapi }) => {
           },
           "sections.service-value": {
             populate: {
-              background: {
-                fields: [
-                  "url",
-                  "alternativeText",
-                  "caption",
-                  "width",
-                  "height",
-                ],
-              },
               items: true,
             },
           },
@@ -297,15 +295,6 @@ module.exports = (config, { strapi }) => {
           },
           "sections.associations": {
             populate: {
-              background: {
-                fields: [
-                  "url",
-                  "alternativeText",
-                  "caption",
-                  "width",
-                  "height",
-                ],
-              },
               items: true,
             },
           },
@@ -338,6 +327,33 @@ module.exports = (config, { strapi }) => {
             populate: {
               highlight: true,
             },
+          },
+          "sections.career-benefit": {
+            populate: {
+              benefits: true,
+            },
+          },
+          "sections.jargon-slider": {
+            populate: {
+              items: true,
+            },
+          },
+          "sections.job-slider": {
+            populate: {
+              jobs: {
+                populate: {
+                  location: {
+                    fields: ["name"],
+                  },
+                  jobDivision: {
+                    fields: ["name", "slug"],
+                  },
+                },
+              },
+            },
+          },
+          "sections.job-explore": {
+            populate: false,
           },
         },
       },

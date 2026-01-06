@@ -5,7 +5,6 @@ import { Slide, SlideshowRef } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 import Image from "next/image";
 import type { AssociationsSection } from "@/types/generated";
-import { getStrapiMedia } from "../utils/api-helpers";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
 interface AssociationsProps {
@@ -55,8 +54,7 @@ export default function Associations({ data }: AssociationsProps) {
 
   if (!data || !data.items || data.items.length === 0) return null;
 
-  const { subheading, items, background } = data;
-  const backgroundUrl = getStrapiMedia(background?.url);
+  const { subheading, items } = data;
 
   const handleNext = () => {
     desktopSlideRef.current?.goNext();
@@ -80,16 +78,14 @@ export default function Associations({ data }: AssociationsProps) {
       <div className="absolute inset-0 bg-accent-dark/95" />
 
       {/* Background image */}
-      {backgroundUrl && (
-        <div className="absolute inset-0">
-          <Image
-            src={backgroundUrl}
-            alt={background?.alternativeText || "Association background"}
-            fill
-            className="object-cover"
-          />
-        </div>
-      )}
+      <div className="absolute inset-0">
+        <Image
+          src={`${process.env.NEXT_PUBLIC_HOSTNAME}/background-banner.png`}
+          alt={"Association background"}
+          fill
+          className="object-cover"
+        />
+      </div>
 
       {/* Content */}
       <div className="relative z-20 w-full">

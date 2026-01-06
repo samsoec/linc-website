@@ -52,17 +52,22 @@
         "sections.services-grid",
         "sections.service-value",
         "sections.large-image",
-        "sections.blog-content"
+        "sections.blog-content",
+        "sections.jargon-slider",
+        "sections.career-benefit",
+        "sections.job-slider",
+        "sections.job-explore"
       ]
     },
     "slug": {
-      "type": "string",
+      "type": "uid",
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
       },
-      "regex": "^$|^[a-zA-Z/-]+$"
+      "targetField": "shortName",
+      "required": true
     },
     "heading": {
       "type": "string",

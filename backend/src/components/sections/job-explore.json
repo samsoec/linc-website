@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_sections_job_explores",
+  "info": {
+    "displayName": "Job Explore"
+  },
+  "options": {},
+  "attributes": {
+    "itemPerPage": {
+      "type": "integer",
+      "default": 10
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_elements_search_bars",
+  "info": {
+    "displayName": "Search Bar"
+  },
+  "options": {},
+  "attributes": {
+    "navigateTo": {
+      "type": "string",
+      "required": true
+    },
+    "isLocationSearchEnabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "isDivisionSearchEnabled": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "config": {}
+}

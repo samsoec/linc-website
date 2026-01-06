@@ -32,6 +32,8 @@ export function proxy(request: NextRequest) {
     [
       "/manifest.json",
       "/favicon.ico",
+      "/background-banner.png",
+      "/background-default.jpg",
       // Your other files in `public`
     ].includes(pathname)
   )

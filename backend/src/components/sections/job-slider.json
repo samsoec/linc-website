@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_sections_job_sliders",
+  "info": {
+    "displayName": "Job Slider"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true
+    },
+    "subheading": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "jobs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::job.job"
+    }
+  },
+  "config": {}
+}

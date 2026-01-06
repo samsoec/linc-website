@@ -49,7 +49,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const meta = await getMetaData(slug);
-  
+
   const metadata = meta[0].seo || FALLBACK_SEO;
 
   return {

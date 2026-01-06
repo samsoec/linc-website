@@ -39,7 +39,7 @@ export default function HighlightedPosts({ data }: HighlightedPostsProps = {}) {
         // Get the highlighted article data
         const highlightedData = response.data?.articles || [];
         setArticles(highlightedData);
-        
+
         // Use title from API if not provided via props
         if (!data?.title && response.data?.title) {
           setTitle(response.data.title);

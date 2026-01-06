@@ -12,7 +12,6 @@ export default async function RootRoute({ params }: { params: Promise<{ lang: st
         "Missing or invalid credentials. Have you created an access token using the Strapi admin panel? http://localhost:1337/admin/"
       );
 
-
     if (page.data.length == 0 && lang !== "en") return <LangRedirect />;
     if (page.data.length === 0) return null;
     const contentSections = page.data[0].contentSections;

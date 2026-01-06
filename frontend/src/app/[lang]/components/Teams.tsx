@@ -18,7 +18,7 @@ interface TeamMemberCardProps {
 }
 
 function TeamMemberCard({ member }: TeamMemberCardProps) {
-  const photoUrl = getStrapiMedia(member.photo?.url);
+  const photoUrl = getStrapiMedia(member.photo?.url || null);
 
   return (
     <div className="group block h-full">

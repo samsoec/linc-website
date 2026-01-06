@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_sections_jargon_sliders",
+  "info": {
+    "displayName": "Jargon Slider"
+  },
+  "options": {},
+  "attributes": {
+    "items": {
+      "type": "component",
+      "component": "elements.corporate-jargon",
+      "repeatable": true
+    },
+    "subheading": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

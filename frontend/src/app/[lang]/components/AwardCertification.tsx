@@ -17,7 +17,7 @@ interface AwardCardProps {
 }
 
 function AwardCard({ award }: AwardCardProps) {
-  const logoUrl = getStrapiMedia(award.logo?.url);
+  const logoUrl = getStrapiMedia(award.logo?.url || null);
 
   return (
     <div className="group block h-full">
@@ -27,7 +27,7 @@ function AwardCard({ award }: AwardCardProps) {
           {logoUrl ? (
             <Image
               src={logoUrl}
-              alt={award.logo?.alternativeText || award.title}
+              alt={award.logo?.alternativeText || award.title || ""}
               fill
               className="object-contain"
               sizes="128px"

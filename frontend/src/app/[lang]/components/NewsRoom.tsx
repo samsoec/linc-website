@@ -18,7 +18,7 @@ interface ArticleCardProps {
 }
 
 function ArticleCard({ article }: ArticleCardProps) {
-  const imageUrl = getStrapiMedia(article.cover?.url);
+  const imageUrl = getStrapiMedia(article.cover?.url || null);
   const category = article.category;
 
   return (

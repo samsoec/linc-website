@@ -97,7 +97,13 @@ export default function HeroSimple({ data }: HeroSimpleProps) {
           <div className="h-1 w-16 rounded-full bg-accent" />
 
           {/* Search Component */}
-          {data.hasSearch && <SearchBar />}
+          {data.searchBar && (
+            <SearchBar
+              navigateTo={data.searchBar.navigateTo}
+              isLocationSearchEnabled={data.searchBar.isLocationSearchEnabled}
+              isDivisionSearchEnabled={data.searchBar.isDivisionSearchEnabled}
+            />
+          )}
         </div>
       </div>
     </section>

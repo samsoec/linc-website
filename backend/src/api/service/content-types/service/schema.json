@@ -34,9 +34,9 @@
       }
     },
     "slug": {
-      "type": "string",
+      "type": "uid",
       "required": true,
-      "unique": true
+      "targetField": "name"
     },
     "description": {
       "type": "text",
