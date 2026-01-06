@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'respected-attraction-ae8b5b8914.media.strapiapp.com',
-        pathname: '/uploads/**',
+        pathname: '/**',
       }
     ],
     dangerouslyAllowSVG: true,
