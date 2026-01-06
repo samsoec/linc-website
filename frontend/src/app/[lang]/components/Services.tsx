@@ -18,8 +18,8 @@ interface ServiceCardProps {
 }
 
 function ServiceCard({ service, isActive, onActivate }: ServiceCardProps) {
-  const imageUrl = getStrapiMedia(service.picture?.url);
-  const iconUrl = getStrapiMedia(service.icon?.url);
+  const imageUrl = getStrapiMedia(service.picture?.url || null);
+  const iconUrl = getStrapiMedia(service.icon?.url || null);
   const features = service.features || [];
 
   return (
@@ -200,8 +200,8 @@ interface MobileServiceCardProps {
 }
 
 function MobileServiceCard({ service, isActive, onActivate }: MobileServiceCardProps) {
-  const imageUrl = getStrapiMedia(service.picture?.url);
-  const iconUrl = getStrapiMedia(service.icon?.url);
+  const imageUrl = getStrapiMedia(service.picture?.url || null);
+  const iconUrl = getStrapiMedia(service.icon?.url || null);
   const features = service.features || [];
 
   return (
