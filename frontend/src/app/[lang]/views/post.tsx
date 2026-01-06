@@ -5,6 +5,7 @@ import HeroSimple from "../components/HeroSimple";
 import SearchBar from "../components/SearchBar";
 import HighlightedPosts from "../components/HighlightedPosts";
 import Banner from "../components/Banner";
+import NavbarThemeSetter from "../components/NavbarThemeSetter";
 
 export default function Post({ data }: { data: Article }) {
   const { title, publishedAt, cover, category } = data;
@@ -27,22 +28,17 @@ export default function Post({ data }: { data: Article }) {
 
   return (
     <article>
+      {/* Set Navbar theme to white for this page */}
+      <NavbarThemeSetter theme={!cover ? 'white' : 'default'} />
+      
       {/* Hero Section */}
       <HeroSimple data={{
         id: 0,
         __component: "sections.hero-simple",
         title,
         description,
-        isPictureBlank: false,
+        isPictureBlank: !cover,
         picture: cover || blankPicture,
-        mobilePicture: cover || blankPicture,
-        searchBar: {
-          id: 0,
-          __component: "elements.search-bar",
-          navigateTo: "/blog",
-          isLocationSearchEnabled: false,
-          isDivisionSearchEnabled: false,
-        },
       }} />
 
       {/* Content Layout */}
