@@ -80,7 +80,7 @@ export default function Associations({ data }: AssociationsProps) {
       {/* Background image */}
       <div className="absolute inset-0">
         <Image
-          src={`${process.env.NEXT_PUBLIC_HOSTNAME}/background-banner.png`}
+          src="/background-banner.png"
           alt={"Association background"}
           fill
           className="object-cover"

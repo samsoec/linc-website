@@ -87,7 +87,7 @@ export default function ServiceValue({ data }: ServiceValueProps) {
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src={`${process.env.NEXT_PUBLIC_HOSTNAME}/background-banner.png`}
+          src="/background-banner.png"
           alt={"Service Value background"}
           fill
           className="object-cover"

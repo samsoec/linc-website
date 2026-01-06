@@ -14,10 +14,14 @@ export default function Post({ data }: { data: Article }) {
   const dateStr = publishedAt ? formatDate(publishedAt) : "";
   const description = [categoryName, dateStr].filter(Boolean).join(" · ");
 
+  const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL 
+    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` 
+    : `${process.env.NEXT_PUBLIC_HOSTNAME}`;
+
   const blankPicture: StrapiMedia = {
     id: 0,
     documentId: '',
-    url: `${process.env.NEXT_PUBLIC_HOSTNAME}/background-default.jpg`,
+    url: `${baseUrl}/background-default.jpg`,
     alternativeText: 'Blank Picture',
   };
 

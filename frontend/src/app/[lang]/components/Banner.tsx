@@ -19,7 +19,7 @@ export default function Banner({ data }: BannerProps) {
       {/* Background image */}
       <div className="absolute inset-0">
         <Image
-          src={`${process.env.NEXT_PUBLIC_HOSTNAME}/background-banner.png`}
+          src="/background-banner.png"
           alt={"Banner background"}
           fill
           className="object-cover"
