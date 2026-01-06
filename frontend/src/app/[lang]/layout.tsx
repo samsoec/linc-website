@@ -115,6 +115,7 @@ export default async function RootLayout({
             button={navbar?.button}
             enableSearch={navbar?.enableSearch ?? false}
             enableI18n={navbar?.enableI18n ?? false}
+            currentLocale={lang}
           />
 
           <main className="dark:bg-black dark:text-gray-100 min-h-screen">{children}</main>

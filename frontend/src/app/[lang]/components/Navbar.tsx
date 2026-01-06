@@ -11,8 +11,16 @@ import {
 } from "@heroicons/react/24/outline";
 import { useState, useEffect, useRef } from "react";
 import Button from "./Button";
+import SearchBar from "./SearchBar";
 import type { Link as LinkType, ButtonLink } from "@/types/generated";
 import { useNavbarTheme } from "../contexts/NavbarThemeContext";
+import { fetchAPI } from "../utils/fetch-api";
+
+interface Locale {
+  id: number;
+  name: string;
+  code: string;
+}
 
 interface NavbarProps {
   links: LinkType[];
@@ -21,6 +29,7 @@ interface NavbarProps {
   button?: ButtonLink;
   enableSearch: boolean;
   enableI18n: boolean;
+  currentLocale: string;
 }
 
 interface NavLinkProps extends LinkType {
@@ -31,6 +40,139 @@ interface MobileNavLinkProps extends LinkType {
   closeMenu: () => void;
 }
 
+interface LanguageSelectorProps {
+  currentLocale: string;
+  isScrolled: boolean;
+}
+
+interface MobileLanguageSelectorProps {
+  currentLocale: string;
+  closeMenu: () => void;
+}
+
+function LanguageSelector({ currentLocale, isScrolled }: LanguageSelectorProps) {
+  const path = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
+  const [locales, setLocales] = useState<Locale[]>([]);
+  const dropdownRef = useRef<HTMLLIElement>(null);
+  const { theme } = useNavbarTheme();
+  const isWhiteMode = theme === "white" || (theme === "default" && isScrolled);
+
+  useEffect(() => {
+    async function fetchLocales() {
+      try {
+        const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
+        const options = { headers: { Authorization: `Bearer ${token}` } };
+        const response = await fetchAPI("/i18n/locales", {}, options);
+        console.log("Fetched locales:", response); // Debug log
+        setLocales(response || []);
+      } catch (error) {
+        console.error("Error fetching locales:", error);
+      }
+    }
+    fetchLocales();
+  }, []);
+
+  const currentLocaleData = locales.find((locale) => locale.code === currentLocale);
+  const otherLocales = locales.filter((locale) => locale.code !== currentLocale);
+
+  if (locales.length === 0 || otherLocales.length === 0) return null;
+
+  // Get the path without the locale prefix
+  const pathWithoutLocale = path.replace(`/${currentLocale}`, "") || "/";
+
+  return (
+    <li
+      ref={dropdownRef}
+      className="relative flex items-center"
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+    >
+      <button
+        className={`flex items-center gap-1 p-2 text-sm font-medium transition-colors duration-300 ${
+          isWhiteMode ? "text-gray-900 hover:text-gray-600" : "text-white hover:text-gray-200"
+        }`}
+      >
+        {currentLocaleData?.code.toUpperCase() || currentLocale.toUpperCase()}
+        <ChevronDownIcon
+          className={`h-4 w-4 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+        />
+      </button>
+      {isOpen && (
+        <div className="absolute top-full left-0 pt-2 w-48 z-50">
+          <div className="rounded-lg bg-white shadow-lg ring-1 ring-black/5 py-2">
+            {otherLocales.map((locale) => (
+              <Link
+                key={locale.id}
+                href={`/${locale.code}${pathWithoutLocale}`}
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              >
+                {locale.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+    </li>
+  );
+}
+
+function MobileLanguageSelector({ currentLocale, closeMenu }: MobileLanguageSelectorProps) {
+  const path = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
+  const [locales, setLocales] = useState<Locale[]>([]);
+
+  useEffect(() => {
+    async function fetchLocales() {
+      try {
+        const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
+        const options = { headers: { Authorization: `Bearer ${token}` } };
+        const response = await fetchAPI("/i18n/locales", {}, options);
+        setLocales(response || []);
+      } catch (error) {
+        console.error("Error fetching locales:", error);
+      }
+    }
+    fetchLocales();
+  }, []);
+
+  const currentLocaleData = locales.find((locale) => locale.code === currentLocale);
+  const otherLocales = locales.filter((locale) => locale.code !== currentLocale);
+
+  if (locales.length === 0 || otherLocales.length === 0) return null;
+
+  // Get the path without the locale prefix
+  const pathWithoutLocale = path.replace(`/${currentLocale}`, "") || "/";
+
+  return (
+    <div className="space-y-1">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-100"
+      >
+        <span>{currentLocaleData?.name || currentLocale.toUpperCase()}</span>
+        <ChevronDownIcon
+          className={`h-5 w-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+        />
+      </button>
+      {isOpen && (
+        <div className="ml-4 space-y-1">
+          {otherLocales.map((locale) => (
+            <Link
+              key={locale.id}
+              href={`/${locale.code}${pathWithoutLocale}`}
+              onClick={closeMenu}
+              className="block rounded-lg px-3 py-2 text-sm text-gray-600 hover:bg-gray-100"
+            >
+              {locale.name}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function NavLink({ url, text, children, isScrolled }: NavLinkProps) {
   const path = usePathname();
   const [isOpen, setIsOpen] = useState(false);
@@ -39,21 +181,16 @@ function NavLink({ url, text, children, isScrolled }: NavLinkProps) {
   const { theme } = useNavbarTheme();
   const isWhiteMode = theme === "white" || (theme === "default" && isScrolled);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
   if (hasChildren) {
     return (
-      <li ref={dropdownRef} className="relative flex items-center">
-        <button
-          onClick={() => setIsOpen(!isOpen)}
+      <li
+        ref={dropdownRef}
+        className="relative flex items-center"
+        onMouseEnter={() => setIsOpen(true)}
+        onMouseLeave={() => setIsOpen(false)}
+      >
+        <Link
+          href={url}
           className={`flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors duration-300 ${
             isWhiteMode ? "text-gray-900 hover:text-gray-600" : "text-white hover:text-gray-200"
           }`}
@@ -62,16 +199,15 @@ function NavLink({ url, text, children, isScrolled }: NavLinkProps) {
           <ChevronDownIcon
             className={`h-4 w-4 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
           />
-        </button>
+        </Link>
         {isOpen && (
-          <div className="absolute top-full left-0 mt-2 w-48 rounded-lg bg-white shadow-lg ring-1 ring-black/5 z-50">
-            <div className="py-2">
+          <div className="absolute top-full left-0 pt-2 w-48 z-50">
+            <div className="rounded-lg bg-white shadow-lg ring-1 ring-black/5 py-2">
               {children.map((child) => (
                 <Link
                   key={child.id}
                   href={child.url}
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  onClick={() => setIsOpen(false)}
                 >
                   {child.text}
                 </Link>
@@ -107,17 +243,28 @@ function MobileNavLink({ url, text, children, closeMenu }: MobileNavLinkProps) {
   if (hasChildren) {
     return (
       <div className="space-y-1">
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-100 ${
+        <div
+          className={`flex w-full items-center justify-between rounded-lg hover:bg-gray-100 ${
             path === url ? "bg-gray-100" : ""
           }`}
         >
-          {text}
-          <ChevronDownIcon
-            className={`h-5 w-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
-          />
-        </button>
+          <Link
+            href={url}
+            onClick={closeMenu}
+            className="flex-1 px-3 py-2 text-base font-semibold text-gray-900"
+          >
+            {text}
+          </Link>
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="px-3 py-2"
+            aria-label={`Toggle ${text} submenu`}
+          >
+            <ChevronDownIcon
+              className={`h-5 w-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+            />
+          </button>
+        </div>
         {isOpen && (
           <div className="ml-4 space-y-1">
             {children.map((child) => (
@@ -156,9 +303,12 @@ export default function Navbar({
   button,
   enableSearch,
   enableI18n,
+  currentLocale,
 }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const searchRef = useRef<HTMLDivElement>(null);
   const { theme } = useNavbarTheme();
 
   useEffect(() => {
@@ -171,6 +321,23 @@ export default function Navbar({
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Close search dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setSearchOpen(false);
+      }
+    };
+
+    if (searchOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [searchOpen]);
 
   const closeMenu = () => {
     setMobileMenuOpen(false);
@@ -186,7 +353,7 @@ export default function Navbar({
       }`}
     >
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between lg:h-20">
+        <div className="flex h-16 items-center justify-between lg:justify-normal lg:h-20 lg:gap-8">
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center gap-2">
@@ -196,14 +363,16 @@ export default function Navbar({
                   alt={logoText || "Logo"}
                   width={100}
                   height={40}
-                  className={`h-8 w-auto`}
+                  className={`h-16 w-auto transition-all duration-300 ${
+                    isWhiteMode ? "" : "brightness-0 invert"
+                  }`}
                 />
               )}
             </Link>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex lg:items-center lg:gap-1">
+          <div className="hidden lg:flex lg:items-center lg:gap-1 lg:flex-1">
             <ul className="flex items-center gap-1">
               {links.map((item) => (
                 <NavLink key={item.id} {...item} isScrolled={isScrolled} />
@@ -212,32 +381,37 @@ export default function Navbar({
           </div>
 
           {/* Right Side - Desktop */}
-          <div className="hidden lg:flex lg:items-center lg:gap-4">
+          <div className="hidden lg:flex lg:items-center lg:gap-2">
             {/* Language Selector */}
-            {enableI18n && (
-              <button
-                className={`flex items-center gap-1 text-sm font-medium transition-colors duration-300 ${
-                  isWhiteMode ? "text-gray-900" : "text-white"
-                }`}
-              >
-                <ChevronDownIcon className="h-4 w-4" />
-                EN
-              </button>
-            )}
+            <ul className="flex items-center">
+              {enableI18n && (
+                <LanguageSelector currentLocale={currentLocale} isScrolled={isScrolled} />
+              )}
+            </ul>
 
             {/* Search */}
             {enableSearch && (
-              <button
-                className={`flex items-center gap-1 p-2 transition-colors duration-300 ${
-                  isWhiteMode
-                    ? "text-gray-900 hover:text-gray-600"
-                    : "text-white hover:text-gray-200"
-                }`}
-                aria-label="Search"
-              >
-                <MagnifyingGlassIcon className="h-5 w-5" />
-                <span className="text-sm font-medium">Search</span>
-              </button>
+              <div ref={searchRef} className="relative">
+                <button
+                  onClick={() => setSearchOpen(!searchOpen)}
+                  className={`flex items-center gap-1 p-2 transition-colors duration-300 ${
+                    isWhiteMode
+                      ? "text-gray-900 hover:text-gray-600"
+                      : "text-white hover:text-gray-200"
+                  }`}
+                  aria-label="Search"
+                >
+                  <MagnifyingGlassIcon className="h-5 w-5" />
+                  <span className="text-sm font-medium">Search</span>
+                </button>
+                {searchOpen && (
+                  <div className="absolute top-full right-0 pt-2 w-80 z-50">
+                    <div className="rounded-lg bg-white shadow-lg ring-1 ring-black/5 p-4">
+                      <SearchBar size="small" navigateTo="/blog" />
+                    </div>
+                  </div>
+                )}
+              </div>
             )}
 
             {/* CTA Button */}
@@ -309,16 +483,10 @@ export default function Navbar({
               {/* Language & Search */}
               <div className="py-6 space-y-4">
                 {enableI18n && (
-                  <button className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-100">
-                    <ChevronDownIcon className="h-5 w-5" />
-                    EN - English
-                  </button>
+                  <MobileLanguageSelector currentLocale={currentLocale} closeMenu={closeMenu} />
                 )}
                 {enableSearch && (
-                  <button className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-100">
-                    <MagnifyingGlassIcon className="h-5 w-5" />
-                    Search
-                  </button>
+                  <SearchBar size="small" navigateTo="/blog" />
                 )}
               </div>
 
