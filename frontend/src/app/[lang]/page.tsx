@@ -2,6 +2,7 @@ import LangRedirect from "./components/LangRedirect";
 import componentResolver from "./utils/component-resolver";
 import { getPageBySlug } from "@/app/[lang]/utils/get-page-by-slug";
 import type { PageSection } from "@/types/generated";
+import NavbarThemeSetter from "./components/NavbarThemeSetter";
 
 export default async function RootRoute({ params }: { params: Promise<{ lang: string }> }) {
   try {
@@ -14,10 +15,18 @@ export default async function RootRoute({ params }: { params: Promise<{ lang: st
 
     if (page.data.length == 0 && lang !== "en") return <LangRedirect />;
     if (page.data.length === 0) return null;
-    const contentSections = page.data[0].contentSections;
-    // console.log("Page contentSections:", contentSections);
-    return contentSections.map((section: PageSection, index: number) =>
-      componentResolver(section, index)
+    
+    const pageData = page.data[0];
+    const contentSections = pageData.contentSections;
+    const navbarTheme = pageData.navbarTheme || "default";
+    
+    return (
+      <>
+        <NavbarThemeSetter theme={navbarTheme} />
+        {contentSections.map((section: PageSection, index: number) =>
+          componentResolver(section, index)
+        )}
+      </>
     );
   } catch (error: unknown) {
     console.error("Page error:", error);

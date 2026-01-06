@@ -12,6 +12,7 @@ import {
 import { useState, useEffect, useRef } from "react";
 import Button from "./Button";
 import type { Link as LinkType, ButtonLink } from "@/types/generated";
+import { useNavbarTheme } from "../contexts/NavbarThemeContext";
 
 interface NavbarProps {
   links: LinkType[];
@@ -35,6 +36,8 @@ function NavLink({ url, text, children, isScrolled }: NavLinkProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLLIElement>(null);
   const hasChildren = children && children.length > 0;
+  const { theme } = useNavbarTheme();
+  const isWhiteMode = theme === "white" || (theme === "default" && isScrolled);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -52,7 +55,7 @@ function NavLink({ url, text, children, isScrolled }: NavLinkProps) {
         <button
           onClick={() => setIsOpen(!isOpen)}
           className={`flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors duration-300 ${
-            isScrolled ? "text-gray-900 hover:text-gray-600" : "text-white hover:text-gray-200"
+            isWhiteMode ? "text-gray-900 hover:text-gray-600" : "text-white hover:text-gray-200"
           }`}
         >
           {text}
@@ -85,7 +88,7 @@ function NavLink({ url, text, children, isScrolled }: NavLinkProps) {
       <Link
         href={url}
         className={`px-3 py-2 text-sm font-medium transition-colors duration-300 ${
-          isScrolled
+          isWhiteMode
             ? `text-gray-900 hover:text-gray-600 ${path === url ? "text-gray-900 font-semibold" : ""}`
             : `text-white hover:text-gray-200 ${path === url ? "text-white font-semibold" : ""}`
         }`}
@@ -156,6 +159,7 @@ export default function Navbar({
 }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { theme } = useNavbarTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -172,10 +176,13 @@ export default function Navbar({
     setMobileMenuOpen(false);
   };
 
+  // Determine colors based on theme and scroll state
+  const isWhiteMode = theme === "white" || (theme === "default" && isScrolled);
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white shadow-md" : "bg-transparent"
+        isWhiteMode ? "bg-white shadow-md" : "bg-transparent"
       }`}
     >
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -210,7 +217,7 @@ export default function Navbar({
             {enableI18n && (
               <button
                 className={`flex items-center gap-1 text-sm font-medium transition-colors duration-300 ${
-                  isScrolled ? "text-gray-900" : "text-white"
+                  isWhiteMode ? "text-gray-900" : "text-white"
                 }`}
               >
                 <ChevronDownIcon className="h-4 w-4" />
@@ -222,7 +229,7 @@ export default function Navbar({
             {enableSearch && (
               <button
                 className={`flex items-center gap-1 p-2 transition-colors duration-300 ${
-                  isScrolled
+                  isWhiteMode
                     ? "text-gray-900 hover:text-gray-600"
                     : "text-white hover:text-gray-200"
                 }`}
@@ -240,7 +247,7 @@ export default function Navbar({
                 href={button.url || "#"}
                 target={button.newTab ? "_blank" : undefined}
                 type={button.type}
-                color={isScrolled ? "primary" : "secondary"}
+                color={isWhiteMode ? "primary" : "secondary"}
                 size="md"
                 className="shadow-sm"
               >
@@ -253,7 +260,7 @@ export default function Navbar({
           <button
             type="button"
             className={`lg:hidden p-2 rounded-md transition-all duration-300 text-gray-900 ${
-              isScrolled ? "text-gray-900" : "text-gray-900 bg-white rounded-md"
+              isWhiteMode ? "text-gray-900" : "text-gray-900 bg-white rounded-md"
             }`}
             onClick={() => setMobileMenuOpen(true)}
           >

@@ -330,6 +330,15 @@ module.exports = (config, { strapi }) => {
           },
           "sections.career-benefit": {
             populate: {
+              background: {
+                fields: [
+                  "url",
+                  "alternativeText",
+                  "caption",
+                  "width",
+                  "height",
+                ],
+              },
               benefits: true,
             },
           },

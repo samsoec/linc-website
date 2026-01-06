@@ -85,6 +85,20 @@
         }
       }
     },
+    "navbarTheme": {
+      "type": "enumeration",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "default": "default",
+      "enum": [
+        "default",
+        "white",
+        "transparent"
+      ]
+    },
     "seo": {
       "type": "component",
       "pluginOptions": {

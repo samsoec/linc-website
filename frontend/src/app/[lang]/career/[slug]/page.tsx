@@ -2,6 +2,7 @@ import { fetchAPI } from "@/app/[lang]/utils/fetch-api";
 import JobDetail from "@/app/[lang]/views/job";
 import type { Metadata } from "next";
 import { FALLBACK_SEO } from "../../utils/constants";
+import NavbarThemeSetter from "../../components/NavbarThemeSetter";
 
 async function getJobBySlug(slug: string) {
   const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
@@ -52,7 +53,7 @@ export default async function JobRoute({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const data = await getJobBySlug(slug);
   if (data.data.length === 0) return <h2>Job not found</h2>;
-  return <JobDetail data={data.data[0]} />;
+  return <><NavbarThemeSetter theme="white" /><JobDetail data={data.data[0]} /></>;
 }
 
 export async function generateStaticParams() {

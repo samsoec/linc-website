@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import { FALLBACK_SEO } from "@/app/[lang]/utils/constants";
 import type { Global, StrapiResponse } from "@/types/generated";
+import { NavbarThemeProvider } from "./contexts/NavbarThemeContext";
 
 async function getGlobal(lang: string): Promise<StrapiResponse<Global> | null> {
   const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
@@ -106,29 +107,31 @@ export default async function RootLayout({
   return (
     <html lang={lang}>
       <body>
-        <Navbar
-          links={navbar?.links ?? []}
-          logoUrl={navbarLogoUrl}
-          logoText={navbar?.navbarLogo?.logoText ?? null}
-          button={navbar?.button}
-          enableSearch={navbar?.enableSearch ?? false}
-          enableI18n={navbar?.enableI18n ?? false}
-        />
+        <NavbarThemeProvider>
+          <Navbar
+            links={navbar?.links ?? []}
+            logoUrl={navbarLogoUrl}
+            logoText={navbar?.navbarLogo?.logoText ?? null}
+            button={navbar?.button}
+            enableSearch={navbar?.enableSearch ?? false}
+            enableI18n={navbar?.enableI18n ?? false}
+          />
 
-        <main className="dark:bg-black dark:text-gray-100 min-h-screen">{children}</main>
+          <main className="dark:bg-black dark:text-gray-100 min-h-screen">{children}</main>
 
-        <Footer
-          logoUrl={footerLogoUrl}
-          logoText={footer?.footerLogo?.logoText ?? null}
-          holdingLogoUrl={holdingLogoUrl}
-          menuLinks={footer?.menuLinks ?? []}
-          aboutLinks={footer?.aboutLinks ?? []}
-          services={footer?.services ?? []}
-          categoryLinks={footer?.categories ?? []}
-          socialLinks={footer?.socialLinks ?? []}
-          about={footer?.about}
-          copyright={footer?.copyright}
-        />
+          <Footer
+            logoUrl={footerLogoUrl}
+            logoText={footer?.footerLogo?.logoText ?? null}
+            holdingLogoUrl={holdingLogoUrl}
+            menuLinks={footer?.menuLinks ?? []}
+            aboutLinks={footer?.aboutLinks ?? []}
+            services={footer?.services ?? []}
+            categoryLinks={footer?.categories ?? []}
+            socialLinks={footer?.socialLinks ?? []}
+            about={footer?.about}
+            copyright={footer?.copyright}
+          />
+        </NavbarThemeProvider>
       </body>
     </html>
   );
