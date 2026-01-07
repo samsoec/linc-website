@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import type { VisionMissionSection } from "@/types/generated";
 import { getStrapiMedia } from "../utils/api-helpers";

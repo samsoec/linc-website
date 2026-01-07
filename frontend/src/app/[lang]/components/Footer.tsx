@@ -1,4 +1,3 @@
-"use client";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -71,18 +70,20 @@ export default function Footer({
         {/* Main Footer Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12 mb-12 lg:mb-16">
           {/* Dynamic Footer Sections */}
-          {footerLinks.map((section, index) => (
-            section.links && section.links.length > 0 && (
-              <div key={index}>
-                <h3 className="text-lg font-semibold mb-4 lg:mb-6">{section.title}</h3>
-                <ul className="space-y-3">
-                  {section.links.map((link, linkIndex) => (
-                    <FooterLink key={linkIndex} url={link.url} text={link.text} />
-                  ))}
-                </ul>
-              </div>
-            )
-          ))}
+          {footerLinks.map(
+            (section, index) =>
+              section.links &&
+              section.links.length > 0 && (
+                <div key={index}>
+                  <h3 className="text-lg font-semibold mb-4 lg:mb-6">{section.title}</h3>
+                  <ul className="space-y-3">
+                    {section.links.map((link, linkIndex) => (
+                      <FooterLink key={linkIndex} url={link.url} text={link.text} />
+                    ))}
+                  </ul>
+                </div>
+              )
+          )}
         </div>
 
         {/* Bottom Section */}

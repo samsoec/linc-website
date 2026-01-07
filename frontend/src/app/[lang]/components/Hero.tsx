@@ -1,4 +1,3 @@
-"use client";
 import Image from "next/image";
 import { getStrapiMedia } from "../utils/api-helpers";
 import { ChevronDownIcon, PlayIcon } from "@heroicons/react/24/outline";

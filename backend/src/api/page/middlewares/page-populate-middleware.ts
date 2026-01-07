@@ -366,7 +366,7 @@ module.exports = (config, { strapi }) => {
           },
         },
       },
-      seo: {
+      seo: { 
         fields: ["metaTitle", "metaDescription"],
         populate: { shareImage: true },
       },
@@ -374,7 +374,7 @@ module.exports = (config, { strapi }) => {
 
     ctx.query = {
       populate,
-      filters: { slug: ctx.query.filters.slug },
+      filters: ctx.query.filters && ctx.query.filters.slug ? { slug: ctx.query.filters.slug } : undefined,
       locale: ctx.query.locale,
     };
 

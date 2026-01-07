@@ -15,11 +15,11 @@ export default async function RootRoute({ params }: { params: Promise<{ lang: st
 
     if (page.data.length == 0 && lang !== "en") return <LangRedirect />;
     if (page.data.length === 0) return null;
-    
+
     const pageData = page.data[0];
     const contentSections = pageData.contentSections;
     const navbarTheme = pageData.navbarTheme || "default";
-    
+
     return (
       <>
         <NavbarThemeSetter theme={navbarTheme} />

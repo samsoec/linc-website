@@ -1,4 +1,5 @@
 import { fetchAPI } from "@/app/[lang]/utils/fetch-api";
+import { NavbarThemeProvider } from "../../contexts/NavbarThemeContext";
 
 export interface RouteParams {
   slug: string;
@@ -6,7 +7,7 @@ export interface RouteParams {
 }
 
 export default async function LayoutRoute({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  return <NavbarThemeProvider>{children}</NavbarThemeProvider>;
 }
 
 export async function generateStaticParams() {

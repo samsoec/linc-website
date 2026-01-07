@@ -51,9 +51,7 @@ export default function JobDetail({ data }: JobDetailProps) {
     formRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -128,9 +126,9 @@ export default function JobDetail({ data }: JobDetailProps) {
 
   const blankPicture: StrapiMedia = {
     id: 0,
-    documentId: '',
-    url: '',
-    alternativeText: 'Blank Picture',
+    documentId: "",
+    url: "",
+    alternativeText: "Blank Picture",
   };
 
   // Create hero data for HeroSimple
@@ -139,7 +137,7 @@ export default function JobDetail({ data }: JobDetailProps) {
     id: 0,
     __component: "sections.hero-simple",
     title: name,
-    description: `${location?.name} ${dueDate ? ` | Due Date : ${dueDate}` : ''}`,
+    description: `${location?.name} ${dueDate ? ` | Due Date : ${dueDate}` : ""}`,
     isPictureBlank: true,
     picture: blankPicture,
     mobilePicture: blankPicture,
@@ -203,7 +201,10 @@ export default function JobDetail({ data }: JobDetailProps) {
                 <form onSubmit={handleSubmit} className="space-y-5">
                   {/* Fullname */}
                   <div>
-                    <label htmlFor="fullname" className="mb-2 block text-sm font-medium text-gray-700">
+                    <label
+                      htmlFor="fullname"
+                      className="mb-2 block text-sm font-medium text-gray-700"
+                    >
                       Full Name <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -237,7 +238,10 @@ export default function JobDetail({ data }: JobDetailProps) {
 
                   {/* Phone Number */}
                   <div>
-                    <label htmlFor="phoneNumber" className="mb-2 block text-sm font-medium text-gray-700">
+                    <label
+                      htmlFor="phoneNumber"
+                      className="mb-2 block text-sm font-medium text-gray-700"
+                    >
                       Phone Number <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -269,7 +273,10 @@ export default function JobDetail({ data }: JobDetailProps) {
 
                   {/* Resume Upload */}
                   <div>
-                    <label htmlFor="resume" className="mb-2 block text-sm font-medium text-gray-700">
+                    <label
+                      htmlFor="resume"
+                      className="mb-2 block text-sm font-medium text-gray-700"
+                    >
                       Choose File
                     </label>
                     <div className="relative">
@@ -286,14 +293,10 @@ export default function JobDetail({ data }: JobDetailProps) {
                   </div>
 
                   {/* Error Message */}
-                  {errorMessage && (
-                    <p className="text-sm text-red-600">{errorMessage}</p>
-                  )}
+                  {errorMessage && <p className="text-sm text-red-600">{errorMessage}</p>}
 
                   {/* Success Message */}
-                  {successMessage && (
-                    <p className="text-sm text-green-600">{successMessage}</p>
-                  )}
+                  {successMessage && <p className="text-sm text-green-600">{successMessage}</p>}
 
                   {/* Submit Button */}
                   <button
@@ -311,26 +314,28 @@ export default function JobDetail({ data }: JobDetailProps) {
       </div>
 
       {/* Banner */}
-      <Banner data={{
-        id: 0,
-        __component: "sections.banner",
-        heading: "Let’s Connect with LINC and Manage Your Supply Chain",
-        buttons: [
-          {
-            id: 0,
-            __component: "links.button-link",
-            text: "Contact Us",
-            url: "/contact-us",
-            type: "primary",
-          }
-        ],
-        videoButton: {
+      <Banner
+        data={{
           id: 0,
-          __component: "links.button",
-          text: "Watch our Video",
-          type: "tertiary",
-        }
-      }} />
+          __component: "sections.banner",
+          heading: "Let’s Connect with LINC and Manage Your Supply Chain",
+          buttons: [
+            {
+              id: 0,
+              __component: "links.button-link",
+              text: "Contact Us",
+              url: "/contact-us",
+              type: "primary",
+            },
+          ],
+          videoButton: {
+            id: 0,
+            __component: "links.button",
+            text: "Watch our Video",
+            type: "tertiary",
+          },
+        }}
+      />
 
       {/* Mobile Floating Apply Button */}
       {!isFormVisible && (

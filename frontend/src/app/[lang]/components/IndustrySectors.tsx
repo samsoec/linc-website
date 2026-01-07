@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import { IndustrySectorsSection, IndustrySector } from "@/types/generated";
 import { getStrapiMedia } from "../utils/api-helpers";

@@ -15,31 +15,33 @@ export default function Post({ data }: { data: Article }) {
   const dateStr = publishedAt ? formatDate(publishedAt) : "";
   const description = [categoryName, dateStr].filter(Boolean).join(" · ");
 
-  const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL 
-    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` 
+  const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
+    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
     : `${process.env.NEXT_PUBLIC_HOSTNAME}`;
 
   const blankPicture: StrapiMedia = {
     id: 0,
-    documentId: '',
+    documentId: "",
     url: `${baseUrl}/background-default.jpg`,
-    alternativeText: 'Blank Picture',
+    alternativeText: "Blank Picture",
   };
 
   return (
     <article>
       {/* Set Navbar theme to white for this page */}
-      <NavbarThemeSetter theme={!cover ? 'white' : 'default'} />
-      
+      <NavbarThemeSetter theme={!cover ? "white" : "default"} />
+
       {/* Hero Section */}
-      <HeroSimple data={{
-        id: 0,
-        __component: "sections.hero-simple",
-        title,
-        description,
-        isPictureBlank: !cover,
-        picture: cover || blankPicture,
-      }} />
+      <HeroSimple
+        data={{
+          id: 0,
+          __component: "sections.hero-simple",
+          title,
+          description,
+          isPictureBlank: !cover,
+          picture: cover || blankPicture,
+        }}
+      />
 
       {/* Content Layout */}
       <div className="container mx-auto px-4 py-12">
@@ -67,26 +69,28 @@ export default function Post({ data }: { data: Article }) {
       </div>
 
       {/* Banner */}
-      <Banner data={{
-        id: 0,
-        __component: "sections.banner",
-        heading: "Let’s Connect with LINC and Manage Your Supply Chain",
-        buttons: [
-          {
-            id: 0,
-            __component: "links.button-link",
-            text: "Contact Us",
-            url: "/contact-us",
-            type: "primary",
-          }
-        ],
-        videoButton: {
+      <Banner
+        data={{
           id: 0,
-          __component: "links.button",
-          text: "Watch our Video",
-          type: "tertiary",
-        }
-      }} />
+          __component: "sections.banner",
+          heading: "Let’s Connect with LINC and Manage Your Supply Chain",
+          buttons: [
+            {
+              id: 0,
+              __component: "links.button-link",
+              text: "Contact Us",
+              url: "/contact-us",
+              type: "primary",
+            },
+          ],
+          videoButton: {
+            id: 0,
+            __component: "links.button",
+            text: "Watch our Video",
+            type: "tertiary",
+          },
+        }}
+      />
     </article>
   );
 }

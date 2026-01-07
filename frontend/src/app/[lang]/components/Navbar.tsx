@@ -64,7 +64,6 @@ function LanguageSelector({ currentLocale, isScrolled }: LanguageSelectorProps) 
         const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
         const options = { headers: { Authorization: `Bearer ${token}` } };
         const response = await fetchAPI("/i18n/locales", {}, options);
-        console.log("Fetched locales:", response); // Debug log
         setLocales(response || []);
       } catch (error) {
         console.error("Error fetching locales:", error);
@@ -485,9 +484,7 @@ export default function Navbar({
                 {enableI18n && (
                   <MobileLanguageSelector currentLocale={currentLocale} closeMenu={closeMenu} />
                 )}
-                {enableSearch && (
-                  <SearchBar size="small" navigateTo="/blog" />
-                )}
+                {enableSearch && <SearchBar size="small" navigateTo="/blog" />}
               </div>
 
               {/* CTA Button */}

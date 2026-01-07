@@ -53,7 +53,12 @@ export default async function JobRoute({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const data = await getJobBySlug(slug);
   if (data.data.length === 0) return <h2>Job not found</h2>;
-  return <><NavbarThemeSetter theme="white" /><JobDetail data={data.data[0]} /></>;
+  return (
+    <>
+      <NavbarThemeSetter theme="white" />
+      <JobDetail data={data.data[0]} />
+    </>
+  );
 }
 
 export async function generateStaticParams() {
