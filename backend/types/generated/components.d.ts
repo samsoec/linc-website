@@ -258,17 +258,12 @@ export interface LayoutFooter extends Struct.ComponentSchema {
   };
   attributes: {
     about: Schema.Attribute.Text;
-    aboutLinks: Schema.Attribute.Component<'links.child-link', true>;
-    categories: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::category.category'
-    >;
     copyright: Schema.Attribute.String;
+    footerLinks: Schema.Attribute.Component<'elements.footer-section', true>;
     footerLogo: Schema.Attribute.Component<'layout.logo', false>;
     holdingLogo: Schema.Attribute.Component<'layout.logo', false>;
-    menuLinks: Schema.Attribute.Component<'links.child-link', true>;
-    services: Schema.Attribute.Relation<'oneToMany', 'api::service.service'>;
     socialLinks: Schema.Attribute.Component<'links.social-link', true>;
+    socialLinkText: Schema.Attribute.String;
   };
 }
 

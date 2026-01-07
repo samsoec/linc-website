@@ -10,17 +10,16 @@ import {
   FaTwitter,
   FaGlobe,
 } from "react-icons/fa";
-import type { ChildLink, SocialLink as SocialLinkType, Category, Service } from "@/types/generated";
+import type { FooterSection, SocialLink as SocialLinkType } from "@/types/generated";
 
 interface FooterProps {
   logoUrl: string | null;
   logoText: string | null;
   holdingLogoUrl?: string | null;
-  menuLinks: ChildLink[];
-  aboutLinks?: ChildLink[];
-  services?: Service[];
-  categoryLinks?: Category[];
+  holdingLogoText?: string | null;
+  footerLinks?: FooterSection[];
   socialLinks: SocialLinkType[];
+  socialLinkText?: string;
   about?: string;
   copyright?: string;
 }
@@ -59,76 +58,31 @@ export default function Footer({
   logoUrl,
   logoText,
   holdingLogoUrl,
-  menuLinks,
-  aboutLinks = [],
-  services = [],
-  categoryLinks = [],
+  holdingLogoText,
+  footerLinks = [],
   socialLinks,
+  socialLinkText,
   about,
   copyright,
 }: FooterProps) {
-  // Build the "Updates" links from categories (News, Events, CSR, etc.)
-  const updatesLinks = categoryLinks.map((cat) => ({
-    text: cat.name,
-    url: `/blog/${cat.slug}`,
-  }));
-
   return (
     <footer className="bg-primary text-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         {/* Main Footer Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12 mb-12 lg:mb-16">
-          {/* Column 1: Linc Group / Main Menu */}
-          {menuLinks.length > 0 && (
-            <div>
-              <h3 className="text-lg font-semibold mb-4 lg:mb-6">Linc Group</h3>
-              <ul className="space-y-3">
-                {menuLinks.map((link, index) => (
-                  <FooterLink key={index} url={link.url} text={link.text} />
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {/* Column 2: Services */}
-          {services.length > 0 && (
-            <div>
-              <h3 className="text-lg font-semibold mb-4 lg:mb-6">Services</h3>
-              <ul className="space-y-3">
-                {services.map((service, index) => (
-                  <FooterLink
-                    key={index}
-                    url={`/services/${service.name.toLowerCase().replace(/\s+/g, "-")}`}
-                    text={service.name}
-                  />
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {/* Column 3: About */}
-          {aboutLinks.length > 0 && (
-            <div>
-              <h3 className="text-lg font-semibold mb-4 lg:mb-6">About</h3>
-              <ul className="space-y-3">
-                {aboutLinks.map((link, index) => (
-                  <FooterLink key={index} url={link.url} text={link.text} />
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {/* Column 4: Updates */}
-          {updatesLinks.length > 0 && (
-            <div>
-              <h3 className="text-lg font-semibold mb-4 lg:mb-6">Updates</h3>
-              <ul className="space-y-3">
-                {updatesLinks.map((link, index) => (
-                  <FooterLink key={index} url={link.url} text={link.text || ""} />
-                ))}
-              </ul>
-            </div>
-          )}
+          {/* Dynamic Footer Sections */}
+          {footerLinks.map((section, index) => (
+            section.links && section.links.length > 0 && (
+              <div key={index}>
+                <h3 className="text-lg font-semibold mb-4 lg:mb-6">{section.title}</h3>
+                <ul className="space-y-3">
+                  {section.links.map((link, linkIndex) => (
+                    <FooterLink key={linkIndex} url={link.url} text={link.text} />
+                  ))}
+                </ul>
+              </div>
+            )
+          ))}
         </div>
 
         {/* Bottom Section */}
@@ -143,7 +97,7 @@ export default function Footer({
                   alt={logoText || "Linc Group"}
                   width={140}
                   height={50}
-                  className="h-12 w-auto"
+                  className="h-16 w-auto brightness-0 invert"
                 />
               </div>
             )}
@@ -156,16 +110,14 @@ export default function Footer({
             {/* Part Of Section */}
             {holdingLogoUrl && (
               <div className="flex items-center gap-4">
-                <span className="text-white font-medium">Part Of</span>
-                <div className="p-0.5 bg-white rounded-sm">
-                  <Image
-                    src={holdingLogoUrl}
-                    alt="Holding Company"
-                    width={120}
-                    height={40}
-                    className="h-10 w-auto"
-                  />
-                </div>
+                <span className="text-white font-medium">{holdingLogoText}</span>
+                <Image
+                  src={holdingLogoUrl}
+                  alt="Holding Company"
+                  width={120}
+                  height={40}
+                  className="h-10 w-auto brightness-0 invert"
+                />
               </div>
             )}
           </div>
@@ -175,7 +127,7 @@ export default function Footer({
             {/* Follow Us */}
             {socialLinks.length > 0 && (
               <div className="mb-6">
-                <h4 className="text-lg font-semibold mb-4">Follow Us On</h4>
+                <h4 className="text-lg font-semibold mb-4">{socialLinkText || "Follow Us On"}</h4>
                 <div className="flex gap-3 lg:justify-end">
                   {socialLinks.map((link) => (
                     <a

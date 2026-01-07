@@ -19,30 +19,18 @@
       "component": "layout.logo",
       "repeatable": false
     },
-    "menuLinks": {
+    "footerLinks": {
       "type": "component",
-      "component": "links.child-link",
+      "component": "elements.footer-section",
       "repeatable": true
     },
-    "aboutLinks": {
-      "type": "component",
-      "component": "links.child-link",
-      "repeatable": true
+    "socialLinkText": {
+      "type": "string"
     },
     "socialLinks": {
       "type": "component",
       "component": "links.social-link",
       "repeatable": true
-    },
-    "categories": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::category.category"
-    },
-    "services": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::service.service"
     },
     "copyright": {
       "type": "string"

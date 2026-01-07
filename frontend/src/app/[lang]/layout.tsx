@@ -27,11 +27,8 @@ async function getGlobal(lang: string): Promise<StrapiResponse<Global> | null> {
       "navbar.navbarLogo.logoImg",
       "footer.footerLogo.logoImg",
       "footer.holdingLogo.logoImg",
-      "footer.menuLinks",
-      "footer.aboutLinks",
+      "footer.footerLinks.links",
       "footer.socialLinks",
-      "footer.categories",
-      "footer.services",
     ],
     locale: lang,
   };
@@ -124,11 +121,10 @@ export default async function RootLayout({
             logoUrl={footerLogoUrl}
             logoText={footer?.footerLogo?.logoText ?? null}
             holdingLogoUrl={holdingLogoUrl}
-            menuLinks={footer?.menuLinks ?? []}
-            aboutLinks={footer?.aboutLinks ?? []}
-            services={footer?.services ?? []}
-            categoryLinks={footer?.categories ?? []}
+            holdingLogoText={footer?.holdingLogo?.logoText ?? null}
+            footerLinks={footer?.footerLinks ?? []}
             socialLinks={footer?.socialLinks ?? []}
+            socialLinkText={footer?.socialLinkText}
             about={footer?.about}
             copyright={footer?.copyright}
           />
