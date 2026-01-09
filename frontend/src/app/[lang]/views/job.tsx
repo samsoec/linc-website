@@ -330,9 +330,14 @@ export default function JobDetail({ data }: JobDetailProps) {
           ],
           videoButton: {
             id: 0,
-            __component: "links.button",
-            text: "Watch our Video",
-            type: "tertiary",
+            __component: "links.button-video",
+            embedUrl: "https://www.youtube.com/embed/46p89rG6h6c?feature=oembed",
+            button: {
+              __component: "links.button",
+              id: 0,
+              text: "Watch our video",
+              type: "tertiary",
+            },
           },
         }}
       />

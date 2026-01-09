@@ -163,9 +163,7 @@ export default function NewsRoom({ data }: NewsRoomProps) {
           <div className="hidden md:flex md:items-start md:justify-between">
             <div className="max-w-2xl">
               {subheading && (
-                <p className="mb-3 text-sm uppercase tracking-[0.4em] text-accent">
-                  {subheading}
-                </p>
+                <p className="mb-3 text-sm uppercase tracking-[0.4em] text-accent">{subheading}</p>
               )}
               <h2 className="mb-4 text-4xl font-semibold text-gray-900 lg:text-5xl">{heading}</h2>
               {description && <p className="text-gray-600">{description}</p>}
@@ -184,9 +182,7 @@ export default function NewsRoom({ data }: NewsRoomProps) {
           {/* Mobile: Stacked layout */}
           <div className="md:hidden">
             {subheading && (
-              <p className="mb-3 text-sm uppercase tracking-[0.4em] text-accent">
-                {subheading}
-              </p>
+              <p className="mb-3 text-sm uppercase tracking-[0.4em] text-accent">{subheading}</p>
             )}
             <h2 className="mb-4 text-3xl font-semibold text-gray-900">{heading}</h2>
             {description && <p className="mb-4 text-base text-gray-600">{description}</p>}

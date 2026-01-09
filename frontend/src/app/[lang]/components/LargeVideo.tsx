@@ -47,18 +47,14 @@ export default function LargeVideo({ data }: LargeVideoProps) {
           {/* Header */}
           <div className="mb-12 text-center md:mb-16">
             {subheading && (
-              <p className="mb-3 text-sm uppercase tracking-[0.4em] text-white/80">
-                {subheading}
-              </p>
+              <p className="mb-3 text-sm uppercase tracking-[0.4em] text-white/80">{subheading}</p>
             )}
             {heading && (
               <h2 className="text-3xl font-semibold text-white md:text-4xl lg:text-5xl">
                 {heading}
               </h2>
             )}
-            {description && (
-              <p className="mx-auto mt-4 max-w-2xl text-white/80">{description}</p>
-            )}
+            {description && <p className="mx-auto mt-4 max-w-2xl text-white/80">{description}</p>}
             <div className="mx-auto mt-8 h-1 w-16 rounded-full bg-white" />
           </div>
 

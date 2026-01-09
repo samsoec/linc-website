@@ -46,9 +46,7 @@ export default function IndustrySectors({ data }: IndustrySectorsProps) {
         {/* Header */}
         <div className="mb-12 md:mb-16">
           {subheading && (
-            <p className="mb-3 text-sm uppercase tracking-[0.4em] text-accent">
-              {subheading}
-            </p>
+            <p className="mb-3 text-sm uppercase tracking-[0.4em] text-accent">{subheading}</p>
           )}
           {heading && (
             <h2 className="text-3xl font-semibold text-primary md:text-4xl lg:text-5xl">

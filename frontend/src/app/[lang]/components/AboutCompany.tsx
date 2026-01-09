@@ -15,16 +15,8 @@ interface AboutCompanyProps {
 }
 
 export default function AboutCompany({ data }: AboutCompanyProps) {
-  const {
-    heading,
-    subheading,
-    description,
-    highlights,
-    moreButton,
-    image,
-    videoEmbed,
-    cards,
-  } = data;
+  const { heading, subheading, description, highlights, moreButton, image, videoEmbed, cards } =
+    data;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -53,9 +45,7 @@ export default function AboutCompany({ data }: AboutCompanyProps) {
           {/* Left: Heading */}
           <div>
             {subheading && (
-              <p className="mb-3 text-sm uppercase tracking-[0.4em] text-accent">
-                {subheading}
-              </p>
+              <p className="mb-3 text-sm uppercase tracking-[0.4em] text-accent">{subheading}</p>
             )}
             {heading && (
               <>
@@ -117,7 +107,10 @@ export default function AboutCompany({ data }: AboutCompanyProps) {
                 className="flex gap-4 rounded-xl border border-gray-100 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
               >
                 <div className="flex-shrink-0">
-                  <DynamicHeroIcon iconName={card.icon as KeyIcon || "TrophyIcon"} className="h-8 w-8 text-accent" />
+                  <DynamicHeroIcon
+                    iconName={(card.icon as KeyIcon) || "TrophyIcon"}
+                    className="h-8 w-8 text-accent"
+                  />
                 </div>
                 <div>
                   <h3 className="font-semibold text-primary">{card.title}</h3>
@@ -131,97 +124,99 @@ export default function AboutCompany({ data }: AboutCompanyProps) {
         {/* Media Section */}
         {imageUrl && (
           <>
-          <div
-            className={`relative mt-12 overflow-hidden rounded-2xl md:mt-16 ${
-              videoEmbed ? "cursor-pointer group" : ""
-            }`}
-            onClick={videoEmbed ? openModal : undefined}
-            role={videoEmbed ? "button" : undefined}
-            tabIndex={videoEmbed ? 0 : undefined}
-            onKeyDown={
-              videoEmbed
-                ? (e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      openModal();
+            <div
+              className={`relative mt-12 overflow-hidden rounded-2xl md:mt-16 ${
+                videoEmbed ? "cursor-pointer group" : ""
+              }`}
+              onClick={videoEmbed ? openModal : undefined}
+              role={videoEmbed ? "button" : undefined}
+              tabIndex={videoEmbed ? 0 : undefined}
+              onKeyDown={
+                videoEmbed
+                  ? (e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        openModal();
+                      }
                     }
-                  }
-                : undefined
-            }
-          >
-            <div className="aspect-[16/9]">
-              <Image
-                src={imageUrl}
-                alt={image?.media.alternativeText || heading || "Company image"}
-                fill
-                className={`object-cover ${
-                  videoEmbed ? "transition-transform duration-500 group-hover:scale-105" : ""
-                }`}
-                sizes="(max-width: 768px) 100vw, 1280px"
-              />
-            </div>
-
-            {/* Play Button Overlay */}
-            {videoEmbed && (
-              <div className="absolute inset-0 flex items-center justify-center bg-black/20 transition-colors group-hover:bg-black/30">
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-red-600 shadow-lg transition-transform group-hover:scale-110 md:h-20 md:w-20">
-                  <PlayIcon className="h-8 w-8 text-white md:h-10 md:w-10" />
-                </div>
+                  : undefined
+              }
+            >
+              <div className="aspect-[16/9]">
+                <Image
+                  src={imageUrl}
+                  alt={image?.media.alternativeText || heading || "Company image"}
+                  fill
+                  className={`object-cover ${
+                    videoEmbed ? "transition-transform duration-500 group-hover:scale-105" : ""
+                  }`}
+                  sizes="(max-width: 768px) 100vw, 1280px"
+                />
               </div>
-            )}
 
-            {/* Caption Overlay - Desktop: with stats on the side */}
-            {(image?.caption || image?.description) && (
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6 md:p-8">
-                <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-                  {/* Caption and Description */}
-                  <div className="flex items-start gap-3">
-                    <MapPinIcon className="h-6 w-6 flex-shrink-0 text-white" />
-                    <div>
-                      {image?.caption && <p className="font-semibold text-white">{image.caption}</p>}
-                      {image?.description && <p className="mt-1 text-sm text-gray-300">{image.description}</p>}
-                    </div>
+              {/* Play Button Overlay */}
+              {videoEmbed && (
+                <div className="absolute inset-0 flex items-center justify-center bg-black/20 transition-colors group-hover:bg-black/30">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-red-600 shadow-lg transition-transform group-hover:scale-110 md:h-20 md:w-20">
+                    <PlayIcon className="h-8 w-8 text-white md:h-10 md:w-10" />
                   </div>
-
-                  {/* Desktop: Stats/Items on the side */}
-                  {image?.items && image.items.length > 0 && (
-                    <div className="hidden md:flex items-center gap-6">
-                      {image.items.map((item, index) => (
-                        <div key={index} className="flex items-center gap-6">
-                          {index > 0 && <div className="h-16 w-px bg-white/30" />}
-                          <div className="text-left">
-                            {item.title && (
-                              <p className="text-sm font-semibold text-gray-300">{item.title}</p>
-                            )}
-                            <p className="text-3xl font-semibold text-white">{item.value}</p>
-                            {item.caption && (
-                              <p className="text-sm text-gray-300">{item.caption}</p>
-                            )}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
                 </div>
+              )}
+
+              {/* Caption Overlay - Desktop: with stats on the side */}
+              {(image?.caption || image?.description) && (
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6 md:p-8">
+                  <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                    {/* Caption and Description */}
+                    <div className="flex items-start gap-3">
+                      <MapPinIcon className="h-6 w-6 flex-shrink-0 text-white" />
+                      <div>
+                        {image?.caption && (
+                          <p className="font-semibold text-white">{image.caption}</p>
+                        )}
+                        {image?.description && (
+                          <p className="mt-1 text-sm text-gray-300">{image.description}</p>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Desktop: Stats/Items on the side */}
+                    {image?.items && image.items.length > 0 && (
+                      <div className="hidden md:flex items-center gap-6">
+                        {image.items.map((item, index) => (
+                          <div key={index} className="flex items-center gap-6">
+                            {index > 0 && <div className="h-16 w-px bg-white/30" />}
+                            <div className="text-left">
+                              {item.title && (
+                                <p className="text-sm font-semibold text-gray-300">{item.title}</p>
+                              )}
+                              <p className="text-3xl font-semibold text-white">{item.value}</p>
+                              {item.caption && (
+                                <p className="text-sm text-gray-300">{item.caption}</p>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+            {/* Mobile: Stats/Items below image */}
+            {image?.items && image.items.length > 0 && (
+              <div className="md:hidden grid grid-cols-3 divide-x divide-gray-200 rounded-b-2xl bg-white py-6">
+                {image.items.map((item, index) => (
+                  <div key={index} className="text-center px-4">
+                    {item.title && (
+                      <p className="text-sm font-semibold text-gray-500">{item.title}</p>
+                    )}
+                    <p className="text-2xl font-semibold text-accent">{item.value}</p>
+                    {item.caption && <p className="text-xs text-gray-500">{item.caption}</p>}
+                  </div>
+                ))}
               </div>
             )}
-          </div>
-          {/* Mobile: Stats/Items below image */}
-          {image?.items && image.items.length > 0 && (
-            <div className="md:hidden grid grid-cols-3 divide-x divide-gray-200 rounded-b-2xl bg-white py-6">
-              {image.items.map((item, index) => (
-                <div key={index} className="text-center px-4">
-                  {item.title && (
-                    <p className="text-sm font-semibold text-gray-500">{item.title}</p>
-                  )}
-                  <p className="text-2xl font-semibold text-accent">{item.value}</p>
-                  {item.caption && (
-                    <p className="text-xs text-gray-500">{item.caption}</p>
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
-            </>
+          </>
         )}
       </div>
 

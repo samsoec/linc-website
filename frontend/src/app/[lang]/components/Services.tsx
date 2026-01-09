@@ -257,9 +257,7 @@ export default function Services({ data }: ServicesProps) {
         {/* Section Header */}
         <div className="mb-12 text-center md:mb-16">
           {subheading && (
-            <p className="mb-3 text-sm uppercase tracking-[0.4em] text-accent">
-              {subheading}
-            </p>
+            <p className="mb-3 text-sm uppercase tracking-[0.4em] text-accent">{subheading}</p>
           )}
           {heading && (
             <>

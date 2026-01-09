@@ -142,18 +142,16 @@ function MobileLanguageSelector({ currentLocale, closeMenu }: MobileLanguageSele
   return (
     <div className="flex items-center justify-center gap-4 py-4">
       {locales.map((locale) => (
-          <Link
-            key={locale.id}
-            href={`/${locale.code}${pathWithoutLocale}`}
-            onClick={closeMenu}
-            className={`text-xs font-medium transition-colors ${
-              locale.code === currentLocale
-                ? "text-white"
-                : "text-white/40 hover:text-white/60"
-            }`}
-          >
-            {locale.name}
-          </Link>
+        <Link
+          key={locale.id}
+          href={`/${locale.code}${pathWithoutLocale}`}
+          onClick={closeMenu}
+          className={`text-xs font-medium transition-colors ${
+            locale.code === currentLocale ? "text-white" : "text-white/40 hover:text-white/60"
+          }`}
+        >
+          {locale.name}
+        </Link>
       ))}
     </div>
   );
