@@ -34,6 +34,8 @@ export default function AboutCompany({ data }: AboutCompanyProps) {
 
   const imageUrl = getStrapiMedia(image?.media.url || null);
 
+  console.log("AboutCompany highlights:", imageUrl);
+
   const openModal = () => {
     if (videoEmbed) {
       setIsModalOpen(true);
@@ -146,7 +148,7 @@ export default function AboutCompany({ data }: AboutCompanyProps) {
                 : undefined
             }
           >
-            <div className="aspect-[16/9] md:aspect-[21/9]">
+            <div className="aspect-[16/9]">
               <Image
                 src={imageUrl}
                 alt={image?.media.alternativeText || heading || "Company image"}
