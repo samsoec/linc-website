@@ -49,7 +49,7 @@ export default function VisionMission({ data }: VisionMissionProps) {
           <div className="mb-16 md:mb-24">
             {/* Subheading */}
             {visionMission.subheading && (
-              <p className="mb-8 text-sm font-medium uppercase tracking-[0.2em] text-white/80 md:text-left">
+              <p className="mb-8 text-sm font-medium uppercase tracking-[0.4em] text-white/80 md:text-left">
                 {visionMission.subheading}
               </p>
             )}
@@ -99,7 +99,7 @@ export default function VisionMission({ data }: VisionMissionProps) {
           <div>
             {/* Subheading */}
             {coreValues.subheading && (
-              <p className="mb-4 text-sm font-medium uppercase tracking-[0.2em] text-white/80 md:text-left">
+              <p className="mb-4 text-sm font-medium uppercase tracking-[0.4em] text-white/80 md:text-left">
                 {coreValues.subheading}
               </p>
             )}

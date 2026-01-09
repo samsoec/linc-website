@@ -65,7 +65,7 @@ function ServiceCard({ service, isActive, onActivate }: ServiceCardProps) {
         {iconUrl ? (
           <div
             className={`
-              mb-4 h-12 w-24 overflow-hidden rounded-lg bg-white
+              mb-4 h-24 w-24 overflow-hidden rounded-lg
               transition-all duration-500
               ${isActive ? "opacity-100" : "opacity-100"}
             `}
@@ -75,7 +75,7 @@ function ServiceCard({ service, isActive, onActivate }: ServiceCardProps) {
               alt={`${service.name} icon`}
               width={96}
               height={48}
-              className="h-full w-full object-contain p-2"
+              className="h-full w-full object-contain p-2 invert brightness-0"
             />
           </div>
         ) : (
@@ -90,7 +90,7 @@ function ServiceCard({ service, isActive, onActivate }: ServiceCardProps) {
         {/* Title - Always Visible */}
         <h3
           className={`
-            font-bold text-white transition-all duration-500
+            font-semibold text-white transition-all duration-500
             ${isActive ? "text-2xl md:text-3xl lg:text-4xl" : "text-lg md:text-xl"}
           `}
         >
@@ -136,6 +136,112 @@ function ServiceCard({ service, isActive, onActivate }: ServiceCardProps) {
   );
 }
 
+interface MobileServiceCardProps {
+  service: Service;
+  isActive: boolean;
+  onActivate: () => void;
+}
+
+function MobileServiceCard({ service, isActive, onActivate }: MobileServiceCardProps) {
+  const imageUrl = getStrapiMedia(service.picture?.url || null);
+  const iconUrl = getStrapiMedia(service.icon?.url || null);
+  const features = service.features || [];
+
+  return (
+    <div
+      className={`
+        relative cursor-pointer overflow-hidden rounded-2xl
+        transition-all duration-500 ease-in-out
+        ${isActive ? "h-[540px]" : "h-[180px]"}
+      `}
+      onClick={onActivate}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          onActivate();
+        }
+      }}
+    >
+      {/* Background Image */}
+      {imageUrl && (
+        <Image src={imageUrl} alt={service.name} fill className="object-cover" sizes="100vw" />
+      )}
+
+      {/* Dark Overlay */}
+      <div
+        className={`
+          absolute inset-0 transition-opacity duration-500
+          ${isActive ? "bg-black/60" : "bg-black/40"}
+        `}
+      />
+
+      {/* Content Container */}
+      <div className="absolute inset-0 flex flex-col justify-end p-6">
+        {/* Icon/Logo Placeholder */}
+        {iconUrl ? (
+          <div className="mb-4 h-24 w-24 overflow-hidden rounded-lg">
+            <Image
+              src={iconUrl}
+              alt={`${service.name} icon`}
+              width={96}
+              height={48}
+              className="h-full w-full object-contain p-2 invert brightness-0"
+            />
+          </div>
+        ) : (
+          <div className="mb-4 h-12 w-24 rounded-lg bg-white" />
+        )}
+
+        {/* Expandable Content */}
+        <div
+          className={`
+            overflow-hidden transition-all duration-500 ease-in-out
+            ${isActive ? "mt-4 opacity-100" : "max-h-0 opacity-0"}
+          `}
+        >
+          {/* Title */}
+          <h3
+            className={`
+              mb-4 font-semibold text-white transition-all duration-300
+              ${isActive ? "text-2xl" : "text-xl"}
+            `}
+          >
+            {service.name}
+          </h3>
+
+          {/* Description */}
+          {service.description && (
+            <p className="mb-4 text-sm text-gray-200">{service.description}</p>
+          )}
+
+          {/* Features List */}
+          {features.length > 0 && (
+            <ul className="mb-6 space-y-2">
+              {features.map((feature, idx) => (
+                <li key={idx} className="flex items-start text-sm text-white">
+                  <span className="mr-2 mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-white" />
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {/* Learn More Button */}
+          <Link
+            href={`/services/${service.slug || service.documentId}`}
+            className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-primary transition-all hover:bg-gray-100"
+            onClick={(e) => e.stopPropagation()}
+          >
+            Learn More
+            <ChevronRightIcon className="h-4 w-4" />
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Services({ data }: ServicesProps) {
   const { heading, subheading, services } = data;
   const [activeIndex, setActiveIndex] = useState(0);
@@ -151,13 +257,13 @@ export default function Services({ data }: ServicesProps) {
         {/* Section Header */}
         <div className="mb-12 text-center md:mb-16">
           {subheading && (
-            <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-accent">
+            <p className="mb-3 text-sm uppercase tracking-[0.4em] text-accent">
               {subheading}
             </p>
           )}
           {heading && (
             <>
-              <h2 className="font-sora text-3xl font-bold text-primary md:text-4xl lg:text-5xl">
+              <h2 className="text-3xl font-semibold text-primary md:text-4xl lg:text-5xl">
                 {heading}
               </h2>
               <div className="mx-auto mt-6 h-1 w-16 rounded-full bg-accent" />
@@ -190,111 +296,5 @@ export default function Services({ data }: ServicesProps) {
         </div>
       </div>
     </section>
-  );
-}
-
-interface MobileServiceCardProps {
-  service: Service;
-  isActive: boolean;
-  onActivate: () => void;
-}
-
-function MobileServiceCard({ service, isActive, onActivate }: MobileServiceCardProps) {
-  const imageUrl = getStrapiMedia(service.picture?.url || null);
-  const iconUrl = getStrapiMedia(service.icon?.url || null);
-  const features = service.features || [];
-
-  return (
-    <div
-      className={`
-        relative cursor-pointer overflow-hidden rounded-2xl
-        transition-all duration-500 ease-in-out
-        ${isActive ? "h-[480px]" : "h-[180px]"}
-      `}
-      onClick={onActivate}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          onActivate();
-        }
-      }}
-    >
-      {/* Background Image */}
-      {imageUrl && (
-        <Image src={imageUrl} alt={service.name} fill className="object-cover" sizes="100vw" />
-      )}
-
-      {/* Dark Overlay */}
-      <div
-        className={`
-          absolute inset-0 transition-opacity duration-500
-          ${isActive ? "bg-black/60" : "bg-black/40"}
-        `}
-      />
-
-      {/* Content Container */}
-      <div className="absolute inset-0 flex flex-col justify-end p-6">
-        {/* Icon/Logo Placeholder */}
-        {iconUrl ? (
-          <div className="mb-4 h-12 w-24 overflow-hidden rounded-lg bg-white">
-            <Image
-              src={iconUrl}
-              alt={`${service.name} icon`}
-              width={96}
-              height={48}
-              className="h-full w-full object-contain p-2"
-            />
-          </div>
-        ) : (
-          <div className="mb-4 h-12 w-24 rounded-lg bg-white" />
-        )}
-
-        {/* Title */}
-        <h3
-          className={`
-            font-bold text-white transition-all duration-300
-            ${isActive ? "text-2xl" : "text-xl"}
-          `}
-        >
-          {service.name}
-        </h3>
-
-        {/* Expandable Content */}
-        <div
-          className={`
-            overflow-hidden transition-all duration-500 ease-in-out
-            ${isActive ? "mt-4 max-h-[300px] opacity-100" : "max-h-0 opacity-0"}
-          `}
-        >
-          {/* Description */}
-          {service.description && (
-            <p className="mb-4 text-sm text-gray-200">{service.description}</p>
-          )}
-
-          {/* Features List */}
-          {features.length > 0 && (
-            <ul className="mb-6 space-y-2">
-              {features.map((feature, idx) => (
-                <li key={idx} className="flex items-start text-sm text-white">
-                  <span className="mr-2 mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-white" />
-                  {feature}
-                </li>
-              ))}
-            </ul>
-          )}
-
-          {/* Learn More Button */}
-          <Link
-            href={`/services/${service.slug || service.documentId}`}
-            className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-primary transition-all hover:bg-gray-100"
-            onClick={(e) => e.stopPropagation()}
-          >
-            Learn More
-            <ChevronRightIcon className="h-4 w-4" />
-          </Link>
-        </div>
-      </div>
-    </div>
   );
 }

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Slide, SlideshowRef } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/outline";
-import type { AwardCertificationSection, Award } from "@/types/generated";
+import type { AwardCertificationSection, Certification } from "@/types/generated";
 import { getStrapiMedia } from "../utils/api-helpers";
 
 interface AwardCertificationProps {
@@ -13,7 +13,7 @@ interface AwardCertificationProps {
 }
 
 interface AwardCardProps {
-  award: Award;
+  award: Certification;
 }
 
 function AwardCard({ award }: AwardCardProps) {
@@ -102,9 +102,9 @@ export default function AwardCertification({ data }: AwardCertificationProps) {
   const slideRef = useRef<SlideshowRef>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const { heading, subheading, description, items } = data;
+  const { heading, subheading, description, certifications } = data;
 
-  if (!heading || !items || items.length === 0) {
+  if (!heading || !certifications || certifications.length === 0) {
     return null;
   }
 
@@ -121,7 +121,7 @@ export default function AwardCertification({ data }: AwardCertificationProps) {
   };
 
   const isFirstSlide = currentSlide === 0;
-  const isLastSlide = currentSlide >= items.length - 1;
+  const isLastSlide = currentSlide >= certifications.length - 1;
 
   // Responsive settings based on container width
   const responsiveSettings = [
@@ -156,7 +156,7 @@ export default function AwardCertification({ data }: AwardCertificationProps) {
         {/* Header Section */}
         <div className="mb-10 text-center md:mb-12">
           {subheading && (
-            <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-accent">
+            <p className="mb-3 text-sm font-medium uppercase tracking-[0.4em] text-accent">
               {subheading}
             </p>
           )}
@@ -184,10 +184,11 @@ export default function AwardCertification({ data }: AwardCertificationProps) {
             infinite={false}
             cssClass="award-certification-slider"
             onChange={handleSlideChange}
+            transitionDuration={300}
           >
-            {items.map((award, index) => (
-              <div key={award.id || index} className="px-2">
-                <AwardCard award={award} />
+            {certifications.map((certification, index) => (
+              <div key={certification.id || index} className="px-2">
+                <AwardCard award={certification} />
               </div>
             ))}
           </Slide>

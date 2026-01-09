@@ -1,25 +1,24 @@
 {
-  "collectionName": "components_elements_awards",
+  "collectionName": "components_elements_certifications",
   "info": {
-    "displayName": "Award"
+    "displayName": "Certification"
   },
   "options": {},
   "attributes": {
-    "caption": {
-      "type": "string"
-    },
-    "name": {
+    "code": {
       "type": "string",
       "required": true
     },
-    "sponsor": {
+    "title": {
       "type": "string",
-      "required": true
+      "required": false
+    },
+    "description": {
+      "type": "text"
     },
     "logo": {
       "type": "media",
       "multiple": false,
-      "required": true,
       "allowedTypes": [
         "images"
       ]

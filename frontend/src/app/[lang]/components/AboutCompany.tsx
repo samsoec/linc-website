@@ -5,8 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { AboutCompanySection } from "@/types/generated";
 import { getStrapiMedia } from "../utils/api-helpers";
-import { ChevronRightIcon, TrophyIcon } from "@heroicons/react/24/outline";
-import { PlayIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import { ChevronRightIcon, MapPinIcon } from "@heroicons/react/24/outline";
+import { PlayIcon } from "@heroicons/react/24/solid";
+import VideoModal from "./VideoModal";
+import { DynamicHeroIcon, KeyIcon } from "./DynamicIcon";
 
 interface AboutCompanyProps {
   data: AboutCompanySection;
@@ -19,44 +21,23 @@ export default function AboutCompany({ data }: AboutCompanyProps) {
     description,
     highlights,
     moreButton,
-    awards,
-    media,
-    mediaCaption,
-    mediaSubtitle,
+    image,
+    videoEmbed,
+    cards,
   } = data;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // Access videoEmbedUrl property (may not be in generated types yet)
-  const videoEmbedUrl = (data as AboutCompanySection & { videoEmbedUrl?: string }).videoEmbedUrl;
 
   if (!heading && !description) {
     return null;
   }
 
-  const imageUrl = getStrapiMedia(media?.url || null);
+  const imageUrl = getStrapiMedia(image?.media.url || null);
 
   const openModal = () => {
-    if (videoEmbedUrl) {
+    if (videoEmbed) {
       setIsModalOpen(true);
       document.body.style.overflow = "hidden";
-    }
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    document.body.style.overflow = "unset";
-  };
-
-  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) {
-      closeModal();
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Escape") {
-      closeModal();
     }
   };
 
@@ -70,13 +51,13 @@ export default function AboutCompany({ data }: AboutCompanyProps) {
           {/* Left: Heading */}
           <div>
             {subheading && (
-              <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-accent">
+              <p className="mb-3 text-sm uppercase tracking-[0.4em] text-accent">
                 {subheading}
               </p>
             )}
             {heading && (
               <>
-                <h2 className="font-sora text-3xl font-bold leading-tight text-primary md:text-4xl lg:text-5xl">
+                <h2 className="text-3xl font-semibold leading-tight text-primary md:text-4xl lg:text-5xl">
                   {heading}
                 </h2>
                 <div className="mt-6 h-1 w-16 rounded-full bg-accent" />
@@ -125,20 +106,20 @@ export default function AboutCompany({ data }: AboutCompanyProps) {
           </div>
         </div>
 
-        {/* Awards Section */}
-        {awards && awards.length > 0 && (
+        {/* Cards Section */}
+        {cards && cards.length > 0 && (
           <div className="mt-12 grid gap-4 md:mt-16 md:grid-cols-3 md:gap-6">
-            {awards.map((award, index) => (
+            {cards.map((card, index) => (
               <div
-                key={award.id || index}
+                key={card.id || index}
                 className="flex gap-4 rounded-xl border border-gray-100 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
               >
                 <div className="flex-shrink-0">
-                  <TrophyIcon className="h-8 w-8 text-accent" />
+                  <DynamicHeroIcon iconName={card.icon as KeyIcon || "TrophyIcon"} className="h-8 w-8 text-accent" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-primary">{award.title}</h3>
-                  <p className="mt-2 text-sm text-gray-600">{award.description}</p>
+                  <h3 className="font-semibold text-primary">{card.title}</h3>
+                  <p className="mt-2 text-sm text-gray-600">{card.description}</p>
                 </div>
               </div>
             ))}
@@ -147,15 +128,16 @@ export default function AboutCompany({ data }: AboutCompanyProps) {
 
         {/* Media Section */}
         {imageUrl && (
+          <>
           <div
             className={`relative mt-12 overflow-hidden rounded-2xl md:mt-16 ${
-              videoEmbedUrl ? "cursor-pointer group" : ""
+              videoEmbed ? "cursor-pointer group" : ""
             }`}
-            onClick={videoEmbedUrl ? openModal : undefined}
-            role={videoEmbedUrl ? "button" : undefined}
-            tabIndex={videoEmbedUrl ? 0 : undefined}
+            onClick={videoEmbed ? openModal : undefined}
+            role={videoEmbed ? "button" : undefined}
+            tabIndex={videoEmbed ? 0 : undefined}
             onKeyDown={
-              videoEmbedUrl
+              videoEmbed
                 ? (e) => {
                     if (e.key === "Enter" || e.key === " ") {
                       openModal();
@@ -167,17 +149,17 @@ export default function AboutCompany({ data }: AboutCompanyProps) {
             <div className="aspect-[16/9] md:aspect-[21/9]">
               <Image
                 src={imageUrl}
-                alt={media?.alternativeText || heading || "Company image"}
+                alt={image?.media.alternativeText || heading || "Company image"}
                 fill
                 className={`object-cover ${
-                  videoEmbedUrl ? "transition-transform duration-500 group-hover:scale-105" : ""
+                  videoEmbed ? "transition-transform duration-500 group-hover:scale-105" : ""
                 }`}
                 sizes="(max-width: 768px) 100vw, 1280px"
               />
             </div>
 
             {/* Play Button Overlay */}
-            {videoEmbedUrl && (
+            {videoEmbed && (
               <div className="absolute inset-0 flex items-center justify-center bg-black/20 transition-colors group-hover:bg-black/30">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-red-600 shadow-lg transition-transform group-hover:scale-110 md:h-20 md:w-20">
                   <PlayIcon className="h-8 w-8 text-white md:h-10 md:w-10" />
@@ -185,77 +167,70 @@ export default function AboutCompany({ data }: AboutCompanyProps) {
               </div>
             )}
 
-            {/* Caption Overlay */}
-            {(mediaCaption || mediaSubtitle) && (
+            {/* Caption Overlay - Desktop: with stats on the side */}
+            {(image?.caption || image?.description) && (
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6 md:p-8">
-                <div className="flex items-start gap-3">
-                  <TrophyIcon className="h-6 w-6 flex-shrink-0 text-white" />
-                  <div>
-                    {mediaCaption && <p className="font-semibold text-white">{mediaCaption}</p>}
-                    {mediaSubtitle && <p className="mt-1 text-sm text-gray-300">{mediaSubtitle}</p>}
+                <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                  {/* Caption and Description */}
+                  <div className="flex items-start gap-3">
+                    <MapPinIcon className="h-6 w-6 flex-shrink-0 text-white" />
+                    <div>
+                      {image?.caption && <p className="font-semibold text-white">{image.caption}</p>}
+                      {image?.description && <p className="mt-1 text-sm text-gray-300">{image.description}</p>}
+                    </div>
                   </div>
+
+                  {/* Desktop: Stats/Items on the side */}
+                  {image?.items && image.items.length > 0 && (
+                    <div className="hidden md:flex items-center gap-6">
+                      {image.items.map((item, index) => (
+                        <div key={index} className="flex items-center gap-6">
+                          {index > 0 && <div className="h-16 w-px bg-white/30" />}
+                          <div className="text-left">
+                            {item.title && (
+                              <p className="text-sm font-semibold text-gray-300">{item.title}</p>
+                            )}
+                            <p className="text-3xl font-semibold text-white">{item.value}</p>
+                            {item.caption && (
+                              <p className="text-sm text-gray-300">{item.caption}</p>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             )}
           </div>
+          {/* Mobile: Stats/Items below image */}
+          {image?.items && image.items.length > 0 && (
+            <div className="md:hidden grid grid-cols-3 divide-x divide-gray-200 rounded-b-2xl bg-white py-6">
+              {image.items.map((item, index) => (
+                <div key={index} className="text-center px-4">
+                  {item.title && (
+                    <p className="text-sm font-semibold text-gray-500">{item.title}</p>
+                  )}
+                  <p className="text-2xl font-semibold text-accent">{item.value}</p>
+                  {item.caption && (
+                    <p className="text-xs text-gray-500">{item.caption}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+            </>
         )}
       </div>
 
       {/* Video Modal */}
-      {isModalOpen && videoEmbedUrl && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
-          onClick={handleBackdropClick}
-          onKeyDown={handleKeyDown}
-          role="dialog"
-          aria-modal="true"
-          tabIndex={-1}
-        >
-          {/* Close Button */}
-          <button
-            onClick={closeModal}
-            className="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20 md:right-8 md:top-8"
-            aria-label="Close video"
-          >
-            <XMarkIcon className="h-8 w-8" />
-          </button>
-
-          {/* Video Container */}
-          <div className="relative w-full max-w-5xl">
-            <div className="aspect-video overflow-hidden rounded-lg bg-black">
-              <iframe
-                src={getEmbedUrl(videoEmbedUrl)}
-                title={heading || "Video"}
-                className="h-full w-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-          </div>
-        </div>
+      {isModalOpen && videoEmbed && (
+        <VideoModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          embedUrl={videoEmbed.url}
+        />
       )}
     </section>
   );
-}
-
-// Helper function to convert YouTube/Vimeo URLs to embed URLs
-function getEmbedUrl(url: string): string {
-  if (!url) return "";
-
-  // YouTube
-  const youtubeMatch = url.match(
-    /(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
-  );
-  if (youtubeMatch) {
-    return `https://www.youtube.com/embed/${youtubeMatch[1]}?autoplay=1`;
-  }
-
-  // Vimeo
-  const vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
-  if (vimeoMatch) {
-    return `https://player.vimeo.com/video/${vimeoMatch[1]}?autoplay=1`;
-  }
-
-  // Already an embed URL or other format
-  return url;
 }

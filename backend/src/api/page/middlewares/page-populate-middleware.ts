@@ -33,10 +33,24 @@ module.exports = (config, { strapi }) => {
                 populate: true,
               },
               videoButton: {
-                populate: true,
+                populate: {
+                  button: {
+                    populate: true,
+                  },
+                },
               },
-              highlights: {
-                populate: true,
+              award: {
+                populate: {
+                  logo: {
+                    fields: [
+                      "url",
+                      "alternativeText",
+                      "caption",
+                      "width",
+                      "height",
+                    ],
+                  },
+                },
               },
             },
           },
@@ -103,7 +117,11 @@ module.exports = (config, { strapi }) => {
                 populate: true,
               },
               videoButton: {
-                populate: true,
+                populate: {
+                  button: {
+                    populate: true,
+                  },
+                },
               },
             },
           },
@@ -115,9 +133,15 @@ module.exports = (config, { strapi }) => {
               moreButton: {
                 populate: true,
               },
-              awards: {
+              cards: {
+                populate: true,
+              },
+              videoEmbed: {
+                populate: true,
+              },
+              image: {
                 populate: {
-                  logo: {
+                  media: {
                     fields: [
                       "url",
                       "alternativeText",
@@ -126,16 +150,10 @@ module.exports = (config, { strapi }) => {
                       "height",
                     ],
                   },
+                  items: {
+                    populate: true,
+                  },
                 },
-              },
-              media: {
-                fields: [
-                  "url",
-                  "alternativeText",
-                  "caption",
-                  "width",
-                  "height",
-                ],
               },
             },
           },
@@ -278,7 +296,20 @@ module.exports = (config, { strapi }) => {
           },
           "sections.award-certification": {
             populate: {
-              items: {
+              certifications: {
+                populate: {
+                  logo: {
+                    fields: [
+                      "url",
+                      "alternativeText",
+                      "caption",
+                      "width",
+                      "height",
+                    ],
+                  },
+                },
+              },
+              award: {
                 populate: {
                   logo: {
                     fields: [

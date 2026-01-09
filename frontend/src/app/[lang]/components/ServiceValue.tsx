@@ -99,7 +99,7 @@ export default function ServiceValue({ data }: ServiceValueProps) {
         {/* Header */}
         <div className="mb-10 text-center md:mb-12">
           {subheading && (
-            <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-white">
+            <p className="mb-3 text-sm font-medium uppercase tracking-[0.4em] text-white">
               {subheading}
             </p>
           )}

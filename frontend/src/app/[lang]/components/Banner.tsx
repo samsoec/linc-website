@@ -1,13 +1,19 @@
+"use client";
+
 import Image from "next/image";
 import type { BannerSection } from "@/types/generated";
 import Button from "./Button";
-import { ChevronDownIcon, PlayIcon } from "@heroicons/react/24/outline";
+import { PlayIcon } from "@heroicons/react/24/outline";
+import VideoModal from "./VideoModal";
+import { useState } from "react";
 
 interface BannerProps {
   data: BannerSection;
 }
 
 export default function Banner({ data }: BannerProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   if (!data) return null;
   const { heading, buttons, videoButton } = data;
 
@@ -49,20 +55,27 @@ export default function Banner({ data }: BannerProps) {
           ))}
 
           {/* Video Button */}
-          {videoButton && (
+          {videoButton && videoButton.button && (
             <Button
+              onClick={() => setIsModalOpen(true)}
               className="inline-flex items-center gap-2 w-full sm:w-auto"
-              type={videoButton.type}
+              type={videoButton.button.type}
               color="secondary"
               size="lg"
             >
               <PlayIcon className="h-5 w-5" />
-              {videoButton.text}
-              <ChevronDownIcon className="h-4 w-4" />
+              {videoButton.button.text}
             </Button>
           )}
         </div>
       </div>
+
+      {/* Video Modal */}
+      <VideoModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        embedUrl={data.videoButton?.embedUrl}
+      />
     </section>
   );
 }

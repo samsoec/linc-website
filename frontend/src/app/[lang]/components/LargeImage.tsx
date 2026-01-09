@@ -25,13 +25,13 @@ export default function LargeImage({ data }: LargeImageProps) {
         {/* Header */}
         <div className="mb-10 text-center md:mb-16">
           {subheading && (
-            <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-accent">
+            <p className="mb-3 text-sm font-medium uppercase tracking-[0.4em] text-accent">
               {subheading}
             </p>
           )}
           {heading && (
             <>
-              <h2 className="font-sora text-3xl font-bold text-primary md:text-4xl lg:text-5xl">
+              <h2 className=" text-3xl font-bold text-primary md:text-4xl lg:text-5xl">
                 {heading}
               </h2>
               <div className="mx-auto mt-6 h-1 w-16 rounded-full bg-accent" />

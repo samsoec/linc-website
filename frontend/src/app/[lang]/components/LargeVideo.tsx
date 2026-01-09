@@ -4,7 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import { LargeVideoSection } from "@/types/generated";
 import { getStrapiMedia } from "../utils/api-helpers";
-import { PlayIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import { PlayIcon } from "@heroicons/react/24/solid";
+import VideoModal from "./VideoModal";
 
 interface LargeVideoProps {
   data: LargeVideoSection;
@@ -22,30 +23,6 @@ export default function LargeVideo({ data }: LargeVideoProps) {
   }
 
   const hasVideo = embedUrl || videoUrl;
-
-  const openModal = () => {
-    if (hasVideo) {
-      setIsModalOpen(true);
-      document.body.style.overflow = "hidden";
-    }
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    document.body.style.overflow = "unset";
-  };
-
-  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) {
-      closeModal();
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Escape") {
-      closeModal();
-    }
-  };
 
   return (
     <>
@@ -70,17 +47,17 @@ export default function LargeVideo({ data }: LargeVideoProps) {
           {/* Header */}
           <div className="mb-12 text-center md:mb-16">
             {subheading && (
-              <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-white/80">
+              <p className="mb-3 text-sm uppercase tracking-[0.4em] text-white/80">
                 {subheading}
               </p>
             )}
             {heading && (
-              <h2 className="font-sora text-3xl font-bold text-white md:text-4xl lg:text-5xl">
+              <h2 className="text-3xl font-semibold text-white md:text-4xl lg:text-5xl">
                 {heading}
               </h2>
             )}
             {description && (
-              <p className="mx-auto mt-4 max-w-2xl text-lg italic text-white/80">{description}</p>
+              <p className="mx-auto mt-4 max-w-2xl text-white/80">{description}</p>
             )}
             <div className="mx-auto mt-8 h-1 w-16 rounded-full bg-white" />
           </div>
@@ -93,12 +70,12 @@ export default function LargeVideo({ data }: LargeVideoProps) {
                   relative overflow-hidden rounded-2xl shadow-2xl
                   ${hasVideo ? "cursor-pointer group" : ""}
                 `}
-                onClick={openModal}
+                onClick={() => hasVideo && setIsModalOpen(true)}
                 role={hasVideo ? "button" : undefined}
                 tabIndex={hasVideo ? 0 : undefined}
                 onKeyDown={(e) => {
                   if (hasVideo && (e.key === "Enter" || e.key === " ")) {
-                    openModal();
+                    setIsModalOpen(true);
                   }
                 }}
               >
@@ -127,68 +104,13 @@ export default function LargeVideo({ data }: LargeVideoProps) {
       </section>
 
       {/* Video Modal */}
-      {isModalOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
-          onClick={handleBackdropClick}
-          onKeyDown={handleKeyDown}
-          role="dialog"
-          aria-modal="true"
-          tabIndex={-1}
-        >
-          {/* Close Button */}
-          <button
-            onClick={closeModal}
-            className="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20 md:right-8 md:top-8"
-            aria-label="Close video"
-          >
-            <XMarkIcon className="h-8 w-8" />
-          </button>
-
-          {/* Video Container */}
-          <div className="relative w-full max-w-5xl">
-            <div className="aspect-video overflow-hidden rounded-lg bg-black">
-              {embedUrl ? (
-                // YouTube/Vimeo embed
-                <iframe
-                  src={getEmbedUrl(embedUrl)}
-                  title={heading || "Video"}
-                  className="h-full w-full"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              ) : videoUrl ? (
-                // Self-hosted video
-                <video src={videoUrl} controls autoPlay className="h-full w-full">
-                  Your browser does not support the video tag.
-                </video>
-              ) : null}
-            </div>
-          </div>
-        </div>
-      )}
+      <VideoModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        embedUrl={embedUrl}
+        videoUrl={videoUrl || undefined}
+        title={heading}
+      />
     </>
   );
-}
-
-// Helper function to convert YouTube/Vimeo URLs to embed URLs
-function getEmbedUrl(url: string): string {
-  if (!url) return "";
-
-  // YouTube
-  const youtubeMatch = url.match(
-    /(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
-  );
-  if (youtubeMatch) {
-    return `https://www.youtube.com/embed/${youtubeMatch[1]}?autoplay=1`;
-  }
-
-  // Vimeo
-  const vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
-  if (vimeoMatch) {
-    return `https://player.vimeo.com/video/${vimeoMatch[1]}?autoplay=1`;
-  }
-
-  // Already an embed URL or other format
-  return url;
 }

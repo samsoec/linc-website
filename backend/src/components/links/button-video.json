@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_links_button_videos",
+  "info": {
+    "displayName": "Button Video"
+  },
+  "options": {},
+  "attributes": {
+    "embedUrl": {
+      "type": "string",
+      "required": true
+    },
+    "button": {
+      "type": "component",
+      "component": "links.button",
+      "repeatable": false
+    }
+  },
+  "config": {}
+}

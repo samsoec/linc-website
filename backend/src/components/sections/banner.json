@@ -16,7 +16,7 @@
     },
     "videoButton": {
       "type": "component",
-      "component": "links.button",
+      "component": "links.button-video",
       "repeatable": false
     }
   },

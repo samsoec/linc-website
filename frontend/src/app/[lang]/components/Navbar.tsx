@@ -89,7 +89,7 @@ function LanguageSelector({ currentLocale, isScrolled }: LanguageSelectorProps) 
     >
       <button
         className={`flex items-center gap-1 p-2 text-sm font-medium transition-colors duration-300 ${
-          isWhiteMode ? "text-gray-900 hover:text-gray-600" : "text-white hover:text-gray-200"
+          isWhiteMode ? "text-gray-900 hover:text-accent" : "text-white hover:text-gray-200"
         }`}
       >
         {currentLocaleData?.code.toUpperCase() || currentLocale.toUpperCase()}
@@ -98,13 +98,13 @@ function LanguageSelector({ currentLocale, isScrolled }: LanguageSelectorProps) 
         />
       </button>
       {isOpen && (
-        <div className="absolute top-full left-0 pt-2 w-48 z-50">
+        <div className="absolute top-full right-0 pt-2 w-48 z-50">
           <div className="rounded-lg bg-white shadow-lg ring-1 ring-black/5 py-2">
-            {otherLocales.map((locale) => (
+            {locales.map((locale) => (
               <Link
                 key={locale.id}
                 href={`/${locale.code}${pathWithoutLocale}`}
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-accent"
               >
                 {locale.name}
               </Link>
@@ -118,7 +118,6 @@ function LanguageSelector({ currentLocale, isScrolled }: LanguageSelectorProps) 
 
 function MobileLanguageSelector({ currentLocale, closeMenu }: MobileLanguageSelectorProps) {
   const path = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
   const [locales, setLocales] = useState<Locale[]>([]);
 
   useEffect(() => {
@@ -135,39 +134,27 @@ function MobileLanguageSelector({ currentLocale, closeMenu }: MobileLanguageSele
     fetchLocales();
   }, []);
 
-  const currentLocaleData = locales.find((locale) => locale.code === currentLocale);
-  const otherLocales = locales.filter((locale) => locale.code !== currentLocale);
-
-  if (locales.length === 0 || otherLocales.length === 0) return null;
+  if (locales.length === 0) return null;
 
   // Get the path without the locale prefix
   const pathWithoutLocale = path.replace(`/${currentLocale}`, "") || "/";
 
   return (
-    <div className="space-y-1">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-100"
-      >
-        <span>{currentLocaleData?.name || currentLocale.toUpperCase()}</span>
-        <ChevronDownIcon
-          className={`h-5 w-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
-        />
-      </button>
-      {isOpen && (
-        <div className="ml-4 space-y-1">
-          {otherLocales.map((locale) => (
-            <Link
-              key={locale.id}
-              href={`/${locale.code}${pathWithoutLocale}`}
-              onClick={closeMenu}
-              className="block rounded-lg px-3 py-2 text-sm text-gray-600 hover:bg-gray-100"
-            >
-              {locale.name}
-            </Link>
-          ))}
-        </div>
-      )}
+    <div className="flex items-center justify-center gap-4 py-4">
+      {locales.map((locale) => (
+          <Link
+            key={locale.id}
+            href={`/${locale.code}${pathWithoutLocale}`}
+            onClick={closeMenu}
+            className={`text-xs font-medium transition-colors ${
+              locale.code === currentLocale
+                ? "text-white"
+                : "text-white/40 hover:text-white/60"
+            }`}
+          >
+            {locale.name}
+          </Link>
+      ))}
     </div>
   );
 }
@@ -191,7 +178,7 @@ function NavLink({ url, text, children, isScrolled }: NavLinkProps) {
         <Link
           href={url}
           className={`flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors duration-300 ${
-            isWhiteMode ? "text-gray-900 hover:text-gray-600" : "text-white hover:text-gray-200"
+            isWhiteMode ? "text-gray-900 hover:text-accent" : "text-white hover:text-gray-200"
           }`}
         >
           {text}
@@ -206,7 +193,7 @@ function NavLink({ url, text, children, isScrolled }: NavLinkProps) {
                 <Link
                   key={child.id}
                   href={child.url}
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-accent"
                 >
                   {child.text}
                 </Link>
@@ -224,7 +211,7 @@ function NavLink({ url, text, children, isScrolled }: NavLinkProps) {
         href={url}
         className={`px-3 py-2 text-sm font-medium transition-colors duration-300 ${
           isWhiteMode
-            ? `text-gray-900 hover:text-gray-600 ${path === url ? "text-gray-900 font-semibold" : ""}`
+            ? `text-gray-900 hover:text-accent ${path === url ? "text-gray-900 font-semibold" : ""}`
             : `text-white hover:text-gray-200 ${path === url ? "text-white font-semibold" : ""}`
         }`}
       >
@@ -242,15 +229,11 @@ function MobileNavLink({ url, text, children, closeMenu }: MobileNavLinkProps) {
   if (hasChildren) {
     return (
       <div className="space-y-1">
-        <div
-          className={`flex w-full items-center justify-between rounded-lg hover:bg-gray-100 ${
-            path === url ? "bg-gray-100" : ""
-          }`}
-        >
+        <div className={`flex w-full items-center justify-between rounded-lg`}>
           <Link
             href={url}
             onClick={closeMenu}
-            className="flex-1 px-3 py-2 text-base font-semibold text-gray-900"
+            className="flex-1 px-3 py-2 text-base font-semibold text-white"
           >
             {text}
           </Link>
@@ -260,7 +243,7 @@ function MobileNavLink({ url, text, children, closeMenu }: MobileNavLinkProps) {
             aria-label={`Toggle ${text} submenu`}
           >
             <ChevronDownIcon
-              className={`h-5 w-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+              className={`h-5 w-5 transition-transform duration-200 text-white ${isOpen ? "rotate-180" : ""}`}
             />
           </button>
         </div>
@@ -271,7 +254,7 @@ function MobileNavLink({ url, text, children, closeMenu }: MobileNavLinkProps) {
                 key={child.id}
                 href={child.url}
                 onClick={closeMenu}
-                className="block rounded-lg px-3 py-2 text-sm text-gray-600 hover:bg-gray-100"
+                className="block rounded-lg px-3 py-2 text-sm text-white "
               >
                 {child.text}
               </Link>
@@ -286,7 +269,7 @@ function MobileNavLink({ url, text, children, closeMenu }: MobileNavLinkProps) {
     <Link
       href={url}
       onClick={closeMenu}
-      className={`block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-100 ${
+      className={`block rounded-lg px-3 py-2 text-base font-semibold text-white hover:bg-gray-100 ${
         path === url ? "bg-gray-100" : ""
       }`}
     >
@@ -381,13 +364,6 @@ export default function Navbar({
 
           {/* Right Side - Desktop */}
           <div className="hidden lg:flex lg:items-center lg:gap-2">
-            {/* Language Selector */}
-            <ul className="flex items-center">
-              {enableI18n && (
-                <LanguageSelector currentLocale={currentLocale} isScrolled={isScrolled} />
-              )}
-            </ul>
-
             {/* Search */}
             {enableSearch && (
               <div ref={searchRef} className="relative">
@@ -395,7 +371,7 @@ export default function Navbar({
                   onClick={() => setSearchOpen(!searchOpen)}
                   className={`flex items-center gap-1 p-2 transition-colors duration-300 ${
                     isWhiteMode
-                      ? "text-gray-900 hover:text-gray-600"
+                      ? "text-gray-900 hover:text-accent"
                       : "text-white hover:text-gray-200"
                   }`}
                   aria-label="Search"
@@ -420,13 +396,20 @@ export default function Navbar({
                 href={button.url || "#"}
                 target={button.newTab ? "_blank" : undefined}
                 type={button.type}
-                color={isWhiteMode ? "primary" : "secondary"}
+                color={isWhiteMode ? "accent" : "secondary"}
                 size="md"
                 className="shadow-sm"
               >
                 {button.text}
               </Button>
             )}
+
+            {/* Language Selector */}
+            <ul className="flex items-center">
+              {enableI18n && (
+                <LanguageSelector currentLocale={currentLocale} isScrolled={isScrolled} />
+              )}
+            </ul>
           </div>
 
           {/* Mobile Menu Button */}
@@ -446,7 +429,7 @@ export default function Navbar({
       {/* Mobile Menu */}
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
         <div className="fixed inset-0 z-50 bg-black/20 backdrop-blur-sm" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+        <Dialog.Panel className="fixed flex flex-col inset-y-0 right-0 z-50 w-full h-svh overflow-y-auto bg-accent px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
             <Link href="/" className="-m-1.5 p-1.5" onClick={closeMenu}>
               <span className="sr-only">{logoText || "Home"}</span>
@@ -456,13 +439,13 @@ export default function Navbar({
                   alt={logoText || "Logo"}
                   width={100}
                   height={40}
-                  className="h-8 w-auto"
+                  className="h-12 w-auto invert brightness-0"
                 />
               )}
             </Link>
             <button
               type="button"
-              className="-m-2.5 rounded-md p-2.5 text-gray-700"
+              className="-m-2.5 rounded-md p-2.5 text-gray-900 bg-white"
               onClick={closeMenu}
             >
               <span className="sr-only">Close menu</span>
@@ -470,41 +453,43 @@ export default function Navbar({
             </button>
           </div>
 
-          <div className="mt-6 flow-root">
-            <div className="-my-6 divide-y divide-gray-200">
+          <div className="mt-6 flex flex-col justify-between flex-1">
+            <div>
+              <div className="py-6 space-y-4">
+                {enableSearch && <SearchBar size="small" navigateTo="/blog" />}
+              </div>
+
               {/* Navigation Links */}
-              <div className="space-y-1 py-6">
+              <div className="space-y-1">
                 {links.map((item) => (
                   <MobileNavLink key={item.id} closeMenu={closeMenu} {...item} />
                 ))}
               </div>
+            </div>
 
+            <div>
+              {/* CTA Button */}
+              {button && (
+                <Button
+                  as="link"
+                  href={button.url || "#"}
+                  target={button.newTab ? "_blank" : undefined}
+                  onClick={closeMenu}
+                  type={button.type}
+                  color="secondary"
+                  size="lg"
+                  fullWidth
+                  className="shadow-sm"
+                >
+                  {button.text}
+                </Button>
+              )}
               {/* Language & Search */}
-              <div className="py-6 space-y-4">
+              <div className="space-y-4 pt-4">
                 {enableI18n && (
                   <MobileLanguageSelector currentLocale={currentLocale} closeMenu={closeMenu} />
                 )}
-                {enableSearch && <SearchBar size="small" navigateTo="/blog" />}
               </div>
-
-              {/* CTA Button */}
-              {button && (
-                <div className="py-6">
-                  <Button
-                    as="link"
-                    href={button.url || "#"}
-                    target={button.newTab ? "_blank" : undefined}
-                    onClick={closeMenu}
-                    type={button.type}
-                    color="primary"
-                    size="lg"
-                    fullWidth
-                    className="shadow-sm"
-                  >
-                    {button.text}
-                  </Button>
-                </div>
-              )}
             </div>
           </div>
         </Dialog.Panel>

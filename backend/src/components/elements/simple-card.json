@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_elements_simple_cards",
+  "info": {
+    "displayName": "Simple Card"
+  },
+  "options": {},
+  "attributes": {
+    "icon": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}

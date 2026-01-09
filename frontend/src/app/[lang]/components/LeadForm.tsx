@@ -96,7 +96,7 @@ export default function LeadForm({ data }: LeadFormProps) {
             {/* Header */}
             <div className="mb-8">
               {subheading && (
-                <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-accent">
+                <p className="mb-3 text-sm font-medium uppercase tracking-[0.4em] text-accent">
                   {subheading}
                 </p>
               )}

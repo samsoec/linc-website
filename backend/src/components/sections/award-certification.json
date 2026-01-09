@@ -15,10 +15,15 @@
     "description": {
       "type": "string"
     },
-    "items": {
+    "certifications": {
+      "type": "component",
+      "component": "elements.certification",
+      "repeatable": true
+    },
+    "award": {
       "type": "component",
       "component": "elements.award",
-      "repeatable": true
+      "repeatable": false
     }
   },
   "config": {}

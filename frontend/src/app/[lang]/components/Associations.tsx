@@ -99,7 +99,7 @@ export default function Associations({ data }: AssociationsProps) {
             arrows={false}
             infinite={true}
             autoplay={false}
-            transitionDuration={500}
+            transitionDuration={300}
             canSwipe={true}
             cssClass="associations-slider-desktop"
             onChange={handleSlideChange}
@@ -137,7 +137,7 @@ export default function Associations({ data }: AssociationsProps) {
             arrows={false}
             infinite={true}
             autoplay={false}
-            transitionDuration={500}
+            transitionDuration={300}
             canSwipe={true}
             cssClass="associations-slider-mobile"
             onChange={handleSlideChange}

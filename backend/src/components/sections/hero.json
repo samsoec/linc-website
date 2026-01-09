@@ -38,13 +38,13 @@
     },
     "videoButton": {
       "type": "component",
-      "component": "links.button",
+      "component": "links.button-video",
       "repeatable": false
     },
-    "highlights": {
+    "award": {
       "type": "component",
-      "component": "elements.hero-highlight",
-      "repeatable": true
+      "component": "elements.award",
+      "repeatable": false
     }
   }
 }

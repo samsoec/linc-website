@@ -178,7 +178,7 @@ export default function Teams({ data }: TeamsProps) {
         {/* Header Section */}
         <div className="mb-10 text-center md:mb-12">
           {subheading && (
-            <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-accent">
+            <p className="mb-3 text-sm font-medium uppercase tracking-[0.4em] text-accent">
               {subheading}
             </p>
           )}
@@ -204,6 +204,7 @@ export default function Teams({ data }: TeamsProps) {
             infinite={false}
             cssClass="teams-slider"
             onChange={handleSlideChange}
+            transitionDuration={300}
           >
             {members.map((member, index) => (
               <div key={member.id || index} className="px-4">

@@ -123,7 +123,7 @@ export default function JargonSlider({ data }: JargonSliderProps) {
             arrows={false}
             infinite={true}
             autoplay={false}
-            transitionDuration={500}
+            transitionDuration={300}
             canSwipe={true}
             cssClass="jargon-slider-desktop"
             onChange={handleSlideChange}
@@ -172,7 +172,7 @@ export default function JargonSlider({ data }: JargonSliderProps) {
             arrows={false}
             infinite={true}
             autoplay={false}
-            transitionDuration={500}
+            transitionDuration={300}
             canSwipe={true}
             cssClass="jargon-slider-mobile"
             onChange={handleSlideChange}

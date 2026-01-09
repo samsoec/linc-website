@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_elements_info_image_items",
+  "info": {
+    "displayName": "Info Image Item"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string",
+      "required": true
+    },
+    "caption": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

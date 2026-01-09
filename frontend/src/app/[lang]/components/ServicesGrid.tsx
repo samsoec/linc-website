@@ -39,7 +39,7 @@ function ServiceCard({ service }: ServiceCardProps) {
       <div className="absolute inset-0 flex items-end justify-between p-6 md:p-8 gap-2">
         {/* Left: Title, Description, and Button */}
         <div className="flex flex-col transition-transform duration-300 group-hover:-translate-y-4">
-          <h3 className="mb-2 font-sora text-base font-bold text-white md:mb-3 md:text-xl lg:text-2xl">
+          <h3 className="mb-2  text-base font-bold text-white md:mb-3 md:text-xl lg:text-2xl">
             {service.name}
           </h3>
           {service.description && (
@@ -92,13 +92,13 @@ export default function ServicesGrid({ data }: ServicesGridProps) {
         {/* Section Header */}
         <div className="mb-12 text-center md:mb-16">
           {subheading && (
-            <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-accent">
+            <p className="mb-3 text-sm font-medium uppercase tracking-[0.4em] text-accent">
               {subheading}
             </p>
           )}
           {heading && (
             <>
-              <h2 className="font-sora text-3xl font-bold text-primary md:text-4xl lg:text-5xl">
+              <h2 className=" text-3xl font-bold text-primary md:text-4xl lg:text-5xl">
                 {heading}
               </h2>
               <div className="mx-auto mt-6 h-1 w-16 rounded-full bg-accent" />

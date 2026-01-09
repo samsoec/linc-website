@@ -163,7 +163,7 @@ export default function JobSlider({ data }: JobSliderProps) {
           <div className="hidden md:flex md:items-start md:justify-between">
             <div className="max-w-2xl">
               {subheading && (
-                <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-accent">
+                <p className="mb-3 text-sm font-medium uppercase tracking-[0.4em] text-accent">
                   {subheading}
                 </p>
               )}
@@ -184,7 +184,7 @@ export default function JobSlider({ data }: JobSliderProps) {
           {/* Mobile: Stacked layout */}
           <div className="md:hidden">
             {subheading && (
-              <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-accent">
+              <p className="mb-3 text-sm font-medium uppercase tracking-[0.4em] text-accent">
                 {subheading}
               </p>
             )}
@@ -216,6 +216,7 @@ export default function JobSlider({ data }: JobSliderProps) {
             infinite={false}
             cssClass="job-slider"
             onChange={handleSlideChange}
+            transitionDuration={300}
           >
             {jobs.map((job, index) => (
               <div key={job.id || index} className="px-2">

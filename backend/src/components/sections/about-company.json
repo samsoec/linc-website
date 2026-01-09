@@ -16,37 +16,30 @@
       "type": "text",
       "required": true
     },
-    "highlights": {
-      "type": "component",
-      "component": "elements.hero-highlight",
-      "repeatable": true
-    },
     "moreButton": {
       "type": "component",
       "component": "links.button-link",
       "repeatable": false
     },
-    "awards": {
+    "highlights": {
       "type": "component",
-      "component": "elements.award",
+      "component": "elements.hero-highlight",
       "repeatable": true
     },
-    "media": {
-      "type": "media",
-      "multiple": false,
-      "allowedTypes": [
-        "images",
-        "videos"
-      ]
+    "cards": {
+      "type": "component",
+      "component": "elements.simple-card",
+      "repeatable": true
     },
-    "mediaCaption": {
-      "type": "string"
+    "videoEmbed": {
+      "type": "component",
+      "component": "shared.video-embed",
+      "repeatable": false
     },
-    "mediaSubtitle": {
-      "type": "string"
-    },
-    "videoEmbedUrl": {
-      "type": "string"
+    "image": {
+      "type": "component",
+      "component": "elements.info-image",
+      "repeatable": false
     }
   },
   "config": {}
