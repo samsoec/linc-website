@@ -395,6 +395,27 @@ module.exports = (config, { strapi }) => {
           "sections.job-explore": {
             populate: false,
           },
+          "sections.location-map": {
+            populate: {
+              locations: {
+                fields: ["name", "mapUrl"],
+              },
+            },
+          },
+          "sections.location-grid": {
+            populate: {
+              items: {
+                populate: {
+                  phoneNumbers: {
+                    populate: true,
+                  },
+                  emails: {
+                    populate: true,
+                  },
+                },
+              },
+            },
+          },
         },
       },
       seo: { 

@@ -798,6 +798,7 @@ export interface ApiLocationLocation extends Struct.CollectionTypeSchema {
       'api::location.location'
     > &
       Schema.Attribute.Private;
+    mapUrl: Schema.Attribute.Text;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
@@ -850,6 +851,8 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'sections.career-benefit',
         'sections.job-slider',
         'sections.job-explore',
+        'sections.location-map',
+        'sections.location-grid',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{

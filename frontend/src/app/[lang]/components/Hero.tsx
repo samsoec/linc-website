@@ -133,7 +133,7 @@ export default function Hero({ data }: HeroProps) {
                         {data.award.caption}
                       </p>
                     )}
-                    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-2">
+                    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-white mb-2">
                       {data.award.name}
                     </h3>
                     {data.award.sponsor && (

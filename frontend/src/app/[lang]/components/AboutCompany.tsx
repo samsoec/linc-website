@@ -26,8 +26,6 @@ export default function AboutCompany({ data }: AboutCompanyProps) {
 
   const imageUrl = getStrapiMedia(image?.media.url || null);
 
-  console.log("AboutCompany highlights:", imageUrl);
-
   const openModal = () => {
     if (videoEmbed) {
       setIsModalOpen(true);
@@ -74,7 +72,7 @@ export default function AboutCompany({ data }: AboutCompanyProps) {
               <div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-6">
                 {highlights.map((highlight, index) => (
                   <div key={index} className="flex flex-col">
-                    <div className="text-xl md:text-3xl font-bold text-accent">
+                    <div className="text-xl md:text-3xl font-semibold text-accent">
                       {highlight.value}
                     </div>
                     <div className="mt-2 text-sm text-gray-600">{highlight.caption}</div>

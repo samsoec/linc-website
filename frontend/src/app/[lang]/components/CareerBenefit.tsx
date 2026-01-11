@@ -41,7 +41,7 @@ export default function CareerBenefit({ data }: CareerBenefitProps) {
 
           {heading && (
             <>
-              <h2 className="text-white text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+              <h2 className="text-white text-3xl md:text-4xl lg:text-5xl font-semibold mb-6">
                 {heading}
               </h2>
               <div className="h-1 w-16 rounded-full bg-white mb-6" />
@@ -66,7 +66,7 @@ export default function CareerBenefit({ data }: CareerBenefitProps) {
               </div>
 
               {/* Title */}
-              <h3 className="text-white text-xl font-bold mb-3">{benefit.title}</h3>
+              <h3 className="text-white text-xl font-semibold mb-3">{benefit.title}</h3>
 
               {/* Description */}
               <p className="text-white/90 text-sm leading-relaxed">{benefit.description}</p>

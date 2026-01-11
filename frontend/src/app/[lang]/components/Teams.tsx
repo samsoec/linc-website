@@ -43,7 +43,7 @@ function TeamMemberCard({ member }: TeamMemberCardProps) {
 
         {/* Content */}
         <div className="flex flex-1 flex-col justify-center py-4">
-          <h3 className="mb-3 text-3xl font-bold text-gray-900 lg:text-4xl">{member.name}</h3>
+          <h3 className="mb-3 text-3xl font-semibold text-gray-900 lg:text-4xl">{member.name}</h3>
           <p className="mb-6 text-base font-medium text-gray-500">{member.title}</p>
           <div className="prose prose-base max-w-none text-gray-600">
             <ReactMarkdown
@@ -83,7 +83,7 @@ function TeamMemberCard({ member }: TeamMemberCardProps) {
 
         {/* Content */}
         <div className="flex flex-col">
-          <h3 className="mb-3 text-2xl font-bold text-gray-900">{member.name}</h3>
+          <h3 className="mb-3 text-2xl font-semibold text-gray-900">{member.name}</h3>
           <p className="mb-6 text-sm font-medium text-gray-500">{member.title}</p>
           <div className="prose prose-sm max-w-none text-gray-600">
             <ReactMarkdown
@@ -183,7 +183,7 @@ export default function Teams({ data }: TeamsProps) {
             </p>
           )}
           {heading && (
-            <h2 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl lg:text-5xl">
+            <h2 className="mb-4 text-3xl font-semibold text-gray-900 md:text-4xl lg:text-5xl">
               {heading}
             </h2>
           )}

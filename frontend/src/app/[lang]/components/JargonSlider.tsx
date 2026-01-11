@@ -76,17 +76,17 @@ export default function JargonSlider({ data }: JargonSliderProps) {
   const indicators = (index?: number) => <CustomDot active={index === currentSlide} />;
 
   // Function to render jargon letters with styling
-  const renderJargonLetters = (jargon: string) => {
+  const renderJargonLetters = (jargon: string, currentIndex: number) => {
     const letters = jargon.split("");
     return (
       <div className="flex items-center justify-center gap-4 md:gap-8 mb-8">
         {letters.map((letter, idx) => (
           <span
             key={idx}
-            className="text-6xl md:text-8xl lg:text-9xl font-bold text-white"
+            className="text-6xl md:text-8xl lg:text-9xl font-semibold text-white"
             style={{
-              WebkitTextStroke: idx % 2 === 1 ? "2px white" : "0",
-              WebkitTextFillColor: idx % 2 === 1 ? "transparent" : "white",
+              WebkitTextStroke: idx === currentIndex ? "0" : "2px white",
+              WebkitTextFillColor: idx === currentIndex ? "white" : "transparent",
             }}
           >
             {letter}
@@ -129,7 +129,7 @@ export default function JargonSlider({ data }: JargonSliderProps) {
             onChange={handleSlideChange}
           >
             {sortedItems.map((item) => (
-              <div key={item.id} className="flex items-center justify-center px-4 py-16 md:py-32">
+              <div key={item.id} className="flex items-center justify-center px-4 py-12">
                 <div className="max-w-5xl mx-auto text-center">
                   {/* Subheading */}
                   <p className="text-white text-sm md:text-base font-light tracking-[0.3em] mb-6 uppercase">
@@ -137,10 +137,10 @@ export default function JargonSlider({ data }: JargonSliderProps) {
                   </p>
 
                   {/* Jargon Letters */}
-                  {renderJargonLetters(item.jargon)}
+                  {renderJargonLetters(item.jargon, item.index)}
 
                   {/* Heading */}
-                  <h2 className="text-white text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+                  <h2 className="text-white text-3xl md:text-4xl lg:text-5xl font-semibold mb-6">
                     {item.heading}
                   </h2>
 
@@ -190,7 +190,7 @@ export default function JargonSlider({ data }: JargonSliderProps) {
                     {item.jargon.split("").map((letter, idx) => (
                       <span
                         key={idx}
-                        className="text-4xl font-bold text-white"
+                        className="text-4xl font-semibold text-white"
                         style={{
                           WebkitTextStroke: idx % 2 === 1 ? "1px white" : "0",
                           WebkitTextFillColor: idx % 2 === 1 ? "transparent" : "white",
@@ -202,7 +202,7 @@ export default function JargonSlider({ data }: JargonSliderProps) {
                   </div>
 
                   {/* Heading */}
-                  <h2 className="text-white text-2xl font-bold mb-4 px-4">{item.heading}</h2>
+                  <h2 className="text-white text-2xl font-semibold mb-4 px-4">{item.heading}</h2>
 
                   {/* Description */}
                   <p className="text-white text-sm leading-relaxed px-4">{item.description}</p>

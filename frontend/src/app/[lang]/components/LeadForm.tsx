@@ -101,7 +101,7 @@ export default function LeadForm({ data }: LeadFormProps) {
                 </p>
               )}
               {heading && (
-                <h2 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl lg:text-5xl">
+                <h2 className="mb-4 text-3xl font-semibold text-gray-900 md:text-4xl lg:text-5xl">
                   {heading}
                 </h2>
               )}

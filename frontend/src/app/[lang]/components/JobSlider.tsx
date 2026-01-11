@@ -24,12 +24,12 @@ interface JobCardProps {
 function JobCard({ job }: JobCardProps) {
   return (
     <Link href={`/career/${job.slug}`} className="group block h-full">
-      <div className="flex h-full flex-col overflow-hidden rounded-2xl bg-white border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-md hover:border-accent">
+      <div className="flex h-full min-h-48 flex-col overflow-hidden rounded-2xl bg-white border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-md hover:border-accent">
         {/* Content */}
         <div className="flex flex-1 flex-col p-6">
           {/* Job Division */}
           {job.jobDivision && (
-            <span className="mb-3 inline-block w-fit rounded-full bg-accent/10 px-3 py-1 text-xs font-medium text-accent">
+            <span className="mb-3 text-xs font-medium">
               {job.jobDivision.name}
             </span>
           )}
@@ -167,7 +167,7 @@ export default function JobSlider({ data }: JobSliderProps) {
                   {subheading}
                 </p>
               )}
-              <h2 className="mb-4 text-4xl font-bold text-gray-900 lg:text-5xl">{heading}</h2>
+              <h2 className="mb-4 text-4xl font-semibold text-gray-900 lg:text-5xl">{heading}</h2>
               {description && <p className="text-lg text-gray-600">{description}</p>}
             </div>
 
@@ -188,7 +188,7 @@ export default function JobSlider({ data }: JobSliderProps) {
                 {subheading}
               </p>
             )}
-            <h2 className="mb-4 text-3xl font-bold text-gray-900">{heading}</h2>
+            <h2 className="mb-4 text-3xl font-semibold text-gray-900">{heading}</h2>
             {description && <p className="mb-4 text-base text-gray-600">{description}</p>}
 
             {/* See All Careers Link - Mobile */}

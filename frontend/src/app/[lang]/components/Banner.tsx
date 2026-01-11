@@ -35,7 +35,7 @@ export default function Banner({ data }: BannerProps) {
 
       {/* Content */}
       <div className="relative z-20 w-full max-w-7xl mx-auto px-4 flex flex-col py-16 md:py-32">
-        <h1 className="text-white text-3xl md:text-6xl font-bold leading-tight mb-8">{heading}</h1>
+        <h1 className="text-white text-3xl md:text-6xl font-semibold leading-tight mb-8">{heading}</h1>
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row items-start gap-4">
           {/* Primary Buttons from Strapi */}

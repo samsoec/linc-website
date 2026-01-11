@@ -11,7 +11,7 @@ export default function LangRedirect() {
           <HighlightedText
             text="There is no content available in your language."
             tag="h1"
-            className="text-5xl font-bold leading-none sm:text-4xl mb-8"
+            className="text-5xl font-semibold leading-none sm:text-4xl mb-8"
             color="dark:text-violet-400"
           />
 

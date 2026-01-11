@@ -686,6 +686,31 @@ export interface SectionsLeadForm extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionsLocationGrid extends Struct.ComponentSchema {
+  collectionName: 'components_sections_location_grids';
+  info: {
+    displayName: 'Location Grid';
+  };
+  attributes: {
+    heading: Schema.Attribute.String & Schema.Attribute.Required;
+    items: Schema.Attribute.Component<'elements.location', true>;
+    subheading: Schema.Attribute.String;
+  };
+}
+
+export interface SectionsLocationMap extends Struct.ComponentSchema {
+  collectionName: 'components_sections_location_map';
+  info: {
+    displayName: 'Location Map';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    heading: Schema.Attribute.String & Schema.Attribute.Required;
+    locations: Schema.Attribute.Relation<'oneToMany', 'api::location.location'>;
+    subheading: Schema.Attribute.String;
+  };
+}
+
 export interface SectionsNewsRoom extends Struct.ComponentSchema {
   collectionName: 'components_sections_news_rooms';
   info: {
@@ -905,6 +930,8 @@ declare module '@strapi/strapi' {
       'sections.large-image': SectionsLargeImage;
       'sections.large-video': SectionsLargeVideo;
       'sections.lead-form': SectionsLeadForm;
+      'sections.location-grid': SectionsLocationGrid;
+      'sections.location-map': SectionsLocationMap;
       'sections.news-room': SectionsNewsRoom;
       'sections.service-value': SectionsServiceValue;
       'sections.services': SectionsServices;

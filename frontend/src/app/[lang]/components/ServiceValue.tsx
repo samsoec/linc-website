@@ -104,7 +104,7 @@ export default function ServiceValue({ data }: ServiceValueProps) {
             </p>
           )}
           {heading && (
-            <h2 className="mb-4 text-3xl font-bold text-white md:text-4xl lg:text-5xl">
+            <h2 className="mb-4 text-3xl font-semibold text-white md:text-4xl lg:text-5xl">
               {heading}
             </h2>
           )}
@@ -121,7 +121,7 @@ export default function ServiceValue({ data }: ServiceValueProps) {
 
         {/* Accordion - Two independent columns */}
         {/* Desktop: 2 columns side by side, Mobile: 1 column */}
-        <div className="flex flex-col gap-8 md:flex-row md:gap-12">
+        <div className="flex flex-col md:flex-row md:gap-12">
           {/* Left Column */}
           <div className="flex-1">
             {leftItems.map((item, index) => renderAccordionItem(item, index))}

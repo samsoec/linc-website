@@ -39,12 +39,12 @@ function ServiceCard({ service }: ServiceCardProps) {
       <div className="absolute inset-0 flex items-end justify-between p-6 md:p-8 gap-2">
         {/* Left: Title, Description, and Button */}
         <div className="flex flex-col transition-transform duration-300 group-hover:-translate-y-4">
-          <h3 className="mb-2  text-base font-bold text-white md:mb-3 md:text-xl lg:text-2xl">
+          <h3 className="mb-2 text-base font-semibold text-white">
             {service.name}
           </h3>
           {service.description && (
-            <p className="mb-2 line-clamp-2 text-xs text-gray-200 md:mb-3 md:text-sm lg:text-base">
-              {service.description}
+            <p className="mb-2 line-clamp-2 text-xs text-gray-200 md:text-sm lg:text-base">
+              {service.caption}
             </p>
           )}
 
@@ -60,13 +60,13 @@ function ServiceCard({ service }: ServiceCardProps) {
         {/* Right: Icon/Logo */}
         <div className="flex-shrink-0">
           {iconUrl ? (
-            <div className="h-14 w-28 overflow-hidden rounded-lg bg-white md:h-16 md:w-32">
+            <div className="h-28 w-28 overflow-hidden rounded-lg md:h-32 md:w-32">
               <Image
                 src={iconUrl}
                 alt={`${service.name} icon`}
                 width={128}
                 height={64}
-                className="h-full w-full object-contain p-2"
+                className="h-full w-full object-contain p-2 invert brightness-0"
               />
             </div>
           ) : (
@@ -90,25 +90,29 @@ export default function ServicesGrid({ data }: ServicesGridProps) {
     <section className="w-full bg-white py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="mb-12 text-center md:mb-16">
-          {subheading && (
-            <p className="mb-3 text-sm font-medium uppercase tracking-[0.4em] text-accent">
-              {subheading}
-            </p>
-          )}
-          {heading && (
-            <>
-              <h2 className=" text-3xl font-bold text-primary md:text-4xl lg:text-5xl">
-                {heading}
-              </h2>
-              <div className="mx-auto mt-6 h-1 w-16 rounded-full bg-accent" />
-            </>
-          )}
-          {description && (
-            <p className="mx-auto mt-6 max-w-3xl text-base text-gray-600 md:text-lg">
-              {description}
-            </p>
-          )}
+        <div className="mb-12 md:mb-16">
+          <div className="grid gap-8 md:grid-cols-2 md:gap-12 lg:gap-16">
+            <div>
+              {subheading && (
+                <p className="mb-3 text-sm font-medium uppercase tracking-[0.4em] text-accent">
+                  {subheading}
+                </p>
+              )}
+              {heading && (
+                <>
+                  <h2 className="text-3xl font-semibold text-primary md:text-4xl lg:text-5xl">
+                    {heading}
+                  </h2>
+                  <div className="mt-6 h-1 w-16 rounded-full bg-accent" />
+                </>
+              )}
+            </div>
+            {description && (
+              <p className="mt-6 text-base text-gray-600 md:text-lg">
+                {description}
+              </p>
+            )}
+          </div>
         </div>
 
         {/* Services Grid */}

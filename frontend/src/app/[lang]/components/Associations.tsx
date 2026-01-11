@@ -110,7 +110,7 @@ export default function Associations({ data }: AssociationsProps) {
                   <p className="text-white text-sm md:text-base font-light tracking-[0.3em] mb-8 uppercase">
                     {subheading}
                   </p>
-                  <h2 className="text-white text-2xl md:text-4xl lg:text-5xl font-bold leading-relaxed">
+                  <h2 className="text-white text-2xl md:text-4xl lg:text-5xl font-semibold leading-relaxed">
                     {item.text}
                   </h2>
                 </div>
@@ -136,8 +136,9 @@ export default function Associations({ data }: AssociationsProps) {
             indicators={indicators}
             arrows={false}
             infinite={true}
-            autoplay={false}
+            autoplay={true}
             transitionDuration={300}
+            duration={3000}
             canSwipe={true}
             cssClass="associations-slider-mobile"
             onChange={handleSlideChange}
@@ -148,7 +149,7 @@ export default function Associations({ data }: AssociationsProps) {
                   <p className="text-white text-sm font-light tracking-[0.3em] mb-8 uppercase">
                     {subheading}
                   </p>
-                  <h2 className="text-white text-xl font-bold leading-relaxed px-4">{item.text}</h2>
+                  <h2 className="text-white text-xl font-semibold leading-relaxed px-4">{item.text}</h2>
                 </div>
               </div>
             ))}

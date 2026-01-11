@@ -56,7 +56,9 @@
         "sections.jargon-slider",
         "sections.career-benefit",
         "sections.job-slider",
-        "sections.job-explore"
+        "sections.job-explore",
+        "sections.location-map",
+        "sections.location-grid"
       ]
     },
     "slug": {

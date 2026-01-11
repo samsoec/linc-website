@@ -56,10 +56,12 @@ export default function Post({ data }: { data: Article }) {
           </div>
 
           {/* Right Side - Sidebar */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-1 border-l border-gray-100">
             <div className="sticky top-24 space-y-6">
               {/* Search Bar */}
-              <SearchBar size="small" />
+              <div className="px-6">
+                <SearchBar size="small" />
+              </div>
 
               {/* Highlighted Posts */}
               <HighlightedPosts />

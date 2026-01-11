@@ -52,7 +52,7 @@ export default async function BlogPage({ params }: PageProps) {
     if (page.data.length === 0) {
       return (
         <div className="container mx-auto px-4 py-12 text-center">
-          <h1 className="text-2xl font-bold text-gray-900">Blog Page Not Configured</h1>
+          <h1 className="text-2xl font-semibold text-gray-900">Blog Page Not Configured</h1>
           <p className="text-gray-600 mt-4">
             Please create a page with slug &quot;blog&quot; in Strapi and add a BlogContent section.
           </p>
@@ -76,7 +76,7 @@ export default async function BlogPage({ params }: PageProps) {
     console.error("Blog page error:", error);
     return (
       <div className="container mx-auto px-4 py-12 text-center">
-        <h1 className="text-2xl font-bold text-red-600">Error loading blog page</h1>
+        <h1 className="text-2xl font-semibold text-red-600">Error loading blog page</h1>
         <p className="text-gray-600 mt-4">Please check your configuration.</p>
         {error instanceof Error && <p className="text-sm text-gray-500 mt-2">{error.message}</p>}
       </div>

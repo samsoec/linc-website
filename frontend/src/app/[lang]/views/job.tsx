@@ -157,10 +157,10 @@ export default function JobDetail({ data }: JobDetailProps) {
               <ReactMarkdown
                 components={{
                   h1: ({ children }) => (
-                    <h1 className="mt-10 mb-6 text-3xl font-bold text-gray-900">{children}</h1>
+                    <h1 className="mt-10 mb-6 text-3xl font-semibold text-gray-900">{children}</h1>
                   ),
                   h2: ({ children }) => (
-                    <h2 className="mt-8 mb-4 text-2xl font-bold text-gray-900">{children}</h2>
+                    <h2 className="mt-8 mb-4 text-2xl font-semibold text-gray-900">{children}</h2>
                   ),
                   h3: ({ children }) => (
                     <h3 className="mt-6 mb-3 text-xl font-semibold text-gray-900">{children}</h3>
@@ -196,7 +196,7 @@ export default function JobDetail({ data }: JobDetailProps) {
           <div className="lg:col-span-1">
             <div ref={formRef} id="apply-form" className="sticky top-24">
               <div className="rounded-2xl bg-gray-50 p-6 md:p-8">
-                <h2 className="mb-6 text-xl font-bold text-gray-900">Apply Now!</h2>
+                <h2 className="mb-6 text-xl font-semibold text-gray-900">Apply Now!</h2>
 
                 <form onSubmit={handleSubmit} className="space-y-5">
                   {/* Fullname */}

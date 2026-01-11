@@ -41,7 +41,7 @@ function AwardCard({ award }: AwardCardProps) {
 
         {/* Code/Title */}
         {award.code && (
-          <h3 className="mb-2 text-center text-xl font-bold text-gray-900">{award.code}</h3>
+          <h3 className="mb-2 text-center text-xl font-semibold text-gray-900">{award.code}</h3>
         )}
 
         {/* Subtitle */}
@@ -102,7 +102,8 @@ export default function AwardCertification({ data }: AwardCertificationProps) {
   const slideRef = useRef<SlideshowRef>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const { heading, subheading, description, certifications } = data;
+  const { heading, subheading, description, certifications, award } = data;
+  const awardLogoUrl = award?.logo ? getStrapiMedia(award.logo.url) : null;
 
   if (!heading || !certifications || certifications.length === 0) {
     return null;
@@ -153,24 +154,64 @@ export default function AwardCertification({ data }: AwardCertificationProps) {
   return (
     <section className="w-full bg-gray-50 py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Header Section */}
-        <div className="mb-10 text-center md:mb-12">
-          {subheading && (
-            <p className="mb-3 text-sm font-medium uppercase tracking-[0.4em] text-accent">
-              {subheading}
-            </p>
-          )}
-          {heading && (
-            <h2 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl lg:text-5xl">
-              {heading}
-            </h2>
-          )}
-          {description && (
-            <p className="mx-auto max-w-3xl text-base text-gray-600 md:text-lg">{description}</p>
-          )}
+        {/* Header Section with Featured Award */}
+        <div className="mb-12 md:mb-16">
+          <div className="flex flex-col lg:flex-row lg:justify-between lg:gap-12">
+            {/* Left: Section Header */}
+            <div className="mb-8 lg:mb-0 lg:max-w-xl text-center md:text-left">
+              {subheading && (
+                <p className="mb-3 text-sm font-medium uppercase tracking-[0.4em] text-accent">
+                  {subheading}
+                </p>
+              )}
+              {heading && (
+                <>
+                  <h2 className="mb-4 text-3xl font-semibold text-gray-900 md:text-4xl lg:text-5xl">
+                    {heading}
+                  </h2>
+                  {/* Accent Line */}
+                  <div className="mx-auto md:mx-0 mt-6 h-1 w-16 rounded-full bg-accent mb-6" />
+                </>
+              )}
+              {description && (
+                <p className="text-base text-gray-600 md:text-lg">{description}</p>
+              )}
+            </div>
 
-          {/* Accent Line */}
-          <div className="mx-auto mt-6 h-1 w-16 rounded-full bg-accent" />
+            {/* Right: Featured Award */}
+            {award && (
+              <div className="lg:flex-shrink-0">
+                <div className="flex flex-col items-center text-center p-8 max-w-md mx-auto lg:mx-0">
+                  {/* Award Logo */}
+                  {awardLogoUrl && (
+                    <div className="relative w-48 h-32 mb-6">
+                      <Image
+                        src={awardLogoUrl}
+                        alt={award.logo.alternativeText || award.name}
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                  )}
+
+                  {/* Award Content */}
+                  <div className="w-full">
+                    {award.caption && (
+                      <p className="text-sm sm:text-base text-gray-600 mb-2 font-semibold">
+                        {award.caption}
+                      </p>
+                    )}
+                    <h3 className="text-2xl sm:text-3xl font-semibold text-accent mb-2">
+                      {award.name}
+                    </h3>
+                    {award.sponsor && (
+                      <p className="text-sm sm:text-base text-gray-600">{award.sponsor}</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Slider Section */}

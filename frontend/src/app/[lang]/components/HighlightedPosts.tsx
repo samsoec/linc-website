@@ -56,11 +56,11 @@ export default function HighlightedPosts({ data }: HighlightedPostsProps = {}) {
 
   if (isLoading) {
     return (
-      <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+      <div className="p-6">
         <div className="h-6 bg-gray-200 rounded w-32 mb-6 animate-pulse" />
-        <div className="space-y-4">
+        <div className="divide-y divide-gray-100">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="flex gap-4">
+            <div key={i} className="flex gap-4 py-4">
               <div className="w-6 h-6 bg-gray-200 rounded animate-pulse" />
               <div className="flex-1 space-y-2">
                 <div className="h-4 bg-gray-200 rounded animate-pulse" />
@@ -78,17 +78,17 @@ export default function HighlightedPosts({ data }: HighlightedPostsProps = {}) {
   }
 
   return (
-    <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-      <h2 className="text-xl font-bold text-gray-900 mb-6">{title}</h2>
+    <div className="p-6">
+      <h2 className="text-xl font-semibold text-gray-900 mb-6">{title}</h2>
 
-      <div className="space-y-5">
+      <div className="divide-y divide-gray-100">
         {articles.map((article, index) => {
           const category = article.category;
           const articleUrl = `/blog/${article.slug}`;
 
           return (
-            <Link key={article.id} href={articleUrl} className="group flex gap-4 items-start">
-              <span className="flex-shrink-0 text-lg font-bold text-accent w-6">{index + 1}</span>
+            <Link key={article.id} href={articleUrl} className="group flex gap-4 items-start py-4">
+              <span className="flex-shrink-0 text-lg font-semibold text-accent w-6">{index + 1}</span>
               <div className="flex-1 min-w-0">
                 <h3 className="text-sm font-semibold text-gray-900 line-clamp-2 group-hover:text-accent transition-colors">
                   {article.title}

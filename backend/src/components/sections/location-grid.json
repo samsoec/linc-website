@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_sections_location_grids",
+  "info": {
+    "displayName": "Location Grid"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true
+    },
+    "subheading": {
+      "type": "string"
+    },
+    "items": {
+      "type": "component",
+      "component": "elements.location",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

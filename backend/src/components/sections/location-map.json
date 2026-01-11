@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_sections_location_map",
+  "info": {
+    "displayName": "Location Map"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true
+    },
+    "subheading": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "locations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::location.location"
+    }
+  },
+  "config": {}
+}

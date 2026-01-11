@@ -26,6 +26,7 @@ export default function LargeVideo({ data }: LargeVideoProps) {
 
   return (
     <>
+      <div className="h-2 md:h-4 bg-accent" />
       <section className="relative w-full overflow-hidden">
         {/* Background Image (same as poster, blurred) */}
         {posterUrl && (
@@ -107,6 +108,7 @@ export default function LargeVideo({ data }: LargeVideoProps) {
         videoUrl={videoUrl || undefined}
         title={heading}
       />
+      <div className="h-2 md:h-4 bg-accent" />
     </>
   );
 }

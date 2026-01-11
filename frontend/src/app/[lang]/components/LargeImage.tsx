@@ -31,7 +31,7 @@ export default function LargeImage({ data }: LargeImageProps) {
           )}
           {heading && (
             <>
-              <h2 className=" text-3xl font-bold text-primary md:text-4xl lg:text-5xl">
+              <h2 className=" text-3xl font-semibold text-primary md:text-4xl lg:text-5xl">
                 {heading}
               </h2>
               <div className="mx-auto mt-6 h-1 w-16 rounded-full bg-accent" />

@@ -10,6 +10,7 @@ import type { Article, BlogContentSection, Category } from "@/types/generated";
 import Loader from "./Loader";
 import Button from "./Button";
 import HighlightedPosts from "./HighlightedPosts";
+import ChipTabs from "./ChipTabs";
 
 // =============================================================================
 // ARTICLE CARD COMPONENT
@@ -27,7 +28,7 @@ function ArticleCard({ article, variant = "default" }: ArticleCardProps) {
 
   if (variant === "compact") {
     return (
-      <Link href={articleUrl} className="group flex gap-4">
+      <Link href={articleUrl} className="group flex gap-4 border border-gray-100 rounded-lg">
         <div className="relative h-16 w-24 flex-shrink-0 overflow-hidden rounded-lg">
           {imageUrl ? (
             <Image
@@ -57,8 +58,8 @@ function ArticleCard({ article, variant = "default" }: ArticleCardProps) {
   }
 
   return (
-    <Link href={articleUrl} className="group flex gap-4 sm:gap-6">
-      <div className="relative h-24 w-32 sm:h-32 sm:w-48 flex-shrink-0 overflow-hidden rounded-lg">
+    <Link href={articleUrl} className="group flex flex-col sm:flex-row md:gap-4 border border-gray-100 rounded-lg">
+      <div className="relative aspect-[4/3] w-full sm:aspect-auto sm:h-32 sm:w-48 flex-shrink-0 overflow-hidden rounded-lg">
         {imageUrl ? (
           <Image
             src={imageUrl}
@@ -72,9 +73,9 @@ function ArticleCard({ article, variant = "default" }: ArticleCardProps) {
           </div>
         )}
       </div>
-      <div className="flex flex-col justify-center py-1">
+      <div className="flex flex-col justify-center p-4 md:py-1">
         {category && (
-          <span className="text-xs font-medium text-accent uppercase tracking-wide mb-1">
+          <span className="text-xs font-medium text-accent tracking-wide mb-1">
             {category.name}
           </span>
         )}
@@ -115,37 +116,22 @@ function CategoryTabs({ categories, activeCategory }: CategoryTabsProps) {
     router.push(`?${params.toString()}`);
   };
 
-  const isActive = (slug: string | null) => {
-    if (slug === null) {
-      return !activeCategory;
-    }
-    return activeCategory === slug;
-  };
+  const allCategory = { name: "All Categories", slug: '', id: 0, documentId: '' };
 
   return (
-    <div className="flex flex-wrap items-center gap-2">
-      <button
-        onClick={() => handleCategoryChange(null)}
-        className={`px-4 py-2 text-sm font-medium rounded-full transition-colors ${
-          isActive(null) ? "bg-accent text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-        }`}
-      >
-        All Categories
-      </button>
-      {categories.map((category) => (
-        <button
-          key={category.id}
-          onClick={() => handleCategoryChange(category.slug)}
-          className={`px-4 py-2 text-sm font-medium rounded-full transition-colors ${
-            isActive(category.slug)
-              ? "bg-accent text-white"
-              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-          }`}
-        >
-          {category.name}
-        </button>
-      ))}
-    </div>
+    <ChipTabs<typeof categories[0]>
+      items={[allCategory, ...categories]}
+      activeIndex={
+        activeCategory
+          ? categories.findIndex((cat) => cat.slug === activeCategory) + 1
+          : 0
+      }
+      onSelect={(index) => {
+        const category = index === 0 ? null : categories[index - 1];
+        handleCategoryChange(category ? category.slug : null);
+      }}
+      getLabel={(item) => item.name || item.slug}
+    />
   );
 }
 
@@ -257,7 +243,7 @@ function ArticleList({ pageSize }: ArticleListProps) {
       {articles.length > 0 ? (
         <div className="space-y-6">
           {articles.map((article) => (
-            <div key={article.id} className="pb-6 border-b border-gray-100 last:border-0">
+            <div key={article.id}>
               <ArticleCard article={article} />
             </div>
           ))}
@@ -323,25 +309,24 @@ export default function BlogContent({ data }: BlogContentProps) {
 
   return (
     <div className="container mx-auto px-4 py-12">
+      {/* Category Tabs */}
+      <div className="mb-8">
+        {isLoadingCategories ? (
+          <div className="h-10 bg-gray-100 rounded-full animate-pulse" />
+        ) : (
+          <CategoryTabs categories={categories} activeCategory={activeCategory} />
+        )}
+      </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Main Content */}
         <div className="lg:col-span-2">
-          {/* Category Tabs */}
-          <div className="mb-8">
-            {isLoadingCategories ? (
-              <div className="h-10 bg-gray-100 rounded-full animate-pulse" />
-            ) : (
-              <CategoryTabs categories={categories} activeCategory={activeCategory} />
-            )}
-          </div>
-
           {/* Articles List */}
           <Suspense fallback={<Loader />}>
             <ArticleList pageSize={pageSize} />
           </Suspense>
         </div>
         {/* Sidebar */}
-        <div className="lg:col-span-1">
+        <div className="lg:col-span-1 border-l border-gray-100">
           <div className="sticky top-24">
             <HighlightedPosts data={data.highlight} />
           </div>
