@@ -42,7 +42,7 @@ function ServiceCard({ service }: ServiceCardProps) {
           <h3 className="mb-2 text-base font-semibold text-white">
             {service.name}
           </h3>
-          {service.description && (
+          {service.caption && (
             <p className="mb-2 line-clamp-2 text-xs text-gray-200 md:text-sm lg:text-base">
               {service.caption}
             </p>

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import ReactMarkdown from "react-markdown";
 import { ServicesSection, Service } from "@/types/generated";
 import { getStrapiMedia } from "../utils/api-helpers";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
@@ -20,7 +21,6 @@ interface ServiceCardProps {
 function ServiceCard({ service, isActive, onActivate }: ServiceCardProps) {
   const imageUrl = getStrapiMedia(service.picture?.url || null);
   const iconUrl = getStrapiMedia(service.icon?.url || null);
-  const features = service.features || [];
 
   return (
     <div
@@ -60,14 +60,14 @@ function ServiceCard({ service, isActive, onActivate }: ServiceCardProps) {
       />
 
       {/* Content Container */}
-      <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8">
+      <div className="absolute inset-0 flex flex-col justify-center p-6 md:p-8">
         {/* Icon/Logo Placeholder */}
         {iconUrl ? (
           <div
             className={`
               mb-4 h-24 w-24 overflow-hidden rounded-lg
               transition-all duration-500
-              ${isActive ? "opacity-100" : "opacity-100"}
+              ${isActive ? "self-start" : "self-center"}
             `}
           >
             <Image
@@ -87,16 +87,6 @@ function ServiceCard({ service, isActive, onActivate }: ServiceCardProps) {
           />
         )}
 
-        {/* Title - Always Visible */}
-        <h3
-          className={`
-            font-semibold text-white transition-all duration-500
-            ${isActive ? "text-2xl md:text-3xl lg:text-4xl" : "text-lg md:text-xl"}
-          `}
-        >
-          {service.name}
-        </h3>
-
         {/* Expandable Content */}
         <div
           className={`
@@ -104,21 +94,32 @@ function ServiceCard({ service, isActive, onActivate }: ServiceCardProps) {
             ${isActive ? "mt-4 max-h-[400px] opacity-100" : "max-h-0 opacity-0"}
           `}
         >
-          {/* Description */}
-          {service.description && (
-            <p className="mb-4 text-sm text-gray-200 md:text-base">{service.description}</p>
-          )}
+          {/* Title - Always Visible */}
+          <h3
+            className={`
+              mb-6 font-semibold text-white transition-all duration-500
+              ${isActive ? "text-2xl md:text-3xl lg:text-4xl" : "text-lg md:text-xl"}
+            `}
+          >
+            {service.name}
+          </h3>
 
-          {/* Features List */}
-          {features.length > 0 && (
-            <ul className="mb-6 space-y-2">
-              {features.map((feature, idx) => (
-                <li key={idx} className="flex items-start text-sm text-white md:text-base">
-                  <span className="mr-2 mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-white" />
-                  {feature}
-                </li>
-              ))}
-            </ul>
+          {/* Summary */}
+          {service.cardSummary && (
+            <div className="mb-6 space-y-2">
+              <div className="prose prose-sm max-w-none text-white/90 prose-ul:ml-0 prose-ul:list-disc prose-ul:pl-5 prose-li:marker:text-white/90">
+                <ReactMarkdown
+                  components={{
+                    ul: ({ children }) => <ul className="list-disc space-y-1 pl-5">{children}</ul>,
+                    ol: ({ children }) => <ol className="list-decimal space-y-1 pl-5">{children}</ol>,
+                    li: ({ children }) => <li className="text-sm md:text-base text-white/90">{children}</li>,
+                    p: ({ children }) => <p className="mb-3 text-sm md:text-base text-white/90">{children}</p>,
+                  }}
+                >
+                  {service.cardSummary}
+                </ReactMarkdown>
+              </div>
+            </div>
           )}
 
           {/* Learn More Button */}
@@ -145,7 +146,6 @@ interface MobileServiceCardProps {
 function MobileServiceCard({ service, isActive, onActivate }: MobileServiceCardProps) {
   const imageUrl = getStrapiMedia(service.picture?.url || null);
   const iconUrl = getStrapiMedia(service.icon?.url || null);
-  const features = service.features || [];
 
   return (
     <div
@@ -210,21 +210,22 @@ function MobileServiceCard({ service, isActive, onActivate }: MobileServiceCardP
             {service.name}
           </h3>
 
-          {/* Description */}
-          {service.description && (
-            <p className="mb-4 text-sm text-gray-200">{service.description}</p>
-          )}
-
           {/* Features List */}
-          {features.length > 0 && (
-            <ul className="mb-6 space-y-2">
-              {features.map((feature, idx) => (
-                <li key={idx} className="flex items-start text-sm text-white">
-                  <span className="mr-2 mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-white" />
-                  {feature}
-                </li>
-              ))}
-            </ul>
+          {service.cardSummary && (
+            <div className="mb-6 space-y-2">
+              <div className="prose prose-sm max-w-none text-white/90 prose-ul:ml-0 prose-ul:list-disc prose-ul:pl-5 prose-li:marker:text-white/90">
+                <ReactMarkdown
+                  components={{
+                    ul: ({ children }) => <ul className="list-disc space-y-1 pl-5">{children}</ul>,
+                    ol: ({ children }) => <ol className="list-decimal space-y-1 pl-5">{children}</ol>,
+                    li: ({ children }) => <li className="text-sm md:text-base text-white/90">{children}</li>,
+                    p: ({ children }) => <p className="mb-3 text-sm md:text-base text-white/90">{children}</p>,
+                  }}
+                >
+                  {service.cardSummary}
+                </ReactMarkdown>
+              </div>
+            </div>
           )}
 
           {/* Learn More Button */}

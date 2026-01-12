@@ -35,8 +35,8 @@
     },
     "slug": {
       "type": "uid",
-      "required": true,
-      "targetField": "name"
+      "targetField": "name",
+      "required": true
     },
     "description": {
       "type": "text",
@@ -46,9 +46,8 @@
         }
       }
     },
-    "features": {
-      "type": "json",
-      "tsType": "string[]",
+    "cardSummary": {
+      "type": "richtext",
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -59,13 +58,17 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "icon": {
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }

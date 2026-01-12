@@ -89,6 +89,27 @@ module.exports = (config, { strapi }) => {
               }
             },
           },
+          "sections.hero-service": {
+            populate: {
+              service: {
+                fields: ["name", "caption", "slug", "description"],
+                populate: {
+                  picture: {
+                    fields: [
+                      "url",
+                      "alternativeText",
+                      "caption",
+                      "width",
+                      "height",
+                    ],
+                  },
+                  icon: {
+                    fields: ["url", "alternativeText", "width", "height"],
+                  },
+                },
+              },
+            },
+          },
           "sections.large-image": {
             populate: {
               desktopImage: {
@@ -231,7 +252,7 @@ module.exports = (config, { strapi }) => {
           "sections.services": {
             populate: {
               services: {
-                fields: ["name", "caption", "slug", "description", "features"],
+                fields: ["name", "caption", "slug", "description", "cardSummary"],
                 populate: {
                   picture: {
                     fields: [
@@ -252,7 +273,7 @@ module.exports = (config, { strapi }) => {
           "sections.services-grid": {
             populate: {
               services: {
-                fields: ["name", "caption", "slug", "description", "features"],
+                fields: ["name", "caption", "slug", "description", "cardSummary"],
                 populate: {
                   picture: {
                     fields: [

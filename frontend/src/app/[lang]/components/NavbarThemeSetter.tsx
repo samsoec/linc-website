@@ -13,6 +13,8 @@ export default function NavbarThemeSetter({ theme }: NavbarThemeSetterProps) {
   useEffect(() => {
     setTheme(theme);
 
+    console.log(`Navbar theme set to: ${theme}`);
+
     // Reset to default when component unmounts
     return () => setTheme("default");
   }, [theme, setTheme]);
