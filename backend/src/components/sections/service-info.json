@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_sections_service_infos",
+  "info": {
+    "displayName": "Service Info"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true
+    },
+    "subheading": {
+      "type": "string"
+    },
+    "informations": {
+      "type": "component",
+      "component": "elements.service-value",
+      "repeatable": true
+    },
+    "closing": {
+      "type": "richtext"
+    }
+  },
+  "config": {}
+}

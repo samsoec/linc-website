@@ -36,6 +36,17 @@ export interface ElementsCertification extends Struct.ComponentSchema {
   };
 }
 
+export interface ElementsContentBlock extends Struct.ComponentSchema {
+  collectionName: 'components_elements_content_blocks';
+  info: {
+    displayName: 'Content Block';
+  };
+  attributes: {
+    content: Schema.Attribute.RichText & Schema.Attribute.Required;
+    picture: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+  };
+}
+
 export interface ElementsCoreValues extends Struct.ComponentSchema {
   collectionName: 'components_elements_core_values';
   info: {
@@ -247,6 +258,72 @@ export interface ElementsSearchBar extends Struct.ComponentSchema {
     isLocationSearchEnabled: Schema.Attribute.Boolean &
       Schema.Attribute.DefaultTo<false>;
     navigateTo: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ElementsServiceDetailContent extends Struct.ComponentSchema {
+  collectionName: 'components_elements_service_detail_contents';
+  info: {
+    displayName: 'Service Detail Content';
+  };
+  attributes: {
+    accordion: Schema.Attribute.Component<
+      'elements.service-detail-value',
+      false
+    >;
+    description: Schema.Attribute.RichText;
+    image: Schema.Attribute.Component<'elements.info-image', false>;
+    infoList: Schema.Attribute.Component<'elements.service-detail-list', false>;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    sideBySideBlocks: Schema.Attribute.Component<
+      'elements.content-block',
+      true
+    >;
+  };
+}
+
+export interface ElementsServiceDetailList extends Struct.ComponentSchema {
+  collectionName: 'components_elements_service_detail_lists';
+  info: {
+    displayName: 'Service Detail List';
+  };
+  attributes: {
+    items: Schema.Attribute.Component<
+      'elements.service-detail-list-item',
+      true
+    >;
+    numOfRow: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 3;
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<2>;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface ElementsServiceDetailListItem extends Struct.ComponentSchema {
+  collectionName: 'components_elements_service_detail_list_items';
+  info: {
+    displayName: 'Service Detail List Item';
+  };
+  attributes: {
+    description: Schema.Attribute.RichText;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ElementsServiceDetailValue extends Struct.ComponentSchema {
+  collectionName: 'components_elements_service_detail_values';
+  info: {
+    displayName: 'Service Detail Value';
+  };
+  attributes: {
+    items: Schema.Attribute.Component<'elements.service-value', true>;
+    title: Schema.Attribute.String;
   };
 }
 
@@ -471,6 +548,18 @@ export interface SectionsAboutCompany extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionsAboutService extends Struct.ComponentSchema {
+  collectionName: 'components_sections_about_services';
+  info: {
+    displayName: 'About Service';
+  };
+  attributes: {
+    content: Schema.Attribute.RichText & Schema.Attribute.Required;
+    heading: Schema.Attribute.String & Schema.Attribute.Required;
+    subheading: Schema.Attribute.String;
+  };
+}
+
 export interface SectionsAssociations extends Struct.ComponentSchema {
   collectionName: 'components_sections_associations';
   info: {
@@ -645,9 +734,10 @@ export interface SectionsLargeImage extends Struct.ComponentSchema {
     displayName: 'Large Image';
   };
   attributes: {
-    desktopImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    background: Schema.Attribute.Enumeration<['white', 'brand-color']> &
+      Schema.Attribute.DefaultTo<'white'>;
     heading: Schema.Attribute.String & Schema.Attribute.Required;
-    mobileImage: Schema.Attribute.Media<'images'>;
+    image: Schema.Attribute.Component<'elements.info-image', false>;
     subheading: Schema.Attribute.String;
   };
 }
@@ -724,6 +814,35 @@ export interface SectionsNewsRoom extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionsServiceDetail extends Struct.ComponentSchema {
+  collectionName: 'components_sections_service_details';
+  info: {
+    displayName: 'Service Detail';
+  };
+  attributes: {
+    content: Schema.Attribute.Component<
+      'elements.service-detail-content',
+      true
+    > &
+      Schema.Attribute.Required;
+    heading: Schema.Attribute.String & Schema.Attribute.Required;
+    subheading: Schema.Attribute.String;
+  };
+}
+
+export interface SectionsServiceInfo extends Struct.ComponentSchema {
+  collectionName: 'components_sections_service_infos';
+  info: {
+    displayName: 'Service Info';
+  };
+  attributes: {
+    closing: Schema.Attribute.RichText;
+    heading: Schema.Attribute.String & Schema.Attribute.Required;
+    informations: Schema.Attribute.Component<'elements.service-value', true>;
+    subheading: Schema.Attribute.String;
+  };
+}
+
 export interface SectionsServiceValue extends Struct.ComponentSchema {
   collectionName: 'components_sections_service_values';
   info: {
@@ -770,6 +889,19 @@ export interface SectionsTeams extends Struct.ComponentSchema {
   attributes: {
     heading: Schema.Attribute.String & Schema.Attribute.Required;
     members: Schema.Attribute.Component<'elements.team-member', true>;
+    subheading: Schema.Attribute.String;
+  };
+}
+
+export interface SectionsTransportationFleet extends Struct.ComponentSchema {
+  collectionName: 'components_sections_transportation_fleets';
+  info: {
+    displayName: 'Transportation Fleet';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    heading: Schema.Attribute.String & Schema.Attribute.Required;
+    items: Schema.Attribute.Component<'elements.industry-sector', true>;
     subheading: Schema.Attribute.String;
   };
 }
@@ -882,6 +1014,7 @@ declare module '@strapi/strapi' {
       'elements.association': ElementsAssociation;
       'elements.award': ElementsAward;
       'elements.certification': ElementsCertification;
+      'elements.content-block': ElementsContentBlock;
       'elements.core-values': ElementsCoreValues;
       'elements.corporate-benefit': ElementsCorporateBenefit;
       'elements.corporate-jargon': ElementsCorporateJargon;
@@ -899,6 +1032,10 @@ declare module '@strapi/strapi' {
       'elements.phone-number': ElementsPhoneNumber;
       'elements.plan': ElementsPlan;
       'elements.search-bar': ElementsSearchBar;
+      'elements.service-detail-content': ElementsServiceDetailContent;
+      'elements.service-detail-list': ElementsServiceDetailList;
+      'elements.service-detail-list-item': ElementsServiceDetailListItem;
+      'elements.service-detail-value': ElementsServiceDetailValue;
       'elements.service-value': ElementsServiceValue;
       'elements.simple-card': ElementsSimpleCard;
       'elements.team-member': ElementsTeamMember;
@@ -914,6 +1051,7 @@ declare module '@strapi/strapi' {
       'links.social-link': LinksSocialLink;
       'meta.metadata': MetaMetadata;
       'sections.about-company': SectionsAboutCompany;
+      'sections.about-service': SectionsAboutService;
       'sections.associations': SectionsAssociations;
       'sections.award-certification': SectionsAwardCertification;
       'sections.banner': SectionsBanner;
@@ -933,10 +1071,13 @@ declare module '@strapi/strapi' {
       'sections.location-grid': SectionsLocationGrid;
       'sections.location-map': SectionsLocationMap;
       'sections.news-room': SectionsNewsRoom;
+      'sections.service-detail': SectionsServiceDetail;
+      'sections.service-info': SectionsServiceInfo;
       'sections.service-value': SectionsServiceValue;
       'sections.services': SectionsServices;
       'sections.services-grid': SectionsServicesGrid;
       'sections.teams': SectionsTeams;
+      'sections.transportation-fleet': SectionsTransportationFleet;
       'sections.vision-mission': SectionsVisionMission;
       'shared.map-embed': SharedMapEmbed;
       'shared.media': SharedMedia;

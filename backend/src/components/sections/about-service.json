@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_sections_about_services",
+  "info": {
+    "displayName": "About Service"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true
+    },
+    "subheading": {
+      "type": "string"
+    },
+    "content": {
+      "type": "richtext",
+      "required": true
+    }
+  },
+  "config": {}
+}

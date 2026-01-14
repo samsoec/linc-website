@@ -12,19 +12,17 @@
     "subheading": {
       "type": "string"
     },
-    "desktopImage": {
-      "type": "media",
-      "multiple": false,
-      "required": true,
-      "allowedTypes": [
-        "images"
-      ]
+    "image": {
+      "type": "component",
+      "component": "elements.info-image",
+      "repeatable": false
     },
-    "mobileImage": {
-      "type": "media",
-      "multiple": false,
-      "allowedTypes": [
-        "images"
+    "background": {
+      "type": "enumeration",
+      "default": "white",
+      "enum": [
+        "white",
+        "brand-color"
       ]
     }
   },

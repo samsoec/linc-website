@@ -13,11 +13,94 @@ module.exports = (config, { strapi }) => {
       icon: {
         fields: ["url", "alternativeText", "width", "height"],
       },
-      // sections: {
-      //   on: {
-      //     // Populate all components in the sections dynamic zone
-      //   },
-      // },
+      sections: {
+        on: {
+          "sections.about-service": {
+            populate: true,
+          },
+          "sections.service-detail": {
+            populate: {
+              content: {
+                populate: {
+                  image: {
+                    populate: {
+                      media: {
+                        fields: ["url", "alternativeText", "caption", "width", "height"],
+                      },
+                      items: true,
+                    },
+                  },
+                  infoList: {
+                    populate: {
+                      items: true,
+                    },
+                  },
+                  accordion: {
+                    populate: {
+                      items: true,
+                    },
+                  },
+                  sideBySideBlocks: {
+                    populate: {
+                      picture: {
+                        fields: ["url", "alternativeText", "caption", "width", "height"],
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+          "sections.service-info": {
+            populate: {
+              informations: true,
+            },
+          },
+          "sections.transportation-fleet": {
+            populate: {
+              items: {
+                populate: {
+                  media: {
+                    fields: [
+                      "url",
+                      "alternativeText",
+                      "caption",
+                      "width",
+                      "height",
+                    ],
+                  },
+                },
+              },
+            },
+          },
+          "sections.large-image": {
+            populate: {
+              image: {
+                populate: {
+                  media: {
+                    fields: ["url", "alternativeText", "caption", "width", "height"],
+                  },
+                  items: true,
+                },
+              },
+            },
+          },
+          "sections.banner": {
+            populate: {
+              buttons: {
+                populate: true,
+              },
+              videoButton: {
+                populate: {
+                  button: {
+                    populate: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
     };
 
     ctx.query = {

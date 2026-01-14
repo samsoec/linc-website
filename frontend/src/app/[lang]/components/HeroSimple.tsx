@@ -20,10 +20,10 @@ export default function HeroSimple({ data }: HeroSimpleProps) {
   // Generate breadcrumb segments from pathname
   const generateBreadcrumbs = () => {
     const segments = pathname.split("/").filter(Boolean);
-    
+
     // Remove language code (first segment)
     const pathSegments = segments.slice(1);
-    
+
     const breadcrumbs = [
       {
         label: "HOME",
@@ -106,7 +106,9 @@ export default function HeroSimple({ data }: HeroSimpleProps) {
                       />
                     </>
                   ) : (
-                    <span className={`uppercase ${data.isPictureBlank ? "text-gray-900" : "text-white"}`}>
+                    <span
+                      className={`uppercase ${data.isPictureBlank ? "text-gray-900" : "text-white"}`}
+                    >
                       {crumb.label}
                     </span>
                   )}

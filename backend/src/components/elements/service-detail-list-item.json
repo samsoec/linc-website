@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_elements_service_detail_list_items",
+  "info": {
+    "displayName": "Service Detail List Item"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "richtext"
+    }
+  },
+  "config": {}
+}

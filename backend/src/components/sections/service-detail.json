@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_sections_service_details",
+  "info": {
+    "displayName": "Service Detail"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true
+    },
+    "subheading": {
+      "type": "string"
+    },
+    "content": {
+      "type": "component",
+      "component": "elements.service-detail-content",
+      "repeatable": true,
+      "required": true
+    }
+  },
+  "config": {}
+}

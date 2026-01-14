@@ -58,7 +58,10 @@ function ArticleCard({ article, variant = "default" }: ArticleCardProps) {
   }
 
   return (
-    <Link href={articleUrl} className="group flex flex-col sm:flex-row md:gap-4 border border-gray-100 rounded-lg">
+    <Link
+      href={articleUrl}
+      className="group flex flex-col sm:flex-row md:gap-4 border border-gray-100 rounded-lg"
+    >
       <div className="relative aspect-[4/3] w-full sm:aspect-auto sm:h-32 sm:w-48 flex-shrink-0 overflow-hidden rounded-lg">
         {imageUrl ? (
           <Image
@@ -116,15 +119,13 @@ function CategoryTabs({ categories, activeCategory }: CategoryTabsProps) {
     router.push(`?${params.toString()}`);
   };
 
-  const allCategory = { name: "All Categories", slug: '', id: 0, documentId: '' };
+  const allCategory = { name: "All Categories", slug: "", id: 0, documentId: "" };
 
   return (
-    <ChipTabs<typeof categories[0]>
+    <ChipTabs<(typeof categories)[0]>
       items={[allCategory, ...categories]}
       activeIndex={
-        activeCategory
-          ? categories.findIndex((cat) => cat.slug === activeCategory) + 1
-          : 0
+        activeCategory ? categories.findIndex((cat) => cat.slug === activeCategory) + 1 : 0
       }
       onSelect={(index) => {
         const category = index === 0 ? null : categories[index - 1];

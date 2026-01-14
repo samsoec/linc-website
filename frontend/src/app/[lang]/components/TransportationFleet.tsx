@@ -1,13 +1,13 @@
 import Image from "next/image";
-import { IndustrySectorsSection, IndustrySector } from "@/types/generated";
+import { TransportationFleetSection, IndustrySector } from "@/types/generated";
 import { getStrapiMedia } from "../utils/api-helpers";
 
-interface IndustrySectorsProps {
-  data: IndustrySectorsSection;
+interface TransportationFleetProps {
+  data: TransportationFleetSection;
 }
 
-function SectorCard({ sector }: { sector: IndustrySector }) {
-  const imageUrl = getStrapiMedia(sector.media?.url);
+function FleetCard({ fleet }: { fleet: IndustrySector }) {
+  const imageUrl = getStrapiMedia(fleet.media?.url);
 
   return (
     <div className="group relative aspect-square overflow-hidden rounded-2xl bg-gray-100">
@@ -15,7 +15,7 @@ function SectorCard({ sector }: { sector: IndustrySector }) {
       {imageUrl && (
         <Image
           src={imageUrl}
-          alt={sector.caption || "Industry sector"}
+          alt={fleet.caption || "Industry fleet"}
           fill
           className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
@@ -27,16 +27,16 @@ function SectorCard({ sector }: { sector: IndustrySector }) {
 
       {/* Caption */}
       <div className="absolute bottom-0 left-0 right-0 p-4">
-        <p className="font-medium text-white">{sector.caption}</p>
+        <p className="font-medium text-white">{fleet.caption}</p>
       </div>
     </div>
   );
 }
 
-export default function IndustrySectors({ data }: IndustrySectorsProps) {
-  const { heading, subheading, description, sectors } = data;
+export default function TransportationFleet({ data }: TransportationFleetProps) {
+  const { heading, subheading, description, items } = data;
 
-  if (!sectors || sectors.length === 0) {
+  if (!items || items.length === 0) {
     return null;
   }
 
@@ -57,14 +57,14 @@ export default function IndustrySectors({ data }: IndustrySectorsProps) {
           <div className="mt-6 h-1 w-16 rounded-full bg-accent" />
         </div>
 
-        {/* Sectors Grid - 5 columns on desktop, 3 on tablet, 2 on mobile */}
+        {/* Fleets Grid - 5 columns on desktop, 3 on tablet, 2 on mobile */}
         <ul className="flex flex-wrap justify-center gap-4 list-none">
-          {sectors.map((sector, index) => (
+          {items.map((fleet, index) => (
             <li
-              key={sector.id || index}
+              key={fleet.id || index}
               className="w-[calc(50%-0.5rem)] md:w-[calc(33.333%-0.67rem)] lg:w-[calc(20%-0.8rem)]"
             >
-              <SectorCard sector={sector} />
+              <FleetCard fleet={fleet} />
             </li>
           ))}
         </ul>

@@ -88,7 +88,9 @@ export default function HighlightedPosts({ data }: HighlightedPostsProps = {}) {
 
           return (
             <Link key={article.id} href={articleUrl} className="group flex gap-4 items-start py-4">
-              <span className="flex-shrink-0 text-lg font-semibold text-accent w-6">{index + 1}</span>
+              <span className="flex-shrink-0 text-lg font-semibold text-accent w-6">
+                {index + 1}
+              </span>
               <div className="flex-1 min-w-0">
                 <h3 className="text-sm font-semibold text-gray-900 line-clamp-2 group-hover:text-accent transition-colors">
                   {article.title}

@@ -24,18 +24,14 @@ export default function LocationMap({ data }: LocationMapProps) {
         {/* Section Header */}
         <div className="mb-12 text-center md:mb-16">
           {subheading && (
-            <p className="mb-3 text-sm uppercase tracking-[0.4em] text-accent">
-              {subheading}
-            </p>
+            <p className="mb-3 text-sm uppercase tracking-[0.4em] text-accent">{subheading}</p>
           )}
           {heading && (
             <h2 className="text-3xl font-semibold text-primary md:text-4xl lg:text-5xl">
               {heading}
             </h2>
           )}
-          {description && (
-            <p className="mx-auto mt-4 max-w-2xl text-gray-600">{description}</p>
-          )}
+          {description && <p className="mx-auto mt-4 max-w-2xl text-gray-600">{description}</p>}
           <div className="mx-auto mt-6 h-1 w-16 rounded-full bg-accent" />
         </div>
 

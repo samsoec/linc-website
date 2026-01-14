@@ -18,14 +18,14 @@ interface JobCardProps {
 
 function JobCard({ job }: JobCardProps) {
   return (
-    <div className="group relative flex items-center justify-between gap-4 rounded-lg border border-gray-200 bg-white p-6 md:p-4 transition-all duration-300 hover:border-accent hover:shadow-sm">
+    <div className="group relative flex items-center justify-between gap-4 rounded-lg border border-gray-200 bg-white p-6 md:p-4 transition-colors duration-300">
       {/* Left side: Job info */}
       <div className="flex-1 gap-1">
         {/* Job Division */}
         {job.jobDivision && <p className="text-sm text-gray-500">{job.jobDivision.name}</p>}
 
         {/* Job Name */}
-        <h3 className="text-lg font-semibold text-gray-900">{job.name}</h3>
+        <h3 className="text-lg font-semibold text-gray-900 transition-colors group-hover:text-accent">{job.name}</h3>
 
         {/* Location - Mobile only */}
         {job.location && (

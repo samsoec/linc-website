@@ -69,6 +69,23 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "sections": {
+      "type": "dynamiczone",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "components": [
+        "sections.about-service",
+        "sections.service-detail",
+        "sections.transportation-fleet",
+        "sections.banner",
+        "sections.large-image",
+        "sections.service-info"
+      ],
+      "required": true
     }
   }
 }

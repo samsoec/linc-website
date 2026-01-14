@@ -111,9 +111,15 @@ function ServiceCard({ service, isActive, onActivate }: ServiceCardProps) {
                 <ReactMarkdown
                   components={{
                     ul: ({ children }) => <ul className="list-disc space-y-1 pl-5">{children}</ul>,
-                    ol: ({ children }) => <ol className="list-decimal space-y-1 pl-5">{children}</ol>,
-                    li: ({ children }) => <li className="text-sm md:text-base text-white/90">{children}</li>,
-                    p: ({ children }) => <p className="mb-3 text-sm md:text-base text-white/90">{children}</p>,
+                    ol: ({ children }) => (
+                      <ol className="list-decimal space-y-1 pl-5">{children}</ol>
+                    ),
+                    li: ({ children }) => (
+                      <li className="text-sm md:text-base text-white/90">{children}</li>
+                    ),
+                    p: ({ children }) => (
+                      <p className="mb-3 text-sm md:text-base text-white/90">{children}</p>
+                    ),
                   }}
                 >
                   {service.cardSummary}
@@ -217,9 +223,15 @@ function MobileServiceCard({ service, isActive, onActivate }: MobileServiceCardP
                 <ReactMarkdown
                   components={{
                     ul: ({ children }) => <ul className="list-disc space-y-1 pl-5">{children}</ul>,
-                    ol: ({ children }) => <ol className="list-decimal space-y-1 pl-5">{children}</ol>,
-                    li: ({ children }) => <li className="text-sm md:text-base text-white/90">{children}</li>,
-                    p: ({ children }) => <p className="mb-3 text-sm md:text-base text-white/90">{children}</p>,
+                    ol: ({ children }) => (
+                      <ol className="list-decimal space-y-1 pl-5">{children}</ol>
+                    ),
+                    li: ({ children }) => (
+                      <li className="text-sm md:text-base text-white/90">{children}</li>
+                    ),
+                    p: ({ children }) => (
+                      <p className="mb-3 text-sm md:text-base text-white/90">{children}</p>
+                    ),
                   }}
                 >
                   {service.cardSummary}

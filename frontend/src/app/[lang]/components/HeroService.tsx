@@ -56,11 +56,7 @@ export default function HeroService({ data }: HeroServiceProps) {
     if (crumbs.length <= 3) return crumbs;
 
     // Keep first, ellipsis, and last
-    return [
-      crumbs[0],
-      { label: "...", href: "#" },
-      crumbs[crumbs.length - 1],
-    ];
+    return [crumbs[0], { label: "...", href: "#" }, crumbs[crumbs.length - 1]];
   };
 
   const mobileBreadcrumbs = getMobileBreadcrumbs();
@@ -87,9 +83,7 @@ export default function HeroService({ data }: HeroServiceProps) {
                       <ChevronRightIcon className="h-4 w-4 text-gray-400" />
                     </>
                   ) : (
-                    <span className="uppercase text-primary font-semibold">
-                      {crumb.label}
-                    </span>
+                    <span className="uppercase text-primary font-semibold">{crumb.label}</span>
                   )}
                 </div>
               ))}
@@ -114,9 +108,7 @@ export default function HeroService({ data }: HeroServiceProps) {
                       <ChevronRightIcon className="h-4 w-4 text-gray-400" />
                     </>
                   ) : (
-                    <span className="uppercase text-primary font-semibold">
-                      {crumb.label}
-                    </span>
+                    <span className="uppercase text-primary font-semibold">{crumb.label}</span>
                   )}
                 </div>
               ))}
@@ -190,4 +182,3 @@ export default function HeroService({ data }: HeroServiceProps) {
     </>
   );
 }
-

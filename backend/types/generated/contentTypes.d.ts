@@ -965,6 +965,22 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
       }>;
     picture: Schema.Attribute.Media<'images'>;
     publishedAt: Schema.Attribute.DateTime;
+    sections: Schema.Attribute.DynamicZone<
+      [
+        'sections.about-service',
+        'sections.service-detail',
+        'sections.transportation-fleet',
+        'sections.banner',
+        'sections.large-image',
+        'sections.service-info',
+      ]
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

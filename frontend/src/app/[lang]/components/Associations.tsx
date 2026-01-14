@@ -149,7 +149,9 @@ export default function Associations({ data }: AssociationsProps) {
                   <p className="text-white text-sm font-light tracking-[0.3em] mb-8 uppercase">
                     {subheading}
                   </p>
-                  <h2 className="text-white text-xl font-semibold leading-relaxed px-4">{item.text}</h2>
+                  <h2 className="text-white text-xl font-semibold leading-relaxed px-4">
+                    {item.text}
+                  </h2>
                 </div>
               </div>
             ))}

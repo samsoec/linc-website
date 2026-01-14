@@ -23,7 +23,7 @@ function ArticleCard({ article }: ArticleCardProps) {
 
   return (
     <Link href={`/blog/${category?.slug}/${article.slug}`} className="group block h-full">
-      <div className="flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-shadow duration-300 hover:shadow-md">
+      <div className="flex h-full flex-col overflow-hidden rounded-2xl bg-white border border-gray-200">
         {/* Cover Image */}
         <div className="relative aspect-[4/3] w-full overflow-hidden">
           {imageUrl ? (

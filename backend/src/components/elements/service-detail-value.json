@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_elements_service_detail_values",
+  "info": {
+    "displayName": "Service Detail Value"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": false
+    },
+    "items": {
+      "type": "component",
+      "component": "elements.service-value",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

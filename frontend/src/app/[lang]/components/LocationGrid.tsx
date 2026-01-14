@@ -11,17 +11,15 @@ interface LocationCardProps {
 
 function LocationCard({ location }: LocationCardProps) {
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 shadow-sm transition-shadow duration-300 hover:shadow-md">
+    <div className="group rounded-2xl border border-gray-200 bg-white p-6 sm:p-8">
       {/* Location Icon and Title */}
       <div className="mb-4 flex items-start gap-3">
         <MapPinIcon className="h-6 w-6 flex-shrink-0 text-gray-900" />
-        <h3 className="text-xl font-semibold text-gray-900">{location.title}</h3>
+        <h3 className="text-xl font-semibold text-gray-900 transition-colors group-hover:text-accent">{location.title}</h3>
       </div>
 
       {/* Address */}
-      <p className="mb-6 text-sm leading-relaxed text-gray-600 sm:text-base">
-        {location.address}
-      </p>
+      <p className="mb-6 text-sm leading-relaxed text-gray-600 sm:text-base">{location.address}</p>
 
       {/* Contact Information */}
       <div className="space-y-3">

@@ -102,7 +102,7 @@ export default function AboutCompany({ data }: AboutCompanyProps) {
             {cards.map((card, index) => (
               <div
                 key={card.id || index}
-                className="flex gap-4 rounded-xl border border-gray-100 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+                className="group flex gap-4 rounded-xl border border-gray-100 bg-white p-6"
               >
                 <div className="flex-shrink-0">
                   <DynamicHeroIcon
@@ -111,7 +111,7 @@ export default function AboutCompany({ data }: AboutCompanyProps) {
                   />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-primary">{card.title}</h3>
+                  <h3 className="font-semibold text-primary transition-colors group-hover:text-accent">{card.title}</h3>
                   <p className="mt-2 text-sm text-gray-600">{card.description}</p>
                 </div>
               </div>

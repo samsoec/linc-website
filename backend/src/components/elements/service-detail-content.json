@@ -1,0 +1,37 @@
+{
+  "collectionName": "components_elements_service_detail_contents",
+  "info": {
+    "displayName": "Service Detail Content"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "image": {
+      "type": "component",
+      "component": "elements.info-image",
+      "repeatable": false
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "infoList": {
+      "type": "component",
+      "component": "elements.service-detail-list",
+      "repeatable": false
+    },
+    "accordion": {
+      "type": "component",
+      "component": "elements.service-detail-value",
+      "repeatable": false
+    },
+    "sideBySideBlocks": {
+      "type": "component",
+      "component": "elements.content-block",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

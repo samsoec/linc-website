@@ -21,7 +21,7 @@ function AwardCard({ award }: AwardCardProps) {
 
   return (
     <div className="group block h-full">
-      <div className="flex h-full flex-col items-center overflow-hidden rounded-2xl bg-white p-8 shadow-sm transition-shadow duration-300 hover:shadow-md">
+      <div className="flex h-full flex-col items-center overflow-hidden rounded-2xl bg-white p-8 border border-gray-200">
         {/* Logo */}
         <div className="relative mb-6 h-32 w-32 flex-shrink-0">
           {logoUrl ? (
@@ -41,7 +41,7 @@ function AwardCard({ award }: AwardCardProps) {
 
         {/* Code/Title */}
         {award.code && (
-          <h3 className="mb-2 text-center text-xl font-semibold text-gray-900">{award.code}</h3>
+          <h3 className="mb-2 text-center text-xl font-semibold text-gray-900 transition-colors group-hover:text-accent">{award.code}</h3>
         )}
 
         {/* Subtitle */}
@@ -173,9 +173,7 @@ export default function AwardCertification({ data }: AwardCertificationProps) {
                   <div className="mx-auto md:mx-0 mt-6 h-1 w-16 rounded-full bg-accent mb-6" />
                 </>
               )}
-              {description && (
-                <p className="text-base text-gray-600 md:text-lg">{description}</p>
-              )}
+              {description && <p className="text-base text-gray-600 md:text-lg">{description}</p>}
             </div>
 
             {/* Right: Featured Award */}

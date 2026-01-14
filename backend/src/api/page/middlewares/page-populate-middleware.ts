@@ -89,46 +89,15 @@ module.exports = (config, { strapi }) => {
               }
             },
           },
-          "sections.hero-service": {
-            populate: {
-              service: {
-                fields: ["name", "caption", "slug", "description"],
-                populate: {
-                  picture: {
-                    fields: [
-                      "url",
-                      "alternativeText",
-                      "caption",
-                      "width",
-                      "height",
-                    ],
-                  },
-                  icon: {
-                    fields: ["url", "alternativeText", "width", "height"],
-                  },
-                },
-              },
-            },
-          },
           "sections.large-image": {
             populate: {
-              desktopImage: {
-                fields: [
-                  "url",
-                  "alternativeText",
-                  "caption",
-                  "width",
-                  "height",
-                ],
-              },
-              mobileImage: {
-                fields: [
-                  "url",
-                  "alternativeText",
-                  "caption",
-                  "width",
-                  "height",
-                ],
+              image: {
+                populate: {
+                  media: {
+                    fields: ["url", "alternativeText", "caption", "width", "height"],
+                  },
+                  items: true,
+                },
               },
             },
           },

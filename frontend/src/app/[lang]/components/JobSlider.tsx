@@ -24,14 +24,12 @@ interface JobCardProps {
 function JobCard({ job }: JobCardProps) {
   return (
     <Link href={`/career/${job.slug}`} className="group block h-full">
-      <div className="flex h-full min-h-48 flex-col overflow-hidden rounded-2xl bg-white border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-md hover:border-accent">
+      <div className="flex h-full min-h-48 flex-col overflow-hidden rounded-2xl bg-white border border-gray-200 transition-colors">
         {/* Content */}
         <div className="flex flex-1 flex-col p-6">
           {/* Job Division */}
           {job.jobDivision && (
-            <span className="mb-3 text-xs font-medium">
-              {job.jobDivision.name}
-            </span>
+            <span className="mb-3 text-xs font-medium">{job.jobDivision.name}</span>
           )}
 
           {/* Job Name */}
