@@ -5,7 +5,7 @@ export async function fetchAPI(path: string, urlParamsObject = {}, options = {})
   try {
     // Merge default and user options
     const mergedOptions = {
-      next: { revalidate: 300 },
+      next: { revalidate: 7200 },
       headers: {
         "Content-Type": "application/json",
       },
