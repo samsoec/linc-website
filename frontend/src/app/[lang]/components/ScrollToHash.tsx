@@ -22,29 +22,26 @@ interface ScrollToHashProps {
  * Place this component in your layout to enable smooth scrolling
  * to sections when navigating to URLs with hash (e.g., /about#teams)
  */
-export default function ScrollToHash({ 
-  offset = 80, 
-  behavior = "smooth" 
-}: ScrollToHashProps) {
+export default function ScrollToHash({ offset = 80, behavior = "smooth" }: ScrollToHashProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   useEffect(() => {
     // Get the hash from the URL
     const hash = window.location.hash;
-    
+
     if (hash) {
       // Remove the '#' from the hash
       const elementId = hash.slice(1);
-      
+
       // Small delay to ensure the DOM is ready (especially for lazy-loaded components)
       const scrollToElement = () => {
         const element = document.getElementById(elementId);
-        
+
         if (element) {
           const elementPosition = element.getBoundingClientRect().top;
           const offsetPosition = elementPosition + window.scrollY - offset;
-          
+
           window.scrollTo({
             top: offsetPosition,
             behavior: behavior,
@@ -54,13 +51,13 @@ export default function ScrollToHash({
 
       // Try immediately
       scrollToElement();
-      
+
       // Also try after a short delay for lazy-loaded content
       const timeoutId = setTimeout(scrollToElement, 100);
-      
+
       // And another attempt for slower content
       const timeoutId2 = setTimeout(scrollToElement, 500);
-      
+
       return () => {
         clearTimeout(timeoutId);
         clearTimeout(timeoutId2);
@@ -77,17 +74,17 @@ export default function ScrollToHash({
  * Can be used programmatically from other components
  */
 export function scrollToSection(
-  elementId: string, 
+  elementId: string,
   options: { offset?: number; behavior?: ScrollBehavior } = {}
 ) {
   const { offset = 80, behavior = "smooth" } = options;
-  
+
   const element = document.getElementById(elementId);
-  
+
   if (element) {
     const elementPosition = element.getBoundingClientRect().top;
     const offsetPosition = elementPosition + window.scrollY - offset;
-    
+
     window.scrollTo({
       top: offsetPosition,
       behavior: behavior,

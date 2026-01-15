@@ -25,7 +25,9 @@ function JobCard({ job }: JobCardProps) {
         {job.jobDivision && <p className="text-sm text-gray-500">{job.jobDivision.name}</p>}
 
         {/* Job Name */}
-        <h3 className="text-lg font-semibold text-gray-900 transition-colors group-hover:text-accent">{job.name}</h3>
+        <h3 className="text-lg font-semibold text-gray-900 transition-colors group-hover:text-accent">
+          {job.name}
+        </h3>
 
         {/* Location - Mobile only */}
         {job.location && (

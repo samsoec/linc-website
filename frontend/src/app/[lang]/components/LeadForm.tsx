@@ -53,7 +53,7 @@ export default function LeadForm({ data }: LeadFormProps) {
     setIsSubmitting(true);
 
     try {
-      const res = await fetch(getStrapiURL() + "/api/lead-form-submissions", {
+      const res = await fetch(getStrapiURL() + "/api/form-submission-leads", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

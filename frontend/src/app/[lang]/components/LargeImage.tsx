@@ -25,12 +25,7 @@ export default function LargeImage({ data }: LargeImageProps) {
       {/* Background Image - Only show for brand-color */}
       {isBrandColor && (
         <div className="absolute inset-0">
-          <Image
-            src="/background-banner.png"
-            alt={"Background"}
-            fill
-            className="object-cover"
-          />
+          <Image src="/background-banner.png" alt={"Background"} fill className="object-cover" />
         </div>
       )}
 
@@ -74,7 +69,9 @@ export default function LargeImage({ data }: LargeImageProps) {
                     <div className="flex items-start gap-3">
                       <MapPinIcon className="h-6 w-6 flex-shrink-0 text-white" />
                       <div>
-                        {image.caption && <p className="font-semibold text-white">{image.caption}</p>}
+                        {image.caption && (
+                          <p className="font-semibold text-white">{image.caption}</p>
+                        )}
                         {image.description && (
                           <p className="mt-1 text-sm text-gray-300">{image.description}</p>
                         )}
@@ -92,7 +89,9 @@ export default function LargeImage({ data }: LargeImageProps) {
                                 <p className="text-sm font-semibold text-gray-300">{item.title}</p>
                               )}
                               <p className="text-3xl font-semibold text-white">{item.value}</p>
-                              {item.caption && <p className="text-sm text-gray-300">{item.caption}</p>}
+                              {item.caption && (
+                                <p className="text-sm text-gray-300">{item.caption}</p>
+                              )}
                             </div>
                           </div>
                         ))}
@@ -109,11 +108,15 @@ export default function LargeImage({ data }: LargeImageProps) {
                 {image.items.map((item, index) => (
                   <div key={index} className="text-center px-4">
                     {item.title && (
-                      <p className={`text-sm font-semibold ${isBrandColor ? "text-white" : "text-gray-500"}`}>
+                      <p
+                        className={`text-sm font-semibold ${isBrandColor ? "text-white" : "text-gray-500"}`}
+                      >
                         {item.title}
                       </p>
                     )}
-                    <p className={`text-2xl font-semibold ${isBrandColor ? "text-white" : "text-accent"}`}>
+                    <p
+                      className={`text-2xl font-semibold ${isBrandColor ? "text-white" : "text-accent"}`}
+                    >
                       {item.value}
                     </p>
                     {item.caption && (

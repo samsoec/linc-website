@@ -572,6 +572,76 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiFormSubmissionJobFormSubmissionJob
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'form_submission_jobs';
+  info: {
+    displayName: 'Form Submission Job';
+    pluralName: 'form-submission-jobs';
+    singularName: 'form-submission-job';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    cover: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email & Schema.Attribute.Required;
+    fullname: Schema.Attribute.String & Schema.Attribute.Required;
+    job: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::form-submission-job.form-submission-job'
+    > &
+      Schema.Attribute.Private;
+    phoneNumber: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    resume: Schema.Attribute.Media<'files'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiFormSubmissionLeadFormSubmissionLead
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'form_submission_leads';
+  info: {
+    displayName: 'Form Submission Lead';
+    pluralName: 'form-submission-leads';
+    singularName: 'form-submission-lead';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    company: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email & Schema.Attribute.Required;
+    fullname: Schema.Attribute.String & Schema.Attribute.Required;
+    inquiry: Schema.Attribute.Text;
+    interestedBusiness: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::form-submission-lead.form-submission-lead'
+    > &
+      Schema.Attribute.Private;
+    phoneNumber: Schema.Attribute.String & Schema.Attribute.Required;
+    position: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    whereDidYouHear: Schema.Attribute.String;
+  };
+}
+
 export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   collectionName: 'globals';
   info: {
@@ -738,40 +808,6 @@ export interface ApiJobJob extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiLeadFormSubmissionLeadFormSubmission
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'lead_form_submissions';
-  info: {
-    description: '';
-    displayName: 'Lead form submission';
-    name: 'lead-form-submission';
-    pluralName: 'lead-form-submissions';
-    singularName: 'lead-form-submission';
-  };
-  options: {
-    draftAndPublish: false;
-    increments: true;
-    timestamps: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    email: Schema.Attribute.String;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::lead-form-submission.lead-form-submission'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    status: Schema.Attribute.Enumeration<['seen', 'contacted', 'ignored']>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1501,11 +1537,12 @@ declare module '@strapi/strapi' {
       'api::article.article': ApiArticleArticle;
       'api::author.author': ApiAuthorAuthor;
       'api::category.category': ApiCategoryCategory;
+      'api::form-submission-job.form-submission-job': ApiFormSubmissionJobFormSubmissionJob;
+      'api::form-submission-lead.form-submission-lead': ApiFormSubmissionLeadFormSubmissionLead;
       'api::global.global': ApiGlobalGlobal;
       'api::highlighted-article.highlighted-article': ApiHighlightedArticleHighlightedArticle;
       'api::job-division.job-division': ApiJobDivisionJobDivision;
       'api::job.job': ApiJobJob;
-      'api::lead-form-submission.lead-form-submission': ApiLeadFormSubmissionLeadFormSubmission;
       'api::location.location': ApiLocationLocation;
       'api::page.page': ApiPagePage;
       'api::service.service': ApiServiceService;

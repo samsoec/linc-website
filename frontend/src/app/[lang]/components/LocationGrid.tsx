@@ -15,7 +15,9 @@ function LocationCard({ location }: LocationCardProps) {
       {/* Location Icon and Title */}
       <div className="mb-4 flex items-start gap-3">
         <MapPinIcon className="h-6 w-6 flex-shrink-0 text-gray-900" />
-        <h3 className="text-xl font-semibold text-gray-900 transition-colors group-hover:text-accent">{location.title}</h3>
+        <h3 className="text-xl font-semibold text-gray-900 transition-colors group-hover:text-accent">
+          {location.title}
+        </h3>
       </div>
 
       {/* Address */}

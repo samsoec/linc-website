@@ -20,7 +20,7 @@ export default function componentResolver(section: DynamicComponent, index: numb
 
   // Get component name
   const component = names[1];
-  
+
   // Get the section ID for anchor linking (e.g., 'teams', 'about-company')
   const sectionId = getSectionId(section.__component);
 
@@ -52,9 +52,7 @@ export default function componentResolver(section: DynamicComponent, index: numb
   return (
     <section id={sectionId} key={index} className="scroll-mt-20">
       <ScrollReveal animation="fade-up" duration={800} delay={index * 50}>
-        <Suspense fallback={<Loader />}>
-          {reactElement}
-        </Suspense>
+        <Suspense fallback={<Loader />}>{reactElement}</Suspense>
       </ScrollReveal>
     </section>
   );

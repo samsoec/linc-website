@@ -16,12 +16,15 @@ export default function JobDetail({ data }: JobDetailProps) {
   const formRef = useRef<HTMLDivElement>(null);
   const [isFormVisible, setIsFormVisible] = useState(false);
 
+  const jobValue = `${name} | ${location?.name || "Location Not Specified"}`;
+
   // Form state
   const [formData, setFormData] = useState({
     fullname: "",
     email: "",
     phoneNumber: "",
-    job: name || "",
+    cover: "",
+    job: jobValue,
     resume: null as File | null,
   });
   const [successMessage, setSuccessMessage] = useState("");
@@ -67,7 +70,7 @@ export default function JobDetail({ data }: JobDetailProps) {
     setSuccessMessage("");
 
     // Validation
-    if (!formData.fullname || !formData.email || !formData.phoneNumber) {
+    if (!formData.fullname || !formData.email || !formData.phoneNumber || !formData.resume) {
       setErrorMessage("Please fill in all required fields.");
       return;
     }
@@ -88,7 +91,8 @@ export default function JobDetail({ data }: JobDetailProps) {
           fullname: formData.fullname,
           email: formData.email,
           phoneNumber: formData.phoneNumber,
-          job: formData.job,
+          cover: formData.cover,
+          job: jobValue,
         })
       );
 
@@ -96,7 +100,7 @@ export default function JobDetail({ data }: JobDetailProps) {
         submitData.append("files.resume", formData.resume);
       }
 
-      const res = await fetch(getStrapiURL() + "/api/lead-form-submissions", {
+      const res = await fetch(getStrapiURL() + "/api/form-submission-jobs", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -114,7 +118,8 @@ export default function JobDetail({ data }: JobDetailProps) {
         fullname: "",
         email: "",
         phoneNumber: "",
-        job: name || "",
+        cover: "",
+        job: jobValue,
         resume: null,
       });
     } catch {
@@ -266,8 +271,25 @@ export default function JobDetail({ data }: JobDetailProps) {
                       id="job"
                       name="job"
                       value={formData.job}
+                      disabled
                       readOnly
-                      className="w-full rounded-lg border border-gray-200 bg-gray-100 px-4 py-3 text-sm text-gray-600"
+                      className="w-full rounded-lg border border-gray-200 bg-gray-100 px-4 py-3 text-sm text-gray-600 cursor-not-allowed"
+                    />
+                  </div>
+
+                  {/* Cover Letter*/}
+                  <div>
+                    <label htmlFor="cover" className="mb-2 block text-sm font-medium text-gray-700">
+                      Cover Letter
+                    </label>
+                    <textarea
+                      id="cover"
+                      name="cover"
+                      value={formData.cover}
+                      onChange={handleInputChange}
+                      placeholder="Write your cover letter here..."
+                      rows={5}
+                      className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
                     />
                   </div>
 
@@ -277,7 +299,7 @@ export default function JobDetail({ data }: JobDetailProps) {
                       htmlFor="resume"
                       className="mb-2 block text-sm font-medium text-gray-700"
                     >
-                      Choose File
+                      CV File <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
                       <input
@@ -292,11 +314,19 @@ export default function JobDetail({ data }: JobDetailProps) {
                     <p className="mt-1 text-xs text-gray-500">PDF, DOC, DOCX (Max 5MB)</p>
                   </div>
 
-                  {/* Error Message */}
-                  {errorMessage && <p className="text-sm text-red-600">{errorMessage}</p>}
-
                   {/* Success Message */}
-                  {successMessage && <p className="text-sm text-green-600">{successMessage}</p>}
+                  {successMessage && (
+                    <div className="rounded-lg bg-green-50 p-4 text-sm text-green-700">
+                      {successMessage}
+                    </div>
+                  )}
+
+                  {/* Error Message */}
+                  {errorMessage && (
+                    <div className="rounded-lg bg-red-50 p-4 text-sm text-red-700">
+                      {errorMessage}
+                    </div>
+                  )}
 
                   {/* Submit Button */}
                   <button

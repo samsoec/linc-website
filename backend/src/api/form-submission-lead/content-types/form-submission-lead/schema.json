@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "form_submission_leads",
+  "info": {
+    "singularName": "form-submission-lead",
+    "pluralName": "form-submission-leads",
+    "displayName": "Form Submission Lead"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "fullname": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "phoneNumber": {
+      "type": "string",
+      "required": true
+    },
+    "company": {
+      "type": "string"
+    },
+    "position": {
+      "type": "string"
+    },
+    "interestedBusiness": {
+      "type": "string"
+    },
+    "whereDidYouHear": {
+      "type": "string"
+    },
+    "inquiry": {
+      "type": "text"
+    }
+  }
+}

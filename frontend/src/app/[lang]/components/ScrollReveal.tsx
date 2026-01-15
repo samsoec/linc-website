@@ -8,7 +8,14 @@ interface ScrollRevealProps {
    * Animation type
    * @default "fade-up"
    */
-  animation?: "fade-up" | "fade-down" | "fade-left" | "fade-right" | "fade" | "zoom-in" | "zoom-out";
+  animation?:
+    | "fade-up"
+    | "fade-down"
+    | "fade-left"
+    | "fade-right"
+    | "fade"
+    | "zoom-in"
+    | "zoom-out";
   /**
    * Animation duration in milliseconds
    * @default 600
@@ -67,7 +74,7 @@ export default function ScrollReveal({
           if (entry.isIntersecting) {
             // Add visible class when element enters viewport
             element.classList.add("scroll-reveal-visible");
-            
+
             // If once is true, stop observing after first reveal
             if (once) {
               observer.unobserve(element);

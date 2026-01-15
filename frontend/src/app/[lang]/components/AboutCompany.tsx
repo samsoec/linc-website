@@ -111,7 +111,9 @@ export default function AboutCompany({ data }: AboutCompanyProps) {
                   />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-primary transition-colors group-hover:text-accent">{card.title}</h3>
+                  <h3 className="font-semibold text-primary transition-colors group-hover:text-accent">
+                    {card.title}
+                  </h3>
                   <p className="mt-2 text-sm text-gray-600">{card.description}</p>
                 </div>
               </div>

@@ -41,7 +41,9 @@ function AwardCard({ award }: AwardCardProps) {
 
         {/* Code/Title */}
         {award.code && (
-          <h3 className="mb-2 text-center text-xl font-semibold text-gray-900 transition-colors group-hover:text-accent">{award.code}</h3>
+          <h3 className="mb-2 text-center text-xl font-semibold text-gray-900 transition-colors group-hover:text-accent">
+            {award.code}
+          </h3>
         )}
 
         {/* Subtitle */}

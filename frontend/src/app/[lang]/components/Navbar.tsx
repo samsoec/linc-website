@@ -47,7 +47,7 @@ function useActiveLink() {
    */
   const isActive = (url: string): boolean => {
     if (!url) return false;
-    
+
     // Normalize the URL (remove trailing slash for comparison)
     const normalizedUrl = url === "/" ? "/" : url.replace(/\/$/, "");
     const normalizedPath = pathWithoutLang === "/" ? "/" : pathWithoutLang.replace(/\/$/, "");
@@ -227,9 +227,7 @@ function NavLink({ url, text, children, isScrolled }: NavLinkProps) {
   const getLinkClasses = (isActiveLink: boolean) => {
     if (isWhiteMode) {
       // White background: active = accent color
-      return isActiveLink
-        ? "text-accent font-semibold"
-        : "text-gray-900 hover:text-accent";
+      return isActiveLink ? "text-accent font-semibold" : "text-gray-900 hover:text-accent";
     }
     // Transparent background: no active state styling
     return "text-white hover:text-gray-200";
@@ -293,15 +291,15 @@ function MobileNavLink({ url, text, children, closeMenu }: MobileNavLinkProps) {
 
   // Mobile menu has accent background, so active = white bg with accent text
   const getMobileLinkClasses = (isActiveLink: boolean) => {
-    return isActiveLink
-      ? "bg-white/20 text-white"
-      : "text-white hover:bg-white/10";
+    return isActiveLink ? "bg-white/20 text-white" : "text-white hover:bg-white/10";
   };
 
   if (hasChildren) {
     return (
       <div className="space-y-1">
-        <div className={`flex w-full items-center justify-between rounded-lg ${active ? "bg-white/20" : ""}`}>
+        <div
+          className={`flex w-full items-center justify-between rounded-lg ${active ? "bg-white/20" : ""}`}
+        >
           <Link
             href={url}
             onClick={closeMenu}

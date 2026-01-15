@@ -46,8 +46,6 @@ export default async function BlogPage({ params }: PageProps) {
       );
     }
 
-    console.log("Blog Page data:", page); // Debug log
-
     // If no page found, show error
     if (page.data.length === 0) {
       return (

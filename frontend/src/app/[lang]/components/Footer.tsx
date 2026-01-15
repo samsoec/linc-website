@@ -45,7 +45,8 @@ function FooterLink({ url, text }: { url: string; text: string }) {
     // Extract current path without locale for comparison
     const currentPathWithoutLocale = pathname.replace(/^\/[a-z]{2}(-[a-zA-Z]{2,})?/, "") || "/";
     const targetPathNormalized = targetPath === "/" ? "/" : targetPath.replace(/\/$/, "");
-    const currentPathNormalized = currentPathWithoutLocale === "/" ? "/" : currentPathWithoutLocale.replace(/\/$/, "");
+    const currentPathNormalized =
+      currentPathWithoutLocale === "/" ? "/" : currentPathWithoutLocale.replace(/\/$/, "");
 
     if (targetPathNormalized === currentPathNormalized) {
       // Same page - just scroll to the section

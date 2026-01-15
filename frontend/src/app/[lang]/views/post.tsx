@@ -26,8 +26,6 @@ export default function Post({ data }: { data: Article }) {
     alternativeText: "Blank Picture",
   };
 
-  console.log("Post data:", cover); // Debug log
-
   return (
     <article>
       {/* Set Navbar theme to white for this page */}

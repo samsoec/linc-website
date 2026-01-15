@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "form_submission_jobs",
+  "info": {
+    "singularName": "form-submission-job",
+    "pluralName": "form-submission-jobs",
+    "displayName": "Form Submission Job"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "fullname": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "phoneNumber": {
+      "type": "string",
+      "required": true
+    },
+    "cover": {
+      "type": "text"
+    },
+    "job": {
+      "type": "string"
+    },
+    "resume": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "files"
+      ]
+    }
+  }
+}
