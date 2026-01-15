@@ -6,9 +6,11 @@ import { fetchAPI } from "./utils/fetch-api";
 import { i18n, Locale } from "../../../i18n-config";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import ScrollToHash from "./components/ScrollToHash";
 import { FALLBACK_SEO } from "@/app/[lang]/utils/constants";
 import type { Global, StrapiResponse } from "@/types/generated";
 import { NavbarThemeProvider } from "./contexts/NavbarThemeContext";
+import { Suspense } from "react";
 
 async function getGlobal(lang: string): Promise<StrapiResponse<Global> | null> {
   const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
@@ -105,6 +107,11 @@ export default async function RootLayout({
     <html lang={lang}>
       <body>
         <NavbarThemeProvider>
+          {/* Handle smooth scrolling to hash anchors */}
+          <Suspense fallback={null}>
+            <ScrollToHash offset={80} />
+          </Suspense>
+
           <Navbar
             links={navbar?.links ?? []}
             logoUrl={navbarLogoUrl}

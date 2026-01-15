@@ -156,19 +156,16 @@ function InfoListBlock({ list }: { list: ServiceDetailList }) {
 
 // ServiceValue Accordion component
 function ServiceValuesAccordion({ accordion }: { accordion: ServiceDetailValue }) {
-  const [openItems, setOpenItems] = useState<Set<number>>(new Set([0]));
+  const [openItems, setOpenItems] = useState<number>(-1);
 
   if (!accordion.items || accordion.items.length === 0) return null;
 
   const toggleItem = (index: number) => {
     setOpenItems((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(index)) {
-        newSet.delete(index);
-      } else {
-        newSet.add(index);
+      if (prev === index) {
+        return -1;
       }
-      return newSet;
+      return index;
     });
   };
 
@@ -186,7 +183,7 @@ function ServiceValuesAccordion({ accordion }: { accordion: ServiceDetailValue }
       >
         <h3 className="text-base font-semibold md:text-lg">{item.title}</h3>
         <span className="flex-shrink-0">
-          {openItems.has(originalIndex) ? (
+          {openItems === originalIndex ? (
             <MinusIcon className="h-5 w-5 md:h-6 md:w-6" />
           ) : (
             <PlusIcon className="h-5 w-5 md:h-6 md:w-6" />
@@ -197,7 +194,7 @@ function ServiceValuesAccordion({ accordion }: { accordion: ServiceDetailValue }
       {/* Answer Content */}
       <div
         className={`grid transition-all duration-300 ease-in-out ${
-          openItems.has(originalIndex) ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+          openItems === originalIndex ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
         }`}
       >
         <div className="overflow-hidden">

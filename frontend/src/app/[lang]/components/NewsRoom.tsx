@@ -22,7 +22,7 @@ function ArticleCard({ article }: ArticleCardProps) {
   const category = article.category;
 
   return (
-    <Link href={`/blog/${category?.slug}/${article.slug}`} className="group block h-full">
+    <Link href={`/blog/${article.slug}`} className="group block h-full">
       <div className="flex h-full flex-col overflow-hidden rounded-2xl bg-white border border-gray-200">
         {/* Cover Image */}
         <div className="relative aspect-[4/3] w-full overflow-hidden">

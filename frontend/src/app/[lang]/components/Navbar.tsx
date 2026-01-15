@@ -9,12 +9,71 @@ import {
   ChevronDownIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import Button from "./Button";
 import SearchBar from "./SearchBar";
 import type { Link as LinkType, ButtonLink } from "@/types/generated";
 import { useNavbarTheme } from "../contexts/NavbarThemeContext";
 import { fetchAPI } from "../utils/fetch-api";
+
+/**
+ * Custom hook to check if a link is active by comparing paths
+ * Handles language prefix stripping for proper comparison
+ */
+function useActiveLink() {
+  const pathname = usePathname();
+
+  // Extract the path without the language prefix (e.g., /en/about -> /about)
+  const pathWithoutLang = useMemo(() => {
+    // Match patterns like /en, /id, /en-US, etc.
+    const langPrefixMatch = pathname.match(/^\/[a-z]{2}(-[a-zA-Z]{2,})?/);
+    if (langPrefixMatch) {
+      const stripped = pathname.slice(langPrefixMatch[0].length);
+      return stripped || "/";
+    }
+    return pathname;
+  }, [pathname]);
+
+  // Get current language from path
+  const currentLang = useMemo(() => {
+    const langMatch = pathname.match(/^\/([a-z]{2}(-[a-zA-Z]{2,})?)/);
+    return langMatch ? langMatch[1] : null;
+  }, [pathname]);
+
+  /**
+   * Check if a given URL matches the current path
+   * @param url - The URL to check (without language prefix)
+   * @returns boolean indicating if the link is active
+   */
+  const isActive = (url: string): boolean => {
+    if (!url) return false;
+    
+    // Normalize the URL (remove trailing slash for comparison)
+    const normalizedUrl = url === "/" ? "/" : url.replace(/\/$/, "");
+    const normalizedPath = pathWithoutLang === "/" ? "/" : pathWithoutLang.replace(/\/$/, "");
+
+    // Exact match
+    if (normalizedUrl === normalizedPath) return true;
+
+    // For non-root URLs, check if current path starts with the URL (for nested routes)
+    if (normalizedUrl !== "/" && normalizedPath.startsWith(normalizedUrl + "/")) {
+      return true;
+    }
+
+    return false;
+  };
+
+  /**
+   * Check if a given language code matches the current language
+   * @param langCode - The language code to check
+   * @returns boolean indicating if the language is active
+   */
+  const isActiveLanguage = (langCode: string): boolean => {
+    return currentLang === langCode;
+  };
+
+  return { isActive, isActiveLanguage, pathWithoutLang, currentLang };
+}
 
 interface Locale {
   id: number;
@@ -51,11 +110,11 @@ interface MobileLanguageSelectorProps {
 }
 
 function LanguageSelector({ currentLocale, isScrolled }: LanguageSelectorProps) {
-  const path = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [locales, setLocales] = useState<Locale[]>([]);
   const dropdownRef = useRef<HTMLLIElement>(null);
   const { theme } = useNavbarTheme();
+  const { isActiveLanguage, pathWithoutLang } = useActiveLink();
   const isWhiteMode = theme === "white" || (theme === "default" && isScrolled);
 
   useEffect(() => {
@@ -77,9 +136,6 @@ function LanguageSelector({ currentLocale, isScrolled }: LanguageSelectorProps) 
 
   if (locales.length === 0 || otherLocales.length === 0) return null;
 
-  // Get the path without the locale prefix
-  const pathWithoutLocale = path.replace(`/${currentLocale}`, "") || "/";
-
   return (
     <li
       ref={dropdownRef}
@@ -89,7 +145,7 @@ function LanguageSelector({ currentLocale, isScrolled }: LanguageSelectorProps) 
     >
       <button
         className={`flex items-center gap-1 p-2 text-sm font-medium transition-colors duration-300 ${
-          isWhiteMode ? "text-gray-900 hover:text-accent" : "text-white hover:text-gray-200"
+          isWhiteMode ? "text-accent" : "text-white hover:text-gray-200"
         }`}
       >
         {currentLocaleData?.code.toUpperCase() || currentLocale.toUpperCase()}
@@ -103,8 +159,10 @@ function LanguageSelector({ currentLocale, isScrolled }: LanguageSelectorProps) 
             {locales.map((locale) => (
               <Link
                 key={locale.id}
-                href={`/${locale.code}${pathWithoutLocale}`}
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-accent"
+                href={`/${locale.code}${pathWithoutLang}`}
+                className={`block px-4 py-2 text-sm hover:bg-gray-100 hover:text-accent ${
+                  isActiveLanguage(locale.code) ? "text-accent font-semibold" : "text-gray-700"
+                }`}
               >
                 {locale.name}
               </Link>
@@ -116,9 +174,9 @@ function LanguageSelector({ currentLocale, isScrolled }: LanguageSelectorProps) 
   );
 }
 
-function MobileLanguageSelector({ currentLocale, closeMenu }: MobileLanguageSelectorProps) {
-  const path = usePathname();
+function MobileLanguageSelector({ closeMenu }: MobileLanguageSelectorProps) {
   const [locales, setLocales] = useState<Locale[]>([]);
+  const { isActiveLanguage, pathWithoutLang } = useActiveLink();
 
   useEffect(() => {
     async function fetchLocales() {
@@ -136,18 +194,17 @@ function MobileLanguageSelector({ currentLocale, closeMenu }: MobileLanguageSele
 
   if (locales.length === 0) return null;
 
-  // Get the path without the locale prefix
-  const pathWithoutLocale = path.replace(`/${currentLocale}`, "") || "/";
-
   return (
     <div className="flex items-center justify-center gap-4 py-4">
       {locales.map((locale) => (
         <Link
           key={locale.id}
-          href={`/${locale.code}${pathWithoutLocale}`}
+          href={`/${locale.code}${pathWithoutLang}`}
           onClick={closeMenu}
           className={`text-xs font-medium transition-colors ${
-            locale.code === currentLocale ? "text-white" : "text-white/40 hover:text-white/60"
+            isActiveLanguage(locale.code)
+              ? "text-accent bg-white px-2 py-1 rounded"
+              : "text-white/60 hover:text-white"
           }`}
         >
           {locale.name}
@@ -158,12 +215,25 @@ function MobileLanguageSelector({ currentLocale, closeMenu }: MobileLanguageSele
 }
 
 function NavLink({ url, text, children, isScrolled }: NavLinkProps) {
-  const path = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLLIElement>(null);
   const hasChildren = children && children.length > 0;
   const { theme } = useNavbarTheme();
+  const { isActive } = useActiveLink();
   const isWhiteMode = theme === "white" || (theme === "default" && isScrolled);
+  const active = isActive(url);
+
+  // Determine link styles based on mode and active state
+  const getLinkClasses = (isActiveLink: boolean) => {
+    if (isWhiteMode) {
+      // White background: active = accent color
+      return isActiveLink
+        ? "text-accent font-semibold"
+        : "text-gray-900 hover:text-accent";
+    }
+    // Transparent background: no active state styling
+    return "text-white hover:text-gray-200";
+  };
 
   if (hasChildren) {
     return (
@@ -175,9 +245,7 @@ function NavLink({ url, text, children, isScrolled }: NavLinkProps) {
       >
         <Link
           href={url}
-          className={`flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors duration-300 ${
-            isWhiteMode ? "text-gray-900 hover:text-accent" : "text-white hover:text-gray-200"
-          }`}
+          className={`flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors duration-300 ${getLinkClasses(active)}`}
         >
           {text}
           <ChevronDownIcon
@@ -191,7 +259,9 @@ function NavLink({ url, text, children, isScrolled }: NavLinkProps) {
                 <Link
                   key={child.id}
                   href={child.url}
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-accent"
+                  className={`block px-4 py-2 text-sm hover:bg-gray-100 hover:text-accent ${
+                    isActive(child.url) ? "text-accent font-semibold" : "text-gray-700"
+                  }`}
                 >
                   {child.text}
                 </Link>
@@ -207,11 +277,7 @@ function NavLink({ url, text, children, isScrolled }: NavLinkProps) {
     <li className="flex items-center">
       <Link
         href={url}
-        className={`px-3 py-2 text-sm font-medium transition-colors duration-300 ${
-          isWhiteMode
-            ? `text-gray-900 hover:text-accent ${path === url ? "text-gray-900 font-semibold" : ""}`
-            : `text-white hover:text-gray-200 ${path === url ? "text-white font-semibold" : ""}`
-        }`}
+        className={`px-3 py-2 text-sm font-medium transition-colors duration-300 ${getLinkClasses(active)}`}
       >
         {text}
       </Link>
@@ -220,14 +286,22 @@ function NavLink({ url, text, children, isScrolled }: NavLinkProps) {
 }
 
 function MobileNavLink({ url, text, children, closeMenu }: MobileNavLinkProps) {
-  const path = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const hasChildren = children && children.length > 0;
+  const { isActive } = useActiveLink();
+  const active = isActive(url);
+
+  // Mobile menu has accent background, so active = white bg with accent text
+  const getMobileLinkClasses = (isActiveLink: boolean) => {
+    return isActiveLink
+      ? "bg-white/20 text-white"
+      : "text-white hover:bg-white/10";
+  };
 
   if (hasChildren) {
     return (
       <div className="space-y-1">
-        <div className={`flex w-full items-center justify-between rounded-lg`}>
+        <div className={`flex w-full items-center justify-between rounded-lg ${active ? "bg-white/20" : ""}`}>
           <Link
             href={url}
             onClick={closeMenu}
@@ -252,7 +326,11 @@ function MobileNavLink({ url, text, children, closeMenu }: MobileNavLinkProps) {
                 key={child.id}
                 href={child.url}
                 onClick={closeMenu}
-                className="block rounded-lg px-3 py-2 text-sm text-white "
+                className={`block rounded-lg px-3 py-2 text-sm ${
+                  isActive(child.url)
+                    ? "bg-white/20 text-white font-semibold"
+                    : "text-white hover:bg-white/10"
+                }`}
               >
                 {child.text}
               </Link>
@@ -267,9 +345,7 @@ function MobileNavLink({ url, text, children, closeMenu }: MobileNavLinkProps) {
     <Link
       href={url}
       onClick={closeMenu}
-      className={`block rounded-lg px-3 py-2 text-base font-semibold text-white hover:bg-gray-100 ${
-        path === url ? "bg-gray-100" : ""
-      }`}
+      className={`block rounded-lg px-3 py-2 text-base font-semibold ${getMobileLinkClasses(active)}`}
     >
       {text}
     </Link>

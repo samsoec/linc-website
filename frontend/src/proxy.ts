@@ -50,7 +50,10 @@ export function proxy(request: NextRequest) {
 
     // e.g. incoming request is /products
     // The new URL is now /en-US/products
-    return NextResponse.redirect(new URL(`/${locale}/${pathname}`, request.url));
+    // Note: Hash fragments (#section) are never sent to the server by the browser,
+    // so they are handled client-side by the ScrollToHash component
+    const search = request.nextUrl.search;
+    return NextResponse.redirect(new URL(`/${locale}${pathname}${search}`, request.url));
   }
 }
 

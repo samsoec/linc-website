@@ -11,7 +11,7 @@ interface ServiceValueProps {
 }
 
 export default function ServiceValue({ data }: ServiceValueProps) {
-  const [openItems, setOpenItems] = useState<Set<number>>(new Set([0]));
+  const [openItems, setOpenItems] = useState<number>(-1);
 
   const { heading, subheading, description, items } = data;
 
@@ -21,13 +21,10 @@ export default function ServiceValue({ data }: ServiceValueProps) {
 
   const toggleItem = (index: number) => {
     setOpenItems((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(index)) {
-        newSet.delete(index);
-      } else {
-        newSet.add(index);
+      if (prev === index) {
+        return -1;
       }
-      return newSet;
+      return index;
     });
   };
 
@@ -45,7 +42,7 @@ export default function ServiceValue({ data }: ServiceValueProps) {
       >
         <h3 className="text-base font-semibold text-white md:text-lg">{item.title}</h3>
         <span className="flex-shrink-0 text-white">
-          {openItems.has(originalIndex) ? (
+          {openItems === originalIndex ? (
             <MinusIcon className="h-5 w-5 md:h-6 md:w-6" />
           ) : (
             <PlusIcon className="h-5 w-5 md:h-6 md:w-6" />
@@ -56,7 +53,7 @@ export default function ServiceValue({ data }: ServiceValueProps) {
       {/* Answer Content */}
       <div
         className={`grid transition-all duration-300 ease-in-out ${
-          openItems.has(originalIndex) ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+          openItems === originalIndex ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
         }`}
       >
         <div className="overflow-hidden">
@@ -66,8 +63,8 @@ export default function ServiceValue({ data }: ServiceValueProps) {
                 components={{
                   ul: ({ children }) => <ul className="list-disc space-y-1 pl-5">{children}</ul>,
                   ol: ({ children }) => <ol className="list-decimal space-y-1 pl-5">{children}</ol>,
-                  li: ({ children }) => <li className="text-sm text-white/90">{children}</li>,
-                  p: ({ children }) => <p className="mb-3 text-sm text-white/90">{children}</p>,
+                  li: ({ children }) => <li className="text-white/90">{children}</li>,
+                  p: ({ children }) => <p className="mb-3 text-white/90">{children}</p>,
                 }}
               >
                 {item.description}

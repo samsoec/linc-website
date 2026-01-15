@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
 import {
   FaInstagram,
   FaFacebookF,
@@ -10,6 +13,7 @@ import {
   FaGlobe,
 } from "react-icons/fa";
 import type { FooterSection, SocialLink as SocialLinkType } from "@/types/generated";
+import { scrollToSection } from "./ScrollToHash";
 
 interface FooterProps {
   logoUrl: string | null;
@@ -24,9 +28,45 @@ interface FooterProps {
 }
 
 function FooterLink({ url, text }: { url: string; text: string }) {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // Check if URL contains a hash
+  const hasHash = url.includes("#");
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!hasHash) return; // Let normal navigation happen
+
+    e.preventDefault();
+
+    const [path, hash] = url.split("#");
+    const targetPath = path || "/";
+
+    // Extract current path without locale for comparison
+    const currentPathWithoutLocale = pathname.replace(/^\/[a-z]{2}(-[a-zA-Z]{2,})?/, "") || "/";
+    const targetPathNormalized = targetPath === "/" ? "/" : targetPath.replace(/\/$/, "");
+    const currentPathNormalized = currentPathWithoutLocale === "/" ? "/" : currentPathWithoutLocale.replace(/\/$/, "");
+
+    if (targetPathNormalized === currentPathNormalized) {
+      // Same page - just scroll to the section
+      scrollToSection(hash);
+    } else {
+      // Different page - navigate and let ScrollToHash handle the scroll
+      // Get current locale from pathname
+      const localeMatch = pathname.match(/^\/([a-z]{2}(-[a-zA-Z]{2,})?)/);
+      const locale = localeMatch ? localeMatch[1] : "";
+      const fullPath = locale ? `/${locale}${targetPath}#${hash}` : `${targetPath}#${hash}`;
+      router.push(fullPath);
+    }
+  };
+
   return (
     <li>
-      <Link href={url} className="text-gray-300 hover:text-white transition-colors duration-200">
+      <Link
+        href={url}
+        onClick={handleClick}
+        className="text-gray-300 hover:text-white transition-colors duration-200"
+      >
         {text}
       </Link>
     </li>
