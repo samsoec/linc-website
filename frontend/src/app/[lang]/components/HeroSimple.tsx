@@ -17,8 +17,6 @@ export default function HeroSimple({ data }: HeroSimpleProps) {
   const imgUrl = getStrapiMedia(data.picture?.url);
   const mobileImgUrl = data.mobilePicture ? getStrapiMedia(data.mobilePicture.url) : imgUrl;
 
-  console.log("HeroSimple data:", data.picture);
-
   // Generate breadcrumb segments from pathname
   const generateBreadcrumbs = () => {
     const segments = pathname.split("/").filter(Boolean);

@@ -9,7 +9,13 @@ interface NavbarThemeContextType {
   setTheme: (theme: NavbarTheme) => void;
 }
 
-const NavbarThemeContext = createContext<NavbarThemeContextType | undefined>(undefined);
+// Create context with a default value to handle SSR/SSG
+const defaultContextValue: NavbarThemeContextType = {
+  theme: "default",
+  setTheme: () => {}, // No-op during SSR
+};
+
+const NavbarThemeContext = createContext<NavbarThemeContextType>(defaultContextValue);
 
 export function NavbarThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<NavbarTheme>("default");
@@ -23,8 +29,5 @@ export function NavbarThemeProvider({ children }: { children: React.ReactNode })
 
 export function useNavbarTheme() {
   const context = useContext(NavbarThemeContext);
-  if (context === undefined) {
-    throw new Error("useNavbarTheme must be used within a NavbarThemeProvider");
-  }
   return context;
 }
