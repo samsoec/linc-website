@@ -18,7 +18,7 @@ function ServiceCard({ service }: ServiceCardProps) {
 
   return (
     <Link
-      href={`/services/${service.slug || service.documentId}`}
+      href={`/service/${service.slug || service.documentId}`}
       className="group relative block h-[280px] overflow-hidden rounded-2xl md:h-[350px]"
     >
       {/* Background Image */}

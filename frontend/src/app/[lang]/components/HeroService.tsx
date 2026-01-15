@@ -150,7 +150,7 @@ export default function HeroService({ data }: HeroServiceProps) {
           {/* Content Container */}
           <div className="absolute inset-0 flex items-end">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-8 md:pb-12">
-              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+              <div className="flex flex-row items-end justify-between gap-6">
                 {/* Caption Text */}
                 {data.caption && (
                   <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white max-w-xl md:max-w-2xl leading-tight">

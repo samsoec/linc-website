@@ -130,7 +130,7 @@ function ServiceCard({ service, isActive, onActivate }: ServiceCardProps) {
 
           {/* Learn More Button */}
           <Link
-            href={`/services/${service.slug || service.documentId}`}
+            href={`/service/${service.slug || service.documentId}`}
             className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-primary transition-all hover:bg-gray-100"
             onClick={(e) => e.stopPropagation()}
           >
@@ -242,7 +242,7 @@ function MobileServiceCard({ service, isActive, onActivate }: MobileServiceCardP
 
           {/* Learn More Button */}
           <Link
-            href={`/services/${service.slug || service.documentId}`}
+            href={`/service/${service.slug || service.documentId}`}
             className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-primary transition-all hover:bg-gray-100"
             onClick={(e) => e.stopPropagation()}
           >

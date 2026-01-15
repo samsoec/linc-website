@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 
 interface VideoModalProps {
@@ -56,7 +57,7 @@ export default function VideoModal({
     }
   };
 
-  return (
+  const modalContent = (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
       onClick={handleBackdropClick}
@@ -95,6 +96,8 @@ export default function VideoModal({
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 }
 
 // Helper function to convert YouTube/Vimeo URLs to embed URLs
