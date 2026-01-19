@@ -4,7 +4,6 @@ import type { Article, ArticleBlock, StrapiMedia } from "@/types/generated";
 import HeroSimple from "../components/HeroSimple";
 import SearchBar from "../components/SearchBar";
 import HighlightedPosts from "../components/HighlightedPosts";
-import Banner from "../components/Banner";
 import NavbarThemeSetter from "../components/NavbarThemeSetter";
 
 export default function Post({ data }: { data: Article }) {
@@ -69,35 +68,6 @@ export default function Post({ data }: { data: Article }) {
           </div>
         </div>
       </div>
-
-      {/* Banner */}
-      <Banner
-        data={{
-          id: 0,
-          __component: "sections.banner",
-          heading: "Let’s Connect with LINC and Manage Your Supply Chain",
-          buttons: [
-            {
-              id: 0,
-              __component: "links.button-link",
-              text: "Contact Us",
-              url: "/contact-us",
-              type: "primary",
-            },
-          ],
-          videoButton: {
-            id: 0,
-            __component: "links.button-video",
-            embedUrl: "https://www.youtube.com/embed/46p89rG6h6c?feature=oembed",
-            button: {
-              __component: "links.button",
-              id: 0,
-              text: "Watch our video",
-              type: "tertiary",
-            },
-          },
-        }}
-      />
     </article>
   );
 }

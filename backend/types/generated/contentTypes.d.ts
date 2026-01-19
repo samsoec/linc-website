@@ -660,6 +660,12 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
     };
   };
   attributes: {
+    banner: Schema.Attribute.Component<'sections.banner', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -870,7 +876,6 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'sections.industry-sectors',
         'sections.hero-simple',
         'sections.client-marquee',
-        'sections.banner',
         'sections.about-company',
         'sections.services',
         'sections.vision-mission',
@@ -1006,7 +1011,6 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
         'sections.about-service',
         'sections.service-detail',
         'sections.transportation-fleet',
-        'sections.banner',
         'sections.large-image',
         'sections.service-info',
       ]

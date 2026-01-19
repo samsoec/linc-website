@@ -11,6 +11,7 @@ import { FALLBACK_SEO } from "@/app/[lang]/utils/constants";
 import type { Global, StrapiResponse } from "@/types/generated";
 import { NavbarThemeProvider } from "./contexts/NavbarThemeContext";
 import { Suspense } from "react";
+import Banner from "./components/Banner";
 
 async function getGlobal(lang: string): Promise<StrapiResponse<Global> | null> {
   const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
@@ -31,6 +32,8 @@ async function getGlobal(lang: string): Promise<StrapiResponse<Global> | null> {
       "footer.holdingLogo.logoImg",
       "footer.footerLinks.links",
       "footer.socialLinks",
+      "banner.buttons",
+      "banner.videoButton.button",
     ],
     locale: lang,
   };
@@ -123,6 +126,10 @@ export default async function RootLayout({
           />
 
           <main className="dark:bg-black dark:text-gray-100 min-h-screen">{children}</main>
+
+          {global.data.banner && (
+            <Banner data={global.data.banner} />
+          )}
 
           <Footer
             logoUrl={footerLogoUrl}

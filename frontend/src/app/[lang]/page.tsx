@@ -20,6 +20,8 @@ export default async function RootRoute({ params }: { params: Promise<{ lang: st
     const contentSections = pageData.contentSections;
     const navbarTheme = pageData.navbarTheme || "default";
 
+    console.log("Content Sections:", contentSections);
+
     return (
       <>
         <NavbarThemeSetter theme={navbarTheme} />
