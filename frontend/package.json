@@ -9,7 +9,8 @@
     "lint": "eslint",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json}\"",
-    "types:sync": "node scripts/copyTypes.js"
+    "types:sync": "node scripts/copyTypes.js",
+    "types:check": "npx tsc  --noEmit --pretty 2>&1 | head -30"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.7.2",

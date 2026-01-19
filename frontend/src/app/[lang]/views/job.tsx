@@ -5,12 +5,14 @@ import ReactMarkdown from "react-markdown";
 import { getStrapiURL } from "../utils/api-helpers";
 import type { HeroSimpleSection, Job, StrapiMedia } from "@/types/generated";
 import HeroSimple from "../components/HeroSimple";
+import { useDictionary } from "@/contexts/DictionaryContext";
 
 interface JobDetailProps {
   data: Job;
 }
 
 export default function JobDetail({ data }: JobDetailProps) {
+  const { t } = useDictionary();
   const { name, content, location, dueDate } = data;
   const formRef = useRef<HTMLDivElement>(null);
   const [isFormVisible, setIsFormVisible] = useState(false);
@@ -70,12 +72,12 @@ export default function JobDetail({ data }: JobDetailProps) {
 
     // Validation
     if (!formData.fullname || !formData.email || !formData.phoneNumber || !formData.resume) {
-      setErrorMessage("Please fill in all required fields.");
+      setErrorMessage(t("validation.requiredFields"));
       return;
     }
 
     if (!emailRegex.test(formData.email)) {
-      setErrorMessage("Invalid email format.");
+      setErrorMessage(t("validation.invalidEmail"));
       return;
     }
 
@@ -108,11 +110,11 @@ export default function JobDetail({ data }: JobDetailProps) {
       });
 
       if (!res.ok) {
-        setErrorMessage("Failed to submit application. Please try again.");
+        setErrorMessage(t("messages.error.failedToSubmitApplication"));
         return;
       }
 
-      setSuccessMessage("Thank you! Your application has been submitted successfully.");
+      setSuccessMessage(t("messages.success.applicationSubmitted"));
       setFormData({
         fullname: "",
         email: "",
@@ -122,7 +124,7 @@ export default function JobDetail({ data }: JobDetailProps) {
         resume: null,
       });
     } catch {
-      setErrorMessage("An error occurred. Please try again.");
+      setErrorMessage(t("messages.error.errorOccurred"));
     } finally {
       setIsSubmitting(false);
     }
@@ -200,7 +202,7 @@ export default function JobDetail({ data }: JobDetailProps) {
           <div className="lg:col-span-1">
             <div ref={formRef} id="apply-form" className="sticky top-24">
               <div className="rounded-2xl bg-gray-50 p-6 md:p-8">
-                <h2 className="mb-6 text-xl font-semibold text-gray-900">Apply Now!</h2>
+                <h2 className="mb-6 text-xl font-semibold text-gray-900">{t("actions.applyNow")}!</h2>
 
                 <form onSubmit={handleSubmit} className="space-y-5">
                   {/* Fullname */}
@@ -333,7 +335,7 @@ export default function JobDetail({ data }: JobDetailProps) {
                     disabled={isSubmitting}
                     className="w-full rounded-lg bg-accent px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-dark disabled:cursor-not-allowed disabled:opacity-50"
                   >
-                    {isSubmitting ? "Submitting..." : "Submit Application"}
+                    {isSubmitting ? t("actions.submitting") : t("actions.submitApplication")}
                   </button>
                 </form>
               </div>

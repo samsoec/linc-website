@@ -1,0 +1,50 @@
+{
+  "common": {
+    "loading": "Memuat...",
+    "search": "Cari",
+    "enter": "Enter",
+    "noImage": "Tidak ada gambar"
+  },
+  "filters": {
+    "allCategories": "Semua Kategori",
+    "allDivisions": "Semua Divisi",
+    "allLocations": "Semua Lokasi",
+    "showMore": "Tampilkan Lebih Banyak"
+  },
+  "actions": {
+    "applyNow": "Lamar Sekarang",
+    "seeAllCareers": "Lihat Semua Karir",
+    "seeAllNews": "Lihat Semua Berita",
+    "submit": "Kirim",
+    "submitting": "Mengirim...",
+    "submitApplication": "Kirim Lamaran",
+    "submitMessage": "Kirim Pesan"
+  },
+  "validation": {
+    "invalidEmail": "Format email tidak valid.",
+    "requiredFields": "Harap isi semua kolom yang diperlukan.",
+    "emailRequired": "Email wajib diisi.",
+    "nameRequired": "Nama wajib diisi."
+  },
+  "messages": {
+    "success": {
+      "formSubmitted": "Terima kasih! Pesan Anda telah berhasil dikirim.",
+      "applicationSubmitted": "Terima kasih! Lamaran Anda telah berhasil dikirim."
+    },
+    "error": {
+      "somethingWentWrong": "Terjadi kesalahan!",
+      "errorOccurred": "Terjadi kesalahan. Silakan coba lagi.",
+      "failedToSubmit": "Gagal mengirim formulir. Silakan coba lagi.",
+      "failedToSubmitApplication": "Gagal mengirim lamaran. Silakan coba lagi."
+    }
+  },
+  "jobs": {
+    "noJobsAvailable": "Tidak ada lowongan pekerjaan saat ini.",
+    "applyBy": "Lamar sebelum",
+    "jobNotFound": "Pekerjaan tidak ditemukan"
+  },
+  "search": {
+    "searchPlaceholder": "Cari pembaruan...",
+    "noResultsFound": "Tidak ada hasil ditemukan"
+  }
+}

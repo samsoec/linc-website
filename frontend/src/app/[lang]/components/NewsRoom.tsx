@@ -8,6 +8,7 @@ import "react-slideshow-image/dist/styles.css";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/outline";
 import type { NewsRoomSection, Article } from "@/types/generated";
 import { getStrapiMedia, formatDate } from "../utils/api-helpers";
+import { useDictionary } from "@/contexts/DictionaryContext";
 
 interface NewsRoomProps {
   data: NewsRoomSection;
@@ -18,6 +19,7 @@ interface ArticleCardProps {
 }
 
 function ArticleCard({ article }: ArticleCardProps) {
+  const { t } = useDictionary();
   const imageUrl = getStrapiMedia(article.cover?.url || null);
   const category = article.category;
 
@@ -36,7 +38,7 @@ function ArticleCard({ article }: ArticleCardProps) {
             />
           ) : (
             <div className="flex h-full w-full items-center justify-center bg-gray-100">
-              <span className="text-gray-400">No image</span>
+              <span className="text-gray-400">{t("common.noImage")}</span>
             </div>
           )}
         </div>

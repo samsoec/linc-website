@@ -1,4 +1,10 @@
+"use client";
+
+import { useDictionary } from "@/contexts/DictionaryContext";
+
 export default function Loader() {
+  const { t } = useDictionary();
+  
   return (
     <div className="absolute inset-0 flex items-center justify-center z-50  bg-opacity-40 bg-gray-500">
       <div role="status">
@@ -18,7 +24,7 @@ export default function Loader() {
             fill="currentFill"
           />
         </svg>
-        <span className="sr-only">Loading...</span>
+        <span className="sr-only">{t("common.loading")}</span>
       </div>
     </div>
   );

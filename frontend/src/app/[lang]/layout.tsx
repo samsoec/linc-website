@@ -12,6 +12,8 @@ import type { Global, StrapiResponse } from "@/types/generated";
 import { NavbarThemeProvider } from "./contexts/NavbarThemeContext";
 import { Suspense } from "react";
 import Banner from "./components/Banner";
+import { getDictionary } from "@/dictionaries";
+import { DictionaryProvider } from "@/contexts/DictionaryContext";
 
 async function getGlobal(lang: string): Promise<StrapiResponse<Global> | null> {
   const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
@@ -86,6 +88,8 @@ export default async function RootLayout({
   }
 
   const global = await getGlobal(lang);
+  const dict = await getDictionary(lang as Locale);
+  
   // TODO: CREATE A CUSTOM ERROR PAGE
   if (!global?.data) {
     return (
@@ -109,40 +113,42 @@ export default async function RootLayout({
   return (
     <html lang={lang}>
       <body>
-        <NavbarThemeProvider>
-          {/* Handle smooth scrolling to hash anchors */}
-          <Suspense fallback={null}>
-            <ScrollToHash offset={80} />
-          </Suspense>
+        <DictionaryProvider dict={dict} lang={lang}>
+          <NavbarThemeProvider>
+            {/* Handle smooth scrolling to hash anchors */}
+            <Suspense fallback={null}>
+              <ScrollToHash offset={80} />
+            </Suspense>
 
-          <Navbar
-            links={navbar?.links ?? []}
-            logoUrl={navbarLogoUrl}
-            logoText={navbar?.navbarLogo?.logoText ?? null}
-            button={navbar?.button}
-            enableSearch={navbar?.enableSearch ?? false}
-            enableI18n={navbar?.enableI18n ?? false}
-            currentLocale={lang}
-          />
+            <Navbar
+              links={navbar?.links ?? []}
+              logoUrl={navbarLogoUrl}
+              logoText={navbar?.navbarLogo?.logoText ?? null}
+              button={navbar?.button}
+              enableSearch={navbar?.enableSearch ?? false}
+              enableI18n={navbar?.enableI18n ?? false}
+              currentLocale={lang}
+            />
 
-          <main className="dark:bg-black dark:text-gray-100 min-h-screen">{children}</main>
+            <main className="dark:bg-black dark:text-gray-100 min-h-screen">{children}</main>
 
-          {global.data.banner && (
-            <Banner data={global.data.banner} />
-          )}
+            {global.data.banner && (
+              <Banner data={global.data.banner} />
+            )}
 
-          <Footer
-            logoUrl={footerLogoUrl}
-            logoText={footer?.footerLogo?.logoText ?? null}
-            holdingLogoUrl={holdingLogoUrl}
-            holdingLogoText={footer?.holdingLogo?.logoText ?? null}
-            footerLinks={footer?.footerLinks ?? []}
-            socialLinks={footer?.socialLinks ?? []}
-            socialLinkText={footer?.socialLinkText}
-            about={footer?.about}
-            copyright={footer?.copyright}
-          />
-        </NavbarThemeProvider>
+            <Footer
+              logoUrl={footerLogoUrl}
+              logoText={footer?.footerLogo?.logoText ?? null}
+              holdingLogoUrl={holdingLogoUrl}
+              holdingLogoText={footer?.holdingLogo?.logoText ?? null}
+              footerLinks={footer?.footerLinks ?? []}
+              socialLinks={footer?.socialLinks ?? []}
+              socialLinkText={footer?.socialLinkText}
+              about={footer?.about}
+              copyright={footer?.copyright}
+            />
+          </NavbarThemeProvider>
+        </DictionaryProvider>
       </body>
     </html>
   );

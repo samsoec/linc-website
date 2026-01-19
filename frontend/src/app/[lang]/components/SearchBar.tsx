@@ -8,6 +8,7 @@ import {
   ChevronDownIcon,
 } from "@heroicons/react/24/outline";
 import { fetchAPI } from "../utils/fetch-api";
+import { useDictionary } from "@/contexts/DictionaryContext";
 
 interface Location {
   id: number;
@@ -33,15 +34,13 @@ export default function SearchBar({
   isLocationSearchEnabled = false,
   isDivisionSearchEnabled = false,
 }: SearchBarProps) {
+  const { t, lang } = useDictionary();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const initialQuery = searchParams.get("q") || "";
   const initialLocation = searchParams.get("location") || "";
   const initialDivision = searchParams.get("division") || "";
-
-  // Extract the language from the current pathname (e.g., /en/career -> en)
-  const lang = pathname.split("/")[1] || "en";
 
   const [searchQuery, setSearchQuery] = useState(initialQuery);
   const [selectedLocation, setSelectedLocation] = useState(initialLocation);
@@ -123,7 +122,7 @@ export default function SearchBar({
                 onChange={(e) => setSelectedDivision(e.target.value)}
                 className="w-full appearance-none bg-transparent py-4 pl-6 pr-10 text-gray-900 focus:outline-none cursor-pointer"
               >
-                <option value="">All Divisions</option>
+                <option value="">{t("filters.allDivisions")}</option>
                 {divisions.map((division) => (
                   <option key={division.id} value={division.slug}>
                     {division.name}
@@ -142,7 +141,7 @@ export default function SearchBar({
                 onChange={(e) => setSelectedLocation(e.target.value)}
                 className="w-full appearance-none bg-transparent py-4 pl-6 pr-10 text-gray-900 focus:outline-none cursor-pointer"
               >
-                <option value="">All Locations</option>
+                <option value="">{t("filters.allLocations")}</option>
                 {locations.map((location) => (
                   <option key={location.id} value={location.name}>
                     {location.name}
@@ -156,12 +155,12 @@ export default function SearchBar({
           {/* Enter hint and Search button */}
           <div className="flex items-center gap-2 px-2">
             <span className="text-sm text-gray-400 hidden sm:block">
-              Enter <ArrowTurnDownLeftIcon className="inline h-4 w-4" />
+              {t("common.enter")} <ArrowTurnDownLeftIcon className="inline h-4 w-4" />
             </span>
             <button
               type="submit"
               className="flex h-12 w-12 items-center justify-center rounded-full bg-accent text-white transition-colors hover:bg-accent-dark"
-              aria-label="Search"
+              aria-label={t("common.search")}
             >
               <MagnifyingGlassIcon className="h-5 w-5" />
             </button>

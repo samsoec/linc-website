@@ -12,6 +12,7 @@ import {
 } from "@heroicons/react/24/outline";
 import type { JobSliderSection, Job } from "@/types/generated";
 import { formatDate } from "../utils/api-helpers";
+import { useDictionary } from "@/contexts/DictionaryContext";
 
 interface JobSliderProps {
   data: JobSliderSection;
@@ -22,6 +23,7 @@ interface JobCardProps {
 }
 
 function JobCard({ job }: JobCardProps) {
+  const { t } = useDictionary();
   return (
     <Link href={`/career/${job.slug}`} className="group block h-full">
       <div className="flex h-full min-h-48 flex-col overflow-hidden rounded-2xl bg-white border border-gray-200 transition-colors">
@@ -51,7 +53,7 @@ function JobCard({ job }: JobCardProps) {
             {job.dueDate && (
               <div className="flex items-center gap-2 text-sm text-gray-600">
                 <CalendarIcon className="h-4 w-4 flex-shrink-0" />
-                <span>Apply by {formatDate(job.dueDate)}</span>
+                <span>{t("jobs.applyBy")} {formatDate(job.dueDate)}</span>
               </div>
             )}
           </div>

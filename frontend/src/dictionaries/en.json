@@ -1,0 +1,50 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "search": "Search",
+    "enter": "Enter",
+    "noImage": "No image"
+  },
+  "filters": {
+    "allCategories": "All Categories",
+    "allDivisions": "All Divisions",
+    "allLocations": "All Locations",
+    "showMore": "Show More"
+  },
+  "actions": {
+    "applyNow": "Apply Now",
+    "seeAllCareers": "See All Careers",
+    "seeAllNews": "See All News",
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "submitApplication": "Submit Application",
+    "submitMessage": "Submit Message"
+  },
+  "validation": {
+    "invalidEmail": "Invalid email format.",
+    "requiredFields": "Please fill in all required fields.",
+    "emailRequired": "Email is required.",
+    "nameRequired": "Name is required."
+  },
+  "messages": {
+    "success": {
+      "formSubmitted": "Thank you! Your message has been submitted successfully.",
+      "applicationSubmitted": "Thank you! Your application has been submitted successfully."
+    },
+    "error": {
+      "somethingWentWrong": "Something went wrong!",
+      "errorOccurred": "An error occurred. Please try again.",
+      "failedToSubmit": "Failed to submit form. Please try again.",
+      "failedToSubmitApplication": "Failed to submit application. Please try again."
+    }
+  },
+  "jobs": {
+    "noJobsAvailable": "No job openings available at the moment.",
+    "applyBy": "Apply by",
+    "jobNotFound": "Job not found"
+  },
+  "search": {
+    "searchPlaceholder": "Search updates...",
+    "noResultsFound": "No results found"
+  }
+}

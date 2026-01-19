@@ -7,6 +7,7 @@ import { MapPinIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { fetchAPI } from "../utils/fetch-api";
 import type { Job, JobExploreSection } from "@/types/generated";
 import Loader from "./Loader";
+import { useDictionary } from "@/contexts/DictionaryContext";
 
 interface JobExploreProps {
   data: JobExploreSection;
@@ -17,6 +18,8 @@ interface JobCardProps {
 }
 
 function JobCard({ job }: JobCardProps) {
+  const { t } = useDictionary();
+  
   return (
     <div className="group relative flex items-center justify-between gap-4 rounded-lg border border-gray-200 bg-white p-6 md:p-4 transition-colors duration-300">
       {/* Left side: Job info */}
@@ -51,7 +54,7 @@ function JobCard({ job }: JobCardProps) {
         href={`/career/${job.slug}`}
         className="hidden md:flex items-center gap-2 text-sm font-medium text-accent transition-colors hover:text-accent-dark"
       >
-        <span>Apply Now</span>
+        <span>{t("actions.applyNow")}</span>
         <ChevronRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
       </Link>
 
@@ -135,10 +138,12 @@ export default function JobExplore({ data }: JobExploreProps) {
     );
   }
 
+  const { t } = useDictionary();
+  
   if (!jobs || jobs.length === 0) {
     return (
       <div className="py-12 text-center">
-        <p className="text-gray-500">No job openings available at the moment.</p>
+        <p className="text-gray-500">{t("jobs.noJobsAvailable")}</p>
       </div>
     );
   }

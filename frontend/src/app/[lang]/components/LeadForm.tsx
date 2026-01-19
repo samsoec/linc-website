@@ -4,12 +4,14 @@ import { useState } from "react";
 import type { LeadFormSection } from "@/types/generated";
 import { getStrapiURL } from "../utils/api-helpers";
 import { EnvelopeIcon, PhoneIcon, MapPinIcon } from "@heroicons/react/24/outline";
+import { useDictionary } from "@/contexts/DictionaryContext";
 
 interface LeadFormProps {
   data: LeadFormSection;
 }
 
 export default function LeadForm({ data }: LeadFormProps) {
+  const { t } = useDictionary();
   const [formData, setFormData] = useState({
     fullname: "",
     email: "",
@@ -41,12 +43,12 @@ export default function LeadForm({ data }: LeadFormProps) {
 
     // Validation
     if (!formData.fullname || !formData.email || !formData.phoneNumber) {
-      setErrorMessage("Please fill in all required fields.");
+      setErrorMessage(t("validation.requiredFields"));
       return;
     }
 
     if (!emailRegex.test(formData.email)) {
-      setErrorMessage("Invalid email format.");
+      setErrorMessage(t("validation.invalidEmail"));
       return;
     }
 
@@ -63,11 +65,11 @@ export default function LeadForm({ data }: LeadFormProps) {
       });
 
       if (!res.ok) {
-        setErrorMessage("Failed to submit form. Please try again.");
+        setErrorMessage(t("messages.error.failedToSubmit"));
         return;
       }
 
-      setSuccessMessage("Thank you! Your message has been submitted successfully.");
+      setSuccessMessage(t("messages.success.formSubmitted"));
       setFormData({
         fullname: "",
         email: "",
@@ -79,7 +81,7 @@ export default function LeadForm({ data }: LeadFormProps) {
         inquiry: "",
       });
     } catch {
-      setErrorMessage("An error occurred. Please try again.");
+      setErrorMessage(t("messages.error.errorOccurred"));
     } finally {
       setIsSubmitting(false);
     }
@@ -346,7 +348,7 @@ export default function LeadForm({ data }: LeadFormProps) {
                 disabled={isSubmitting}
                 className="w-full rounded-full bg-accent px-8 py-4 text-base font-semibold text-white transition-colors hover:bg-accent-dark disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isSubmitting ? "Submitting..." : submitButton?.text || "Submit Message"}
+                {isSubmitting ? t("actions.submitting") : submitButton?.text || t("actions.submitMessage")}
               </button>
             </form>
           </div>
