@@ -16,10 +16,18 @@ export function getStrapiMedia(url: string | null) {
   return `${getStrapiURL()}${url}`;
 }
 
-export function formatDate(dateString: string) {
+export function formatDate(dateString: string, locale: string = "en") {
   const date = new Date(dateString);
   const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "long", day: "numeric" };
-  return date.toLocaleDateString("en-US", options);
+  
+  // Map locale to BCP 47 language tag
+  const localeMap: Record<string, string> = {
+    en: "en-US",
+    id: "id-ID",
+  };
+  
+  const bcp47Locale = localeMap[locale] || "en-US";
+  return date.toLocaleDateString(bcp47Locale, options);
 }
 
 // ADDS DELAY TO SIMULATE SLOW API REMOVE FOR PRODUCTION

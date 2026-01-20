@@ -19,7 +19,7 @@ interface ArticleCardProps {
 }
 
 function ArticleCard({ article }: ArticleCardProps) {
-  const { t } = useDictionary();
+  const { t, lang } = useDictionary();
   const imageUrl = getStrapiMedia(article.cover?.url || null);
   const category = article.category;
 
@@ -57,7 +57,7 @@ function ArticleCard({ article }: ArticleCardProps) {
 
           {/* Date */}
           <p className="mt-auto text-sm text-gray-400">
-            {article.publishedAt ? formatDate(article.publishedAt) : ""}
+            {article.publishedAt ? formatDate(article.publishedAt, lang) : ""}
           </p>
         </div>
       </div>

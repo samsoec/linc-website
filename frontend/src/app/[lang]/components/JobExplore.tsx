@@ -69,6 +69,7 @@ function JobCard({ job }: JobCardProps) {
 }
 
 export default function JobExplore({ data }: JobExploreProps) {
+  const { t, lang } = useDictionary();
   const searchParams = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1);
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -99,6 +100,7 @@ export default function JobExplore({ data }: JobExploreProps) {
         const response = await fetchAPI(
           "/jobs",
           {
+            locale: lang,
             sort: { createdAt: "desc" },
             populate: {
               location: {
@@ -124,7 +126,7 @@ export default function JobExplore({ data }: JobExploreProps) {
     }
 
     fetchJobs();
-  }, [divisionFilter, locationFilter]);
+  }, [divisionFilter, locationFilter, lang]);
 
   if (isLoading) {
     return (
@@ -137,8 +139,6 @@ export default function JobExplore({ data }: JobExploreProps) {
       </div>
     );
   }
-
-  const { t } = useDictionary();
   
   if (!jobs || jobs.length === 0) {
     return (

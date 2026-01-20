@@ -5,12 +5,14 @@ import Link from "next/link";
 import { formatDate } from "../utils/api-helpers";
 import { fetchAPI } from "../utils/fetch-api";
 import type { Article, HighlightedArticle } from "@/types/generated";
+import { useDictionary } from "@/contexts/DictionaryContext";
 
 interface HighlightedPostsProps {
   data?: HighlightedArticle;
 }
 
 export default function HighlightedPosts({ data }: HighlightedPostsProps = {}) {
+  const { lang } = useDictionary();
   const [articles, setArticles] = useState<Article[]>([]);
   const [title, setTitle] = useState<string>(data?.title || "Highlighted Post");
   const [isLoading, setIsLoading] = useState(true);
@@ -102,7 +104,7 @@ export default function HighlightedPosts({ data }: HighlightedPostsProps = {}) {
                       <span>·</span>
                     </>
                   )}
-                  {article.publishedAt && <span>{formatDate(article.publishedAt)}</span>}
+                  {article.publishedAt && <span>{formatDate(article.publishedAt, lang)}</span>}
                 </div>
               </div>
             </Link>

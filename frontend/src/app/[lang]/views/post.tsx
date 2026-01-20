@@ -6,12 +6,12 @@ import SearchBar from "../components/SearchBar";
 import HighlightedPosts from "../components/HighlightedPosts";
 import NavbarThemeSetter from "../components/NavbarThemeSetter";
 
-export default function Post({ data }: { data: Article }) {
+export default function Post({ data, lang }: { data: Article; lang: string }) {
   const { title, publishedAt, cover, category } = data;
 
   // Build description with category and date
   const categoryName = category?.name || "";
-  const dateStr = publishedAt ? formatDate(publishedAt) : "";
+  const dateStr = publishedAt ? formatDate(publishedAt, lang) : "";
   const description = [categoryName, dateStr].filter(Boolean).join(" · ");
 
   const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL

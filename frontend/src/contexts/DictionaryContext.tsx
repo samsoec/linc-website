@@ -9,7 +9,13 @@ interface DictionaryContextType {
   lang: string;
 }
 
-const DictionaryContext = createContext<DictionaryContextType | undefined>(undefined);
+// Create context with a default value to handle SSR/SSG
+const defaultContextValue: DictionaryContextType = {
+  dict: {} as Dictionary, // Type assertion for default empty state during SSR
+  lang: "en",
+};
+
+const DictionaryContext = createContext<DictionaryContextType>(defaultContextValue);
 
 export function DictionaryProvider({
   children,
@@ -29,10 +35,6 @@ export function DictionaryProvider({
 
 export function useDictionary() {
   const context = useContext(DictionaryContext);
-  
-  if (!context) {
-    throw new Error("useDictionary must be used within DictionaryProvider");
-  }
 
   const t = (path: DictionaryPath): string => {
     const value = getNestedValue(context.dict, path as string);

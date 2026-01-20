@@ -11,6 +11,7 @@ import Loader from "./Loader";
 import Button from "./Button";
 import HighlightedPosts from "./HighlightedPosts";
 import ChipTabs from "./ChipTabs";
+import { useDictionary } from "@/contexts/DictionaryContext";
 
 // =============================================================================
 // ARTICLE CARD COMPONENT
@@ -22,6 +23,7 @@ interface ArticleCardProps {
 }
 
 function ArticleCard({ article, variant = "default" }: ArticleCardProps) {
+  const { lang } = useDictionary();
   const imageUrl = getStrapiMedia(article.cover?.url || null);
   const category = article.category;
   const articleUrl = `/blog/${article.slug}`;
@@ -50,7 +52,7 @@ function ArticleCard({ article, variant = "default" }: ArticleCardProps) {
           <div className="mt-1 flex items-center gap-2 text-xs text-gray-500">
             {category && <span>{category.name}</span>}
             {category && article.publishedAt && <span>·</span>}
-            {article.publishedAt && <span>{formatDate(article.publishedAt)}</span>}
+            {article.publishedAt && <span>{formatDate(article.publishedAt, lang)}</span>}
           </div>
         </div>
       </Link>
@@ -86,7 +88,7 @@ function ArticleCard({ article, variant = "default" }: ArticleCardProps) {
           {article.title}
         </h3>
         {article.publishedAt && (
-          <span className="mt-2 text-sm text-gray-500">{formatDate(article.publishedAt)}</span>
+          <span className="mt-2 text-sm text-gray-500">{formatDate(article.publishedAt, lang)}</span>
         )}
       </div>
     </Link>
@@ -146,6 +148,7 @@ interface ArticleListProps {
 
 function ArticleList({ pageSize }: ArticleListProps) {
   const searchParams = useSearchParams();
+  const { lang } = useDictionary();
   const [articles, setArticles] = useState<Article[]>([]);
   const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -183,6 +186,7 @@ function ArticleList({ pageSize }: ArticleListProps) {
         const response = await fetchAPI(
           "/articles",
           {
+            locale: lang,
             sort: { publishedAt: "desc" },
             populate: {
               cover: { fields: ["url", "alternativeText"] },
@@ -213,7 +217,7 @@ function ArticleList({ pageSize }: ArticleListProps) {
     }
 
     fetchArticles();
-  }, [currentPage, categorySlug, searchQuery, pageSize]);
+  }, [currentPage, categorySlug, searchQuery, pageSize, lang]);
 
   const hasMore = articles.length < total;
 

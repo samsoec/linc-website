@@ -4,11 +4,12 @@ import type { Metadata } from "next";
 import { FALLBACK_SEO } from "../../utils/constants";
 import NavbarThemeSetter from "../../components/NavbarThemeSetter";
 
-async function getJobBySlug(slug: string) {
+async function getJobBySlug(slug: string, lang: string) {
   const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
   const path = `/jobs`;
   const urlParamsObject = {
     filters: { slug },
+    locale: lang,
     populate: {
       location: { fields: ["name"] },
       jobDivision: { fields: ["name", "slug"] },
@@ -19,11 +20,12 @@ async function getJobBySlug(slug: string) {
   return response;
 }
 
-async function getMetaData(slug: string) {
+async function getMetaData(slug: string, lang: string) {
   const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
   const path = `/jobs`;
   const urlParamsObject = {
     filters: { slug },
+    locale: lang,
     fields: ["name"],
   };
   const options = { headers: { Authorization: `Bearer ${token}` } };
@@ -34,10 +36,10 @@ async function getMetaData(slug: string) {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; lang: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
-  const meta = await getMetaData(slug);
+  const { slug, lang } = await params;
+  const meta = await getMetaData(slug, lang);
 
   if (!meta || meta.length === 0) {
     return FALLBACK_SEO;
@@ -49,9 +51,9 @@ export async function generateMetadata({
   };
 }
 
-export default async function JobRoute({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const data = await getJobBySlug(slug);
+export default async function JobRoute({ params }: { params: Promise<{ slug: string; lang: string }> }) {
+  const { slug, lang } = await params;
+  const data = await getJobBySlug(slug, lang);
   if (data.data.length === 0) return <h2>Job not found</h2>;
   return (
     <>
@@ -62,10 +64,21 @@ export default async function JobRoute({ params }: { params: Promise<{ slug: str
 }
 
 export async function generateStaticParams() {
+  const { i18n } = await import("../../../../../i18n-config");
   const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
   const path = `/jobs`;
   const options = { headers: { Authorization: `Bearer ${token}` } };
-  const jobResponse = await fetchAPI(path, { fields: ["slug"] }, options);
 
-  return jobResponse.data.map((job: { slug: string }) => ({ slug: job.slug }));
+  const allParams: { lang: string; slug: string }[] = [];
+
+  for (const locale of i18n.locales) {
+    const jobResponse = await fetchAPI(path, { fields: ["slug"], locale }, options);
+    const localeParams = jobResponse.data.map((job: { slug: string }) => ({
+      lang: locale,
+      slug: job.slug,
+    }));
+    allParams.push(...localeParams);
+  }
+
+  return allParams;
 }
