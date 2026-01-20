@@ -176,7 +176,7 @@ export default function LeadForm({ data }: LeadFormProps) {
               {/* Fullname */}
               <div>
                 <label htmlFor="fullname" className="mb-2 block text-sm font-medium text-gray-700">
-                  Fullname <span className="text-red-500">*</span>
+                  {t("form.labels.fullName")} <span className="text-red-500">{t("form.required")}</span>
                 </label>
                 <input
                   type="text"
@@ -184,7 +184,7 @@ export default function LeadForm({ data }: LeadFormProps) {
                   name="fullname"
                   value={formData.fullname}
                   onChange={handleInputChange}
-                  placeholder="Ex: Samantha William"
+                  placeholder={t("form.placeholders.fullName")}
                   className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
                   required
                 />
@@ -193,7 +193,7 @@ export default function LeadForm({ data }: LeadFormProps) {
               {/* Email */}
               <div>
                 <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-700">
-                  Email <span className="text-red-500">*</span>
+                  {t("form.labels.email")} <span className="text-red-500">{t("form.required")}</span>
                 </label>
                 <input
                   type="email"
@@ -201,7 +201,7 @@ export default function LeadForm({ data }: LeadFormProps) {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  placeholder="Ex: email@email.com"
+                  placeholder={t("form.placeholders.email")}
                   className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
                   required
                 />
@@ -213,7 +213,7 @@ export default function LeadForm({ data }: LeadFormProps) {
                   htmlFor="phoneNumber"
                   className="mb-2 block text-sm font-medium text-gray-700"
                 >
-                  Phone Number <span className="text-red-500">*</span>
+                  {t("form.labels.phoneNumber")} <span className="text-red-500">{t("form.required")}</span>
                 </label>
                 <input
                   type="tel"
@@ -221,7 +221,7 @@ export default function LeadForm({ data }: LeadFormProps) {
                   name="phoneNumber"
                   value={formData.phoneNumber}
                   onChange={handleInputChange}
-                  placeholder="Ex: 081234567890"
+                  placeholder={t("form.placeholders.phoneNumber")}
                   className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
                   required
                 />
@@ -230,7 +230,7 @@ export default function LeadForm({ data }: LeadFormProps) {
               {/* Company */}
               <div>
                 <label htmlFor="company" className="mb-2 block text-sm font-medium text-gray-700">
-                  Company
+                  {t("form.labels.company")}
                 </label>
                 <input
                   type="text"
@@ -238,7 +238,7 @@ export default function LeadForm({ data }: LeadFormProps) {
                   name="company"
                   value={formData.company}
                   onChange={handleInputChange}
-                  placeholder="Ex: PT Jaya Barokah"
+                  placeholder={t("form.placeholders.company")}
                   className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
                 />
               </div>
@@ -246,7 +246,7 @@ export default function LeadForm({ data }: LeadFormProps) {
               {/* Position */}
               <div>
                 <label htmlFor="position" className="mb-2 block text-sm font-medium text-gray-700">
-                  Position
+                  {t("form.labels.position")}
                 </label>
                 <input
                   type="text"
@@ -254,7 +254,7 @@ export default function LeadForm({ data }: LeadFormProps) {
                   name="position"
                   value={formData.position}
                   onChange={handleInputChange}
-                  placeholder="Ex: Marketing Manager"
+                  placeholder={t("form.placeholders.position")}
                   className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
                 />
               </div>
@@ -265,7 +265,7 @@ export default function LeadForm({ data }: LeadFormProps) {
                   htmlFor="interestedBusiness"
                   className="mb-2 block text-sm font-medium text-gray-700"
                 >
-                  Interest Business
+                  {t("form.labels.interestBusiness")}
                 </label>
                 <select
                   id="interestedBusiness"
@@ -274,18 +274,18 @@ export default function LeadForm({ data }: LeadFormProps) {
                   onChange={handleInputChange}
                   className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
                 >
-                  <option value="">Select...</option>
+                  <option value="">{t("form.placeholders.select")}</option>
                   <option value="Linc Logistics - Warehousing & Contract Logistics">
-                    Linc Logistics - Warehousing &amp; Contract Logistics
+                    {t("form.businessOptions.warehousing")}
                   </option>
                   <option value="Linc Express - Transportation">
-                    Linc Express - Transportation
+                    {t("form.businessOptions.transportation")}
                   </option>
                   <option value="Linc Impex - Freight Forwarding">
-                    Linc Impex - Freight Forwarding
+                    {t("form.businessOptions.freight")}
                   </option>
                   <option value="Linc Terminal - Liquid Bulk Storage (Storage Tank)">
-                    Linc Terminal - Liquid Bulk Storage (Storage Tank)
+                    {t("form.businessOptions.storage")}
                   </option>
                 </select>
               </div>
@@ -296,7 +296,7 @@ export default function LeadForm({ data }: LeadFormProps) {
                   htmlFor="whereDidYouHear"
                   className="mb-2 block text-sm font-medium text-gray-700"
                 >
-                  Where did you hear about Linc Group?
+                  {t("form.labels.whereDidYouHear")}
                 </label>
                 <select
                   id="whereDidYouHear"
@@ -305,26 +305,26 @@ export default function LeadForm({ data }: LeadFormProps) {
                   onChange={handleInputChange}
                   className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
                 >
-                  <option value="">Select...</option>
-                  <option value="Social Media">Social Media</option>
-                  <option value="Relatives/Friends">Relatives/Friends</option>
-                  <option value="Website">Website</option>
-                  <option value="Events">Events</option>
-                  <option value="Others">Others</option>
+                  <option value="">{t("form.placeholders.select")}</option>
+                  <option value="Social Media">{t("form.sourceOptions.socialMedia")}</option>
+                  <option value="Relatives/Friends">{t("form.sourceOptions.relatives")}</option>
+                  <option value="Website">{t("form.sourceOptions.website")}</option>
+                  <option value="Events">{t("form.sourceOptions.events")}</option>
+                  <option value="Others">{t("form.sourceOptions.others")}</option>
                 </select>
               </div>
 
               {/* Inquiry */}
               <div>
                 <label htmlFor="inquiry" className="mb-2 block text-sm font-medium text-gray-700">
-                  Inquiry
+                  {t("form.labels.inquiry")}
                 </label>
                 <textarea
                   id="inquiry"
                   name="inquiry"
                   value={formData.inquiry}
                   onChange={handleInputChange}
-                  placeholder="Write your message..."
+                  placeholder={t("form.placeholders.inquiry")}
                   rows={5}
                   className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
                 />

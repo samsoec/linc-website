@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   MagnifyingGlassIcon,
   ArrowTurnDownLeftIcon,
@@ -36,7 +36,6 @@ export default function SearchBar({
 }: SearchBarProps) {
   const { t, lang } = useDictionary();
   const router = useRouter();
-  const pathname = usePathname();
   const searchParams = useSearchParams();
   const initialQuery = searchParams.get("q") || "";
   const initialLocation = searchParams.get("location") || "";

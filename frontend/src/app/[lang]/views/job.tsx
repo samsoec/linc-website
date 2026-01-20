@@ -190,10 +190,10 @@ export default function JobDetail({ data }: JobDetailProps) {
 
             {/* Attention Section */}
             <div className="mt-12 rounded-lg border border-amber-200 bg-amber-50 p-6">
-              <h3 className="mb-3 text-lg font-semibold text-amber-800">Attention!</h3>
+              <h3 className="mb-3 text-lg font-semibold text-amber-800">{t("jobs.attention")}</h3>
               <ul className="list-disc space-y-2 pl-5 text-sm text-amber-700">
-                <li>Do not respond any payment for the recruitment process.</li>
-                <li>Only shortlisted candidates will be contacted for the recruitment process.</li>
+                <li>{t("jobs.attentionItems.noPayment")}</li>
+                <li>{t("jobs.attentionItems.shortlisted")}</li>
               </ul>
             </div>
           </div>
@@ -213,7 +213,7 @@ export default function JobDetail({ data }: JobDetailProps) {
                       htmlFor="fullname"
                       className="mb-2 block text-sm font-medium text-gray-700"
                     >
-                      Full Name <span className="text-red-500">*</span>
+                      {t("form.labels.fullName")} <span className="text-red-500">{t("form.required")}</span>
                     </label>
                     <input
                       type="text"
@@ -221,7 +221,7 @@ export default function JobDetail({ data }: JobDetailProps) {
                       name="fullname"
                       value={formData.fullname}
                       onChange={handleInputChange}
-                      placeholder="Ex: Samantha William"
+                      placeholder={t("form.placeholders.fullName")}
                       className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
                       required
                     />
@@ -230,7 +230,7 @@ export default function JobDetail({ data }: JobDetailProps) {
                   {/* Email */}
                   <div>
                     <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-700">
-                      Email <span className="text-red-500">*</span>
+                      {t("form.labels.email")} <span className="text-red-500">{t("form.required")}</span>
                     </label>
                     <input
                       type="email"
@@ -238,7 +238,7 @@ export default function JobDetail({ data }: JobDetailProps) {
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      placeholder="Ex: email@email.com"
+                      placeholder={t("form.placeholders.email")}
                       className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
                       required
                     />
@@ -250,7 +250,7 @@ export default function JobDetail({ data }: JobDetailProps) {
                       htmlFor="phoneNumber"
                       className="mb-2 block text-sm font-medium text-gray-700"
                     >
-                      Phone Number <span className="text-red-500">*</span>
+                      {t("form.labels.phoneNumber")} <span className="text-red-500">{t("form.required")}</span>
                     </label>
                     <input
                       type="tel"
@@ -258,7 +258,7 @@ export default function JobDetail({ data }: JobDetailProps) {
                       name="phoneNumber"
                       value={formData.phoneNumber}
                       onChange={handleInputChange}
-                      placeholder="Ex: 081234567890"
+                      placeholder={t("form.placeholders.phoneNumber")}
                       className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
                       required
                     />
@@ -267,7 +267,7 @@ export default function JobDetail({ data }: JobDetailProps) {
                   {/* Job (Read-only) */}
                   <div>
                     <label htmlFor="job" className="mb-2 block text-sm font-medium text-gray-700">
-                      Job
+                      {t("form.labels.job")}
                     </label>
                     <input
                       type="text"
@@ -283,14 +283,14 @@ export default function JobDetail({ data }: JobDetailProps) {
                   {/* Cover Letter*/}
                   <div>
                     <label htmlFor="cover" className="mb-2 block text-sm font-medium text-gray-700">
-                      Cover Letter
+                      {t("form.labels.coverLetter")}
                     </label>
                     <textarea
                       id="cover"
                       name="cover"
                       value={formData.cover}
                       onChange={handleInputChange}
-                      placeholder="Write your cover letter here..."
+                      placeholder={t("form.placeholders.coverLetter")}
                       rows={5}
                       className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
                     />
@@ -302,7 +302,7 @@ export default function JobDetail({ data }: JobDetailProps) {
                       htmlFor="resume"
                       className="mb-2 block text-sm font-medium text-gray-700"
                     >
-                      CV File <span className="text-red-500">*</span>
+                      {t("form.labels.cvFile")} <span className="text-red-500">{t("form.required")}</span>
                     </label>
                     <div className="relative">
                       <input
@@ -314,7 +314,7 @@ export default function JobDetail({ data }: JobDetailProps) {
                         className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 file:mr-4 file:rounded-lg file:border-0 file:bg-accent file:px-4 file:py-2 file:text-sm file:font-medium file:text-white hover:file:bg-accent-dark"
                       />
                     </div>
-                    <p className="mt-1 text-xs text-gray-500">PDF, DOC, DOCX (Max 5MB)</p>
+                    <p className="mt-1 text-xs text-gray-500">{t("form.help.cvFile")}</p>
                   </div>
 
                   {/* Success Message */}
@@ -353,7 +353,7 @@ export default function JobDetail({ data }: JobDetailProps) {
             onClick={scrollToForm}
             className="w-full rounded-lg bg-accent px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-dark"
           >
-            Apply Now
+            {t("actions.applyNow")}
           </button>
         </div>
       )}

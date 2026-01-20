@@ -15,10 +15,14 @@
     "applyNow": "Apply Now",
     "seeAllCareers": "See All Careers",
     "seeAllNews": "See All News",
+    "showMore": "Show More",
     "submit": "Submit",
     "submitting": "Submitting...",
     "submitApplication": "Submit Application",
-    "submitMessage": "Submit Message"
+    "submitMessage": "Submit Message",
+    "learnMore": "Learn More",
+    "closeVideo": "Close video",
+    "view": "View"
   },
   "validation": {
     "invalidEmail": "Invalid email format.",
@@ -41,10 +45,67 @@
   "jobs": {
     "noJobsAvailable": "No job openings available at the moment.",
     "applyBy": "Apply by",
-    "jobNotFound": "Job not found"
+    "jobNotFound": "Job not found",
+    "attention": "Attention!",
+    "attentionItems": {
+      "noPayment": "Do not respond any payment for the recruitment process.",
+      "shortlisted": "Only shortlisted candidates will be contacted for the recruitment process."
+    },
+    "dueDate": "Due Date"
+  },
+  "form": {
+    "labels": {
+      "fullName": "Full Name",
+      "email": "Email",
+      "phoneNumber": "Phone Number",
+      "job": "Job",
+      "coverLetter": "Cover Letter",
+      "cvFile": "CV File",
+      "company": "Company",
+      "position": "Position",
+      "interestBusiness": "Interest Business",
+      "whereDidYouHear": "Where did you hear about Linc Group?",
+      "inquiry": "Inquiry"
+    },
+    "placeholders": {
+      "fullName": "Ex: Samantha William",
+      "email": "Ex: email@email.com",
+      "phoneNumber": "Ex: 081234567890",
+      "coverLetter": "Write your cover letter here...",
+      "company": "Ex: PT Jaya Barokah",
+      "position": "Ex: Marketing Manager",
+      "inquiry": "Write your message...",
+      "select": "Select..."
+    },
+    "help": {
+      "cvFile": "PDF, DOC, DOCX (Max 5MB)"
+    },
+    "required": "*",
+    "businessOptions": {
+      "warehousing": "Linc Logistics - Warehousing & Contract Logistics",
+      "transportation": "Linc Express - Transportation",
+      "freight": "Linc Impex - Freight Forwarding",
+      "storage": "Linc Terminal - Liquid Bulk Storage (Storage Tank)"
+    },
+    "sourceOptions": {
+      "socialMedia": "Social Media",
+      "relatives": "Relatives/Friends",
+      "website": "Website",
+      "events": "Events",
+      "others": "Others"
+    }
   },
   "search": {
     "searchPlaceholder": "Search updates...",
-    "noResultsFound": "No results found"
+    "noResultsFound": "No results found",
+    "showing": "Showing",
+    "results": "results"
+  },
+  "articles": {
+    "notFound": "No articles found"
+  },
+  "video": {
+    "browserNotSupported": "Your browser does not support the video tag.",
+    "title": "Video"
   }
 }

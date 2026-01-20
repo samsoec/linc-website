@@ -7,6 +7,7 @@ import ReactMarkdown from "react-markdown";
 import { ServicesSection, Service } from "@/types/generated";
 import { getStrapiMedia } from "../utils/api-helpers";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import { useDictionary } from "@/contexts/DictionaryContext";
 
 interface ServicesProps {
   data: ServicesSection;
@@ -152,6 +153,7 @@ interface MobileServiceCardProps {
 function MobileServiceCard({ service, isActive, onActivate }: MobileServiceCardProps) {
   const imageUrl = getStrapiMedia(service.picture?.url || null);
   const iconUrl = getStrapiMedia(service.icon?.url || null);
+  const { t } = useDictionary();
 
   return (
     <div
@@ -246,7 +248,7 @@ function MobileServiceCard({ service, isActive, onActivate }: MobileServiceCardP
             className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-primary transition-all hover:bg-gray-100"
             onClick={(e) => e.stopPropagation()}
           >
-            Learn More
+            {t("actions.learnMore")}
             <ChevronRightIcon className="h-4 w-4" />
           </LocaleLink>
         </div>

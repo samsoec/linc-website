@@ -109,6 +109,7 @@ interface CategoryTabsProps {
 function CategoryTabs({ categories, activeCategory }: CategoryTabsProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { t } = useDictionary();
 
   const handleCategoryChange = (categorySlug: string | null) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -123,7 +124,7 @@ function CategoryTabs({ categories, activeCategory }: CategoryTabsProps) {
     router.push(`?${params.toString()}`);
   };
 
-  const allCategory = { name: "All Categories", slug: "", id: 0, documentId: "" };
+  const allCategory = { name: t("filters.allCategories"), slug: "", id: 0, documentId: "" };
 
   return (
     <ChipTabs<(typeof categories)[0]>
@@ -150,7 +151,7 @@ interface ArticleListProps {
 
 function ArticleList({ pageSize }: ArticleListProps) {
   const searchParams = useSearchParams();
-  const { lang } = useDictionary();
+  const { lang, t } = useDictionary();
   const [articles, setArticles] = useState<Article[]>([]);
   const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -238,7 +239,7 @@ function ArticleList({ pageSize }: ArticleListProps) {
   return (
     <div className="space-y-6">
       <p className="text-sm text-gray-600">
-        Showing <span className="font-semibold">{total}</span> results
+        {t("search.showing")} <span className="font-semibold">{total}</span> {t("search.results")}
         {searchQuery && (
           <>
             {" "}
@@ -257,14 +258,14 @@ function ArticleList({ pageSize }: ArticleListProps) {
         </div>
       ) : (
         <div className="py-12 text-center">
-          <p className="text-gray-500">No articles found</p>
+          <p className="text-gray-500">{t("articles.notFound")}</p>
         </div>
       )}
 
       {hasMore && (
         <div className="pt-4 flex justify-center">
           <Button as="button" type="primary" color="accent" onClick={handleLoadMore}>
-            Show More
+            {t("actions.showMore")}
           </Button>
         </div>
       )}

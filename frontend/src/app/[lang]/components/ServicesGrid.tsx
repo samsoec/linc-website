@@ -3,6 +3,7 @@ import { ServicesGridSection, Service } from "@/types/generated";
 import { getStrapiMedia } from "../utils/api-helpers";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import LocaleLink from "./LocaleLink";
+import { useDictionary } from "@/contexts/DictionaryContext";
 
 interface ServicesGridProps {
   data: ServicesGridSection;
@@ -15,6 +16,7 @@ interface ServiceCardProps {
 function ServiceCard({ service }: ServiceCardProps) {
   const imageUrl = getStrapiMedia(service.picture?.url || null);
   const iconUrl = getStrapiMedia(service.icon?.url || null);
+  const { t } = useDictionary();
 
   return (
     <LocaleLink
@@ -49,7 +51,7 @@ function ServiceCard({ service }: ServiceCardProps) {
           {/* Learn More Button - Shows on Hover */}
           <div className="max-h-0 overflow-hidden opacity-0 transition-all duration-300 group-hover:max-h-20 group-hover:opacity-100">
             <span className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-primary transition-all hover:bg-gray-100">
-              Learn More
+              {t("actions.learnMore")}
               <ChevronRightIcon className="h-4 w-4" />
             </span>
           </div>

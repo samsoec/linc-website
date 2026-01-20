@@ -15,10 +15,14 @@
     "applyNow": "Lamar Sekarang",
     "seeAllCareers": "Lihat Semua Karir",
     "seeAllNews": "Lihat Semua Berita",
+    "showMore": "Tampilkan Lebih Banyak",
     "submit": "Kirim",
     "submitting": "Mengirim...",
     "submitApplication": "Kirim Lamaran",
-    "submitMessage": "Kirim Pesan"
+    "submitMessage": "Kirim Pesan",
+    "learnMore": "Pelajari Lebih Lanjut",
+    "closeVideo": "Tutup video",
+    "view": "Lihat"
   },
   "validation": {
     "invalidEmail": "Format email tidak valid.",
@@ -41,10 +45,67 @@
   "jobs": {
     "noJobsAvailable": "Tidak ada lowongan pekerjaan saat ini.",
     "applyBy": "Lamar sebelum",
-    "jobNotFound": "Pekerjaan tidak ditemukan"
+    "jobNotFound": "Pekerjaan tidak ditemukan",
+    "attention": "Perhatian!",
+    "attentionItems": {
+      "noPayment": "Jangan merespons pembayaran apa pun untuk proses rekrutmen.",
+      "shortlisted": "Hanya kandidat terpilih yang akan dihubungi untuk proses rekrutmen."
+    },
+    "dueDate": "Tenggat Waktu"
+  },
+  "form": {
+    "labels": {
+      "fullName": "Nama Lengkap",
+      "email": "Email",
+      "phoneNumber": "Nomor Telepon",
+      "job": "Pekerjaan",
+      "coverLetter": "Surat Lamaran",
+      "cvFile": "File CV",
+      "company": "Perusahaan",
+      "position": "Posisi",
+      "interestBusiness": "Bisnis yang Diminati",
+      "whereDidYouHear": "Dari mana Anda mengetahui Linc Group?",
+      "inquiry": "Pertanyaan"
+    },
+    "placeholders": {
+      "fullName": "Contoh: Samantha William",
+      "email": "Contoh: email@email.com",
+      "phoneNumber": "Contoh: 081234567890",
+      "coverLetter": "Tulis surat lamaran Anda di sini...",
+      "company": "Contoh: PT Jaya Barokah",
+      "position": "Contoh: Manajer Pemasaran",
+      "inquiry": "Tulis pesan Anda...",
+      "select": "Pilih..."
+    },
+    "help": {
+      "cvFile": "PDF, DOC, DOCX (Maks 5MB)"
+    },
+    "required": "*",
+    "businessOptions": {
+      "warehousing": "Linc Logistics - Pergudangan & Logistik Kontrak",
+      "transportation": "Linc Express - Transportasi",
+      "freight": "Linc Impex - Pengiriman Barang",
+      "storage": "Linc Terminal - Penyimpanan Curah Cair (Tangki Penyimpanan)"
+    },
+    "sourceOptions": {
+      "socialMedia": "Media Sosial",
+      "relatives": "Kerabat/Teman",
+      "website": "Website",
+      "events": "Acara",
+      "others": "Lainnya"
+    }
   },
   "search": {
     "searchPlaceholder": "Cari pembaruan...",
-    "noResultsFound": "Tidak ada hasil ditemukan"
+    "noResultsFound": "Tidak ada hasil ditemukan",
+    "showing": "Menampilkan",
+    "results": "hasil"
+  },
+  "articles": {
+    "notFound": "Tidak ada artikel ditemukan"
+  },
+  "video": {
+    "browserNotSupported": "Browser Anda tidak mendukung tag video.",
+    "title": "Video"
   }
 }

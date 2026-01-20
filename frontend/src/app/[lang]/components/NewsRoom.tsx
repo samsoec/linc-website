@@ -108,6 +108,7 @@ function NextArrow({ onClick, disabled }: { onClick?: () => void; disabled?: boo
 export default function NewsRoom({ data }: NewsRoomProps) {
   const slideRef = useRef<SlideshowRef>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const { t } = useDictionary();
 
   const { heading, subheading, description, articles } = data;
 
@@ -176,7 +177,7 @@ export default function NewsRoom({ data }: NewsRoomProps) {
               href="/blog"
               className="group flex items-center gap-2 whitespace-nowrap text-accent transition-colors hover:text-accent-dark"
             >
-              <span className="font-medium">See All News</span>
+              <span className="font-medium">{t("actions.seeAllNews")}</span>
               <ChevronRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </LocaleLink>
           </div>
@@ -194,7 +195,7 @@ export default function NewsRoom({ data }: NewsRoomProps) {
               href="/blog"
               className="group inline-flex items-center gap-2 font-medium text-accent transition-colors hover:text-accent-dark"
             >
-              <span>See All News</span>
+              <span>{t("actions.seeAllNews")}</span>
               <ChevronRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </LocaleLink>
           </div>

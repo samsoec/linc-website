@@ -18,6 +18,8 @@ interface JobCardProps {
 }
 
 function JobCard({ job }: JobCardProps) {
+  const { t } = useDictionary();
+  
   return (
     <div className="group relative flex items-center justify-between gap-4 rounded-lg border border-gray-200 bg-white p-6 md:p-4 transition-colors duration-300">
       {/* Left side: Job info */}
@@ -52,7 +54,7 @@ function JobCard({ job }: JobCardProps) {
         href={`/career/${job.slug}`}
         className="hidden md:flex items-center gap-2 text-sm font-medium text-accent transition-colors hover:text-accent-dark"
       >
-        <span>Apply Now</span>
+        <span>{t("actions.applyNow")}</span>
         <ChevronRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
       </LocaleLink>
 
@@ -60,9 +62,9 @@ function JobCard({ job }: JobCardProps) {
       <LocaleLink
         href={`/career/${job.slug}`}
         className="absolute inset-0 md:hidden"
-        aria-label={`View ${job.name}`}
+        aria-label={`${t("actions.view")} ${job.name}`}
       >
-        <span className="sr-only">View {job.name}</span>
+        <span className="sr-only">{t("actions.view")} {job.name}</span>
       </LocaleLink>
     </div>
   );

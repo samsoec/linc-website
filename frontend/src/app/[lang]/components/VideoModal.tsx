@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { XMarkIcon } from "@heroicons/react/24/solid";
+import { useDictionary } from "@/contexts/DictionaryContext";
 
 interface VideoModalProps {
   isOpen: boolean;
@@ -19,6 +20,8 @@ export default function VideoModal({
   videoUrl,
   title = "Video",
 }: VideoModalProps) {
+  const { t } = useDictionary();
+  
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -69,7 +72,7 @@ export default function VideoModal({
       <button
         onClick={onClose}
         className="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20 md:right-8 md:top-8"
-        aria-label="Close video"
+        aria-label={t("actions.closeVideo")}
       >
         <XMarkIcon className="h-8 w-8" />
       </button>
@@ -89,7 +92,7 @@ export default function VideoModal({
           ) : videoUrl ? (
             // Self-hosted video
             <video src={videoUrl} controls autoPlay className="h-full w-full">
-              Your browser does not support the video tag.
+              {t("video.browserNotSupported")}
             </video>
           ) : null}
         </div>
