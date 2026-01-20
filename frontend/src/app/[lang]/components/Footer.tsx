@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
+import LocaleLink from "./LocaleLink";
 import {
   FaInstagram,
   FaFacebookF,
@@ -14,6 +14,7 @@ import {
 } from "react-icons/fa";
 import type { FooterSection, SocialLink as SocialLinkType } from "@/types/generated";
 import { scrollToSection } from "./ScrollToHash";
+import { i18n } from "../../../../i18n-config";
 
 interface FooterProps {
   logoUrl: string | null;
@@ -42,8 +43,12 @@ function FooterLink({ url, text }: { url: string; text: string }) {
     const [path, hash] = url.split("#");
     const targetPath = path || "/";
 
+    // Build regex from i18n config
+    const localesPattern = i18n.locales.join("|");
+    const localeRegex = new RegExp(`^/(${localesPattern})(/|$)`);
+
     // Extract current path without locale for comparison
-    const currentPathWithoutLocale = pathname.replace(/^\/[a-z]{2}(-[a-zA-Z]{2,})?/, "") || "/";
+    const currentPathWithoutLocale = pathname.replace(localeRegex, "/").replace(/\/+$/, "") || "/";
     const targetPathNormalized = targetPath === "/" ? "/" : targetPath.replace(/\/$/, "");
     const currentPathNormalized =
       currentPathWithoutLocale === "/" ? "/" : currentPathWithoutLocale.replace(/\/$/, "");
@@ -54,22 +59,22 @@ function FooterLink({ url, text }: { url: string; text: string }) {
     } else {
       // Different page - navigate and let ScrollToHash handle the scroll
       // Get current locale from pathname
-      const localeMatch = pathname.match(/^\/([a-z]{2}(-[a-zA-Z]{2,})?)/);
-      const locale = localeMatch ? localeMatch[1] : "";
-      const fullPath = locale ? `/${locale}${targetPath}#${hash}` : `${targetPath}#${hash}`;
+      const localeMatch = pathname.match(localeRegex);
+      const locale = localeMatch ? localeMatch[1] : i18n.defaultLocale;
+      const fullPath = `/${locale}${targetPath}#${hash}`;
       router.push(fullPath);
     }
   };
 
   return (
     <li>
-      <Link
+      <LocaleLink
         href={url}
         onClick={handleClick}
         className="text-gray-300 hover:text-white transition-colors duration-200"
       >
         {text}
-      </Link>
+      </LocaleLink>
     </li>
   );
 }

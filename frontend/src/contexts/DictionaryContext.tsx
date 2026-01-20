@@ -3,6 +3,7 @@
 import { createContext, useContext } from "react";
 import type { Dictionary, DictionaryPath } from "@/types/dictionary";
 import { getNestedValue } from "@/types/dictionary";
+import { i18n } from "../../i18n-config";
 
 interface DictionaryContextType {
   dict: Dictionary;
@@ -12,7 +13,7 @@ interface DictionaryContextType {
 // Create context with a default value to handle SSR/SSG
 const defaultContextValue: DictionaryContextType = {
   dict: {} as Dictionary, // Type assertion for default empty state during SSR
-  lang: "en",
+  lang: i18n.defaultLocale,
 };
 
 const DictionaryContext = createContext<DictionaryContextType>(defaultContextValue);
@@ -26,11 +27,7 @@ export function DictionaryProvider({
   dict: Dictionary;
   lang: string;
 }) {
-  return (
-    <DictionaryContext.Provider value={{ dict, lang }}>
-      {children}
-    </DictionaryContext.Provider>
-  );
+  return <DictionaryContext.Provider value={{ dict, lang }}>{children}</DictionaryContext.Provider>;
 }
 
 export function useDictionary() {
@@ -38,12 +35,12 @@ export function useDictionary() {
 
   const t = (path: DictionaryPath): string => {
     const value = getNestedValue(context.dict, path as string);
-    
-    if (typeof value !== 'string') {
+
+    if (typeof value !== "string") {
       console.warn(`Translation not found for path: ${path}`);
       return path as string;
     }
-    
+
     return value;
   };
 

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import LocaleLink from "./LocaleLink";
 import ReactMarkdown from "react-markdown";
 import { ServicesSection, Service } from "@/types/generated";
 import { getStrapiMedia } from "../utils/api-helpers";
@@ -129,14 +129,14 @@ function ServiceCard({ service, isActive, onActivate }: ServiceCardProps) {
           )}
 
           {/* Learn More Button */}
-          <Link
+          <LocaleLink
             href={`/service/${service.slug || service.documentId}`}
             className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-primary transition-all hover:bg-gray-100"
             onClick={(e) => e.stopPropagation()}
           >
             Learn More
             <ChevronRightIcon className="h-4 w-4" />
-          </Link>
+          </LocaleLink>
         </div>
       </div>
     </div>
@@ -241,14 +241,14 @@ function MobileServiceCard({ service, isActive, onActivate }: MobileServiceCardP
           )}
 
           {/* Learn More Button */}
-          <Link
+          <LocaleLink
             href={`/service/${service.slug || service.documentId}`}
             className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-primary transition-all hover:bg-gray-100"
             onClick={(e) => e.stopPropagation()}
           >
             Learn More
             <ChevronRightIcon className="h-4 w-4" />
-          </Link>
+          </LocaleLink>
         </div>
       </div>
     </div>

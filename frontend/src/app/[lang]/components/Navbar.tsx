@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import LocaleLink from "./LocaleLink";
 import { Dialog } from "@headlessui/react";
 import {
   Bars3Icon,
@@ -15,6 +16,7 @@ import SearchBar from "./SearchBar";
 import type { Link as LinkType, ButtonLink } from "@/types/generated";
 import { useNavbarTheme } from "../contexts/NavbarThemeContext";
 import { fetchAPI } from "../utils/fetch-api";
+import { i18n } from "../../../../i18n-config";
 
 /**
  * Custom hook to check if a link is active by comparing paths
@@ -23,22 +25,27 @@ import { fetchAPI } from "../utils/fetch-api";
 function useActiveLink() {
   const pathname = usePathname();
 
+  // Build regex pattern from i18n config locales
+  const localePattern = useMemo(() => {
+    const localesPattern = i18n.locales.join("|");
+    return new RegExp(`^/(${localesPattern})(/|$)`);
+  }, []);
+
   // Extract the path without the language prefix (e.g., /en/about -> /about)
   const pathWithoutLang = useMemo(() => {
-    // Match patterns like /en, /id, /en-US, etc.
-    const langPrefixMatch = pathname.match(/^\/[a-z]{2}(-[a-zA-Z]{2,})?/);
+    const langPrefixMatch = pathname.match(localePattern);
     if (langPrefixMatch) {
-      const stripped = pathname.slice(langPrefixMatch[0].length);
+      const stripped = pathname.slice(langPrefixMatch[0].length - 1); // Keep the trailing slash/path
       return stripped || "/";
     }
     return pathname;
-  }, [pathname]);
+  }, [pathname, localePattern]);
 
   // Get current language from path
   const currentLang = useMemo(() => {
-    const langMatch = pathname.match(/^\/([a-z]{2}(-[a-zA-Z]{2,})?)/);
+    const langMatch = pathname.match(localePattern);
     return langMatch ? langMatch[1] : null;
-  }, [pathname]);
+  }, [pathname, localePattern]);
 
   /**
    * Check if a given URL matches the current path
@@ -241,7 +248,7 @@ function NavLink({ url, text, children, isScrolled }: NavLinkProps) {
         onMouseEnter={() => setIsOpen(true)}
         onMouseLeave={() => setIsOpen(false)}
       >
-        <Link
+        <LocaleLink
           href={url}
           className={`flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors duration-300 ${getLinkClasses(active)}`}
         >
@@ -249,12 +256,12 @@ function NavLink({ url, text, children, isScrolled }: NavLinkProps) {
           <ChevronDownIcon
             className={`h-4 w-4 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
           />
-        </Link>
+        </LocaleLink>
         {isOpen && (
           <div className="absolute top-full left-0 pt-2 w-48 z-50">
             <div className="rounded-lg bg-white shadow-lg ring-1 ring-black/5 py-2">
               {children.map((child) => (
-                <Link
+                <LocaleLink
                   key={child.id}
                   href={child.url}
                   className={`block px-4 py-2 text-sm hover:bg-gray-100 hover:text-accent ${
@@ -262,7 +269,7 @@ function NavLink({ url, text, children, isScrolled }: NavLinkProps) {
                   }`}
                 >
                   {child.text}
-                </Link>
+                </LocaleLink>
               ))}
             </div>
           </div>
@@ -273,12 +280,12 @@ function NavLink({ url, text, children, isScrolled }: NavLinkProps) {
 
   return (
     <li className="flex items-center">
-      <Link
+      <LocaleLink
         href={url}
         className={`px-3 py-2 text-sm font-medium transition-colors duration-300 ${getLinkClasses(active)}`}
       >
         {text}
-      </Link>
+      </LocaleLink>
     </li>
   );
 }
@@ -300,13 +307,13 @@ function MobileNavLink({ url, text, children, closeMenu }: MobileNavLinkProps) {
         <div
           className={`flex w-full items-center justify-between rounded-lg ${active ? "bg-white/20" : ""}`}
         >
-          <Link
+          <LocaleLink
             href={url}
             onClick={closeMenu}
             className="flex-1 px-3 py-2 text-base font-semibold text-white"
           >
             {text}
-          </Link>
+          </LocaleLink>
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="px-3 py-2"
@@ -320,7 +327,7 @@ function MobileNavLink({ url, text, children, closeMenu }: MobileNavLinkProps) {
         {isOpen && (
           <div className="ml-4 space-y-1">
             {children.map((child) => (
-              <Link
+              <LocaleLink
                 key={child.id}
                 href={child.url}
                 onClick={closeMenu}
@@ -331,7 +338,7 @@ function MobileNavLink({ url, text, children, closeMenu }: MobileNavLinkProps) {
                 }`}
               >
                 {child.text}
-              </Link>
+              </LocaleLink>
             ))}
           </div>
         )}
@@ -340,13 +347,13 @@ function MobileNavLink({ url, text, children, closeMenu }: MobileNavLinkProps) {
   }
 
   return (
-    <Link
+    <LocaleLink
       href={url}
       onClick={closeMenu}
       className={`block rounded-lg px-3 py-2 text-base font-semibold ${getMobileLinkClasses(active)}`}
     >
       {text}
-    </Link>
+    </LocaleLink>
   );
 }
 
@@ -410,7 +417,7 @@ export default function Navbar({
         <div className="flex h-16 items-center justify-between lg:justify-normal lg:h-20 lg:gap-8">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link href="/" className="flex items-center gap-2">
+            <LocaleLink href="/" className="flex items-center gap-2">
               {logoUrl && (
                 <Image
                   src={logoUrl}
@@ -422,7 +429,7 @@ export default function Navbar({
                   }`}
                 />
               )}
-            </Link>
+            </LocaleLink>
           </div>
 
           {/* Desktop Navigation */}
@@ -503,7 +510,7 @@ export default function Navbar({
         <div className="fixed inset-0 z-50 bg-black/20 backdrop-blur-sm" />
         <Dialog.Panel className="fixed flex flex-col inset-y-0 right-0 z-50 w-full h-svh overflow-y-auto bg-accent px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <Link href="/" className="-m-1.5 p-1.5" onClick={closeMenu}>
+            <LocaleLink href="/" className="-m-1.5 p-1.5" onClick={closeMenu}>
               <span className="sr-only">{logoText || "Home"}</span>
               {logoUrl && (
                 <Image
@@ -514,7 +521,7 @@ export default function Navbar({
                   className="h-12 w-auto invert brightness-0"
                 />
               )}
-            </Link>
+            </LocaleLink>
             <button
               type="button"
               className="-m-2.5 rounded-md p-2.5 text-gray-900 bg-white"

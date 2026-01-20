@@ -6,7 +6,9 @@ export type Dictionary = Awaited<ReturnType<typeof getDictionary>>;
 // Create a type for nested paths like "filters.allDivisions"
 type PathImpl<T, Key extends keyof T> = Key extends string
   ? T[Key] extends Record<string, any>
-    ? `${Key}.${PathImpl<T[Key], Exclude<keyof T[Key], keyof any[]>> & string}` | `${Key}.${Exclude<keyof T[Key], keyof any[]> & string}`
+    ?
+        | `${Key}.${PathImpl<T[Key], Exclude<keyof T[Key], keyof any[]>> & string}`
+        | `${Key}.${Exclude<keyof T[Key], keyof any[]> & string}`
     : never
   : never;
 
@@ -16,5 +18,5 @@ export type DictionaryPath = Path<Dictionary>;
 
 // Helper to get nested value from object using dot notation
 export function getNestedValue<T>(obj: T, path: string): any {
-  return path.split('.').reduce((acc: any, part: string) => acc?.[part], obj);
+  return path.split(".").reduce((acc: any, part: string) => acc?.[part], obj);
 }

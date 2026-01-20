@@ -202,7 +202,9 @@ export default function JobDetail({ data }: JobDetailProps) {
           <div className="lg:col-span-1">
             <div ref={formRef} id="apply-form" className="sticky top-24">
               <div className="rounded-2xl bg-gray-50 p-6 md:p-8">
-                <h2 className="mb-6 text-xl font-semibold text-gray-900">{t("actions.applyNow")}!</h2>
+                <h2 className="mb-6 text-xl font-semibold text-gray-900">
+                  {t("actions.applyNow")}!
+                </h2>
 
                 <form onSubmit={handleSubmit} className="space-y-5">
                   {/* Fullname */}

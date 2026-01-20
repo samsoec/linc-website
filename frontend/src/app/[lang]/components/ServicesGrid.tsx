@@ -1,8 +1,8 @@
 import Image from "next/image";
-import Link from "next/link";
 import { ServicesGridSection, Service } from "@/types/generated";
 import { getStrapiMedia } from "../utils/api-helpers";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import LocaleLink from "./LocaleLink";
 
 interface ServicesGridProps {
   data: ServicesGridSection;
@@ -17,7 +17,7 @@ function ServiceCard({ service }: ServiceCardProps) {
   const iconUrl = getStrapiMedia(service.icon?.url || null);
 
   return (
-    <Link
+    <LocaleLink
       href={`/service/${service.slug || service.documentId}`}
       className="group relative block h-[280px] overflow-hidden rounded-2xl md:h-[350px]"
     >
@@ -72,7 +72,7 @@ function ServiceCard({ service }: ServiceCardProps) {
           )}
         </div>
       </div>
-    </Link>
+    </LocaleLink>
   );
 }
 

@@ -348,7 +348,9 @@ export default function LeadForm({ data }: LeadFormProps) {
                 disabled={isSubmitting}
                 className="w-full rounded-full bg-accent px-8 py-4 text-base font-semibold text-white transition-colors hover:bg-accent-dark disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isSubmitting ? t("actions.submitting") : submitButton?.text || t("actions.submitMessage")}
+                {isSubmitting
+                  ? t("actions.submitting")
+                  : submitButton?.text || t("actions.submitMessage")}
               </button>
             </form>
           </div>

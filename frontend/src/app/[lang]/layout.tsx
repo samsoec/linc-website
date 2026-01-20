@@ -81,7 +81,7 @@ export default async function RootLayout({
   // Validate locale to prevent invalid requests (e.g., favicon.ico being treated as a locale)
   if (!i18n.locales.includes(lang as Locale)) {
     return (
-      <html lang="en">
+      <html lang={lang}>
         <body>{children}</body>
       </html>
     );
@@ -89,7 +89,7 @@ export default async function RootLayout({
 
   const global = await getGlobal(lang);
   const dict = await getDictionary(lang as Locale);
-  
+
   // TODO: CREATE A CUSTOM ERROR PAGE
   if (!global?.data) {
     return (
@@ -132,9 +132,7 @@ export default async function RootLayout({
 
             <main className="dark:bg-black dark:text-gray-100 min-h-screen">{children}</main>
 
-            {global.data.banner && (
-              <Banner data={global.data.banner} />
-            )}
+            {global.data.banner && <Banner data={global.data.banner} />}
 
             <Footer
               logoUrl={footerLogoUrl}

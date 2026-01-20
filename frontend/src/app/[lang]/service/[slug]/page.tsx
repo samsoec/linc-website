@@ -49,7 +49,11 @@ export async function generateMetadata({
   };
 }
 
-export default async function ServiceRoute({ params }: { params: Promise<{ slug: string; lang: string }> }) {
+export default async function ServiceRoute({
+  params,
+}: {
+  params: Promise<{ slug: string; lang: string }>;
+}) {
   const { slug, lang } = await params;
   const data = await getServiceBySlug(slug, lang);
   if (data.data.length === 0) return <h2>Service not found</h2>;

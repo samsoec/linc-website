@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { AboutCompanySection } from "@/types/generated";
 import { getStrapiMedia } from "../utils/api-helpers";
 import { ChevronRightIcon, MapPinIcon } from "@heroicons/react/24/outline";
 import { PlayIcon } from "@heroicons/react/24/solid";
 import VideoModal from "./VideoModal";
 import { DynamicHeroIcon, KeyIcon } from "./DynamicIcon";
+import LocaleLink from "./LocaleLink";
 
 interface AboutCompanyProps {
   data: AboutCompanySection;
@@ -83,14 +83,14 @@ export default function AboutCompany({ data }: AboutCompanyProps) {
 
             {moreButton && (
               <div className="mt-8">
-                <Link
+                <LocaleLink
                   href={moreButton.url || "#"}
                   target={moreButton.newTab ? "_blank" : "_self"}
                   className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-medium text-white transition-all hover:bg-accent-dark"
                 >
                   {moreButton.text}
                   <ChevronRightIcon className="h-4 w-4" />
-                </Link>
+                </LocaleLink>
               </div>
             )}
           </div>

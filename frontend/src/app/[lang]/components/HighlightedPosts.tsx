@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
+import LocaleLink from "./LocaleLink";
 import { formatDate } from "../utils/api-helpers";
 import { fetchAPI } from "../utils/fetch-api";
 import type { Article, HighlightedArticle } from "@/types/generated";
@@ -89,7 +89,11 @@ export default function HighlightedPosts({ data }: HighlightedPostsProps = {}) {
           const articleUrl = `/blog/${article.slug}`;
 
           return (
-            <Link key={article.id} href={articleUrl} className="group flex gap-4 items-start py-4">
+            <LocaleLink
+              key={article.id}
+              href={articleUrl}
+              className="group flex gap-4 items-start py-4"
+            >
               <span className="flex-shrink-0 text-lg font-semibold text-accent w-6">
                 {index + 1}
               </span>
@@ -107,7 +111,7 @@ export default function HighlightedPosts({ data }: HighlightedPostsProps = {}) {
                   {article.publishedAt && <span>{formatDate(article.publishedAt, lang)}</span>}
                 </div>
               </div>
-            </Link>
+            </LocaleLink>
           );
         })}
       </div>

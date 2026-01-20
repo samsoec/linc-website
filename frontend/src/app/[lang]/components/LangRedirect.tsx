@@ -1,4 +1,4 @@
-import Link from "next/link";
+import LocaleLink from "./LocaleLink";
 import Image from "next/image";
 import { renderButtonStyle } from "../utils/render-button-style";
 import HighlightedText from "./HighlightedText";
@@ -16,9 +16,9 @@ export default function LangRedirect() {
           />
 
           <div className="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
-            <Link href="/en" className={renderButtonStyle("primary")}>
+            <LocaleLink href="/" className={renderButtonStyle("primary")}>
               Back To English
-            </Link>
+            </LocaleLink>
           </div>
         </div>
         <div className="flex items-center justify-center p-6 mt-8 lg:mt-0 h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128">

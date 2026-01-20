@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import Link from "next/link";
+import LocaleLink from "./LocaleLink";
 import { Slide, SlideshowRef } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 import {
@@ -25,9 +25,9 @@ interface JobCardProps {
 function JobCard({ job }: JobCardProps) {
   const { t, lang } = useDictionary();
   return (
-    <Link href={`/career/${job.slug}`} className="group block h-full">
+    <LocaleLink href={`/career/${job.slug}`} className="group block h-full">
       <div className="flex h-full min-h-48 flex-col overflow-hidden rounded-2xl bg-white border border-gray-200 transition-colors">
-        {/* Content */}
+        {/*Content */}
         <div className="flex flex-1 flex-col p-6">
           {/* Job Division */}
           {job.jobDivision && (
@@ -53,13 +53,15 @@ function JobCard({ job }: JobCardProps) {
             {job.dueDate && (
               <div className="flex items-center gap-2 text-sm text-gray-600">
                 <CalendarIcon className="h-4 w-4 flex-shrink-0" />
-                <span>{t("jobs.applyBy")} {formatDate(job.dueDate, lang)}</span>
+                <span>
+                  {t("jobs.applyBy")} {formatDate(job.dueDate, lang)}
+                </span>
               </div>
             )}
           </div>
         </div>
       </div>
-    </Link>
+    </LocaleLink>
   );
 }
 
@@ -172,13 +174,13 @@ export default function JobSlider({ data }: JobSliderProps) {
             </div>
 
             {/* See All Careers Link - Desktop */}
-            <Link
+            <LocaleLink
               href="/career-explore"
               className="group flex items-center gap-2 whitespace-nowrap text-accent transition-colors hover:text-accent-dark"
             >
               <span className="font-medium">See All Careers</span>
               <ChevronRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
+            </LocaleLink>
           </div>
 
           {/* Mobile: Stacked layout */}
@@ -192,13 +194,13 @@ export default function JobSlider({ data }: JobSliderProps) {
             {description && <p className="mb-4 text-base text-gray-600">{description}</p>}
 
             {/* See All Careers Link - Mobile */}
-            <Link
+            <LocaleLink
               href="/career-explore"
               className="group inline-flex items-center gap-2 font-medium text-accent transition-colors hover:text-accent-dark"
             >
               <span>See All Careers</span>
               <ChevronRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
+            </LocaleLink>
           </div>
 
           {/* Accent Line */}

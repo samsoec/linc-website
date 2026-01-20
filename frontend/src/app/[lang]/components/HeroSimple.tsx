@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link";
+import LocaleLink from "./LocaleLink";
 import { getStrapiMedia } from "../utils/api-helpers";
 import type { HeroSimpleSection } from "@/types/generated";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
@@ -91,7 +91,7 @@ export default function HeroSimple({ data }: HeroSimpleProps) {
                 <div key={crumb.href} className="flex items-center gap-2">
                   {index < breadcrumbs.length - 1 ? (
                     <>
-                      <Link
+                      <LocaleLink
                         href={crumb.href}
                         className={`transition-colors ${
                           data.isPictureBlank
@@ -100,7 +100,7 @@ export default function HeroSimple({ data }: HeroSimpleProps) {
                         }`}
                       >
                         {crumb.label}
-                      </Link>
+                      </LocaleLink>
                       <ChevronRightIcon
                         className={`h-4 w-4 ${data.isPictureBlank ? "text-gray-400" : "text-gray-400"}`}
                       />

@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link";
+import LocaleLink from "./LocaleLink";
 import { getStrapiMedia } from "../utils/api-helpers";
 import type { Service } from "@/types/generated";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
@@ -74,12 +74,12 @@ export default function HeroService({ data }: HeroServiceProps) {
                 <div key={crumb.href + index} className="flex items-center gap-2">
                   {index < breadcrumbs.length - 1 ? (
                     <>
-                      <Link
+                      <LocaleLink
                         href={crumb.href}
                         className="text-gray-600 hover:text-gray-900 transition-colors"
                       >
                         {crumb.label}
-                      </Link>
+                      </LocaleLink>
                       <ChevronRightIcon className="h-4 w-4 text-gray-400" />
                     </>
                   ) : (
@@ -98,12 +98,12 @@ export default function HeroService({ data }: HeroServiceProps) {
                       {crumb.label === "..." ? (
                         <span className="text-gray-400">{crumb.label}</span>
                       ) : (
-                        <Link
+                        <LocaleLink
                           href={crumb.href}
                           className="text-gray-600 hover:text-gray-900 transition-colors"
                         >
                           {crumb.label}
-                        </Link>
+                        </LocaleLink>
                       )}
                       <ChevronRightIcon className="h-4 w-4 text-gray-400" />
                     </>

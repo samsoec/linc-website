@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link";
+import LocaleLink from "./LocaleLink";
 import { getStrapiMedia, formatDate } from "../utils/api-helpers";
 import { fetchAPI } from "../utils/fetch-api";
 import type { Article, BlogContentSection, Category } from "@/types/generated";
@@ -30,7 +30,7 @@ function ArticleCard({ article, variant = "default" }: ArticleCardProps) {
 
   if (variant === "compact") {
     return (
-      <Link href={articleUrl} className="group flex gap-4 border border-gray-100 rounded-lg">
+      <LocaleLink href={articleUrl} className="group flex gap-4 border border-gray-100 rounded-lg">
         <div className="relative h-16 w-24 flex-shrink-0 overflow-hidden rounded-lg">
           {imageUrl ? (
             <Image
@@ -55,12 +55,12 @@ function ArticleCard({ article, variant = "default" }: ArticleCardProps) {
             {article.publishedAt && <span>{formatDate(article.publishedAt, lang)}</span>}
           </div>
         </div>
-      </Link>
+      </LocaleLink>
     );
   }
 
   return (
-    <Link
+    <LocaleLink
       href={articleUrl}
       className="group flex flex-col sm:flex-row md:gap-4 border border-gray-100 rounded-lg"
     >
@@ -88,10 +88,12 @@ function ArticleCard({ article, variant = "default" }: ArticleCardProps) {
           {article.title}
         </h3>
         {article.publishedAt && (
-          <span className="mt-2 text-sm text-gray-500">{formatDate(article.publishedAt, lang)}</span>
+          <span className="mt-2 text-sm text-gray-500">
+            {formatDate(article.publishedAt, lang)}
+          </span>
         )}
       </div>
-    </Link>
+    </LocaleLink>
   );
 }
 

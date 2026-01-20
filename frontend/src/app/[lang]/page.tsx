@@ -3,6 +3,7 @@ import componentResolver from "./utils/component-resolver";
 import { getPageBySlug } from "@/app/[lang]/utils/get-page-by-slug";
 import type { PageSection } from "@/types/generated";
 import NavbarThemeSetter from "./components/NavbarThemeSetter";
+import { i18n } from "../../../i18n-config";
 
 export default async function RootRoute({ params }: { params: Promise<{ lang: string }> }) {
   try {
@@ -13,7 +14,7 @@ export default async function RootRoute({ params }: { params: Promise<{ lang: st
         "Missing or invalid credentials. Have you created an access token using the Strapi admin panel? http://localhost:1337/admin/"
       );
 
-    if (page.data.length == 0 && lang !== "en") return <LangRedirect />;
+    if (page.data.length == 0 && lang !== i18n.defaultLocale) return <LangRedirect />;
     if (page.data.length === 0) return null;
 
     const pageData = page.data[0];

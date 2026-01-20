@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ReactNode } from "react";
+import LocaleLink from "./LocaleLink";
 
 type ButtonType = "primary" | "secondary" | "tertiary";
 type ButtonColor = "primary" | "secondary" | "accent";
@@ -90,14 +91,14 @@ export default function Button({
 
   if (props.as === "link") {
     return (
-      <Link
+      <LocaleLink
         href={props.href}
         target={props.target}
         onClick={props.onClick}
         className={combinedClasses}
       >
         {children}
-      </Link>
+      </LocaleLink>
     );
   }
 

@@ -51,7 +51,11 @@ export async function generateMetadata({
   };
 }
 
-export default async function JobRoute({ params }: { params: Promise<{ slug: string; lang: string }> }) {
+export default async function JobRoute({
+  params,
+}: {
+  params: Promise<{ slug: string; lang: string }>;
+}) {
   const { slug, lang } = await params;
   const data = await getJobBySlug(slug, lang);
   if (data.data.length === 0) return <h2>Job not found</h2>;

@@ -1,3 +1,5 @@
+import { i18n } from "../../../../i18n-config";
+
 export function getStrapiURL(path = "") {
   return `${process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337"}${path}`;
 }
@@ -16,17 +18,17 @@ export function getStrapiMedia(url: string | null) {
   return `${getStrapiURL()}${url}`;
 }
 
-export function formatDate(dateString: string, locale: string = "en") {
+export function formatDate(dateString: string, locale: string = i18n.defaultLocale) {
   const date = new Date(dateString);
   const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "long", day: "numeric" };
-  
+
   // Map locale to BCP 47 language tag
   const localeMap: Record<string, string> = {
     en: "en-US",
     id: "id-ID",
   };
-  
-  const bcp47Locale = localeMap[locale] || "en-US";
+
+  const bcp47Locale = localeMap[locale] || localeMap[i18n.defaultLocale];
   return date.toLocaleDateString(bcp47Locale, options);
 }
 
