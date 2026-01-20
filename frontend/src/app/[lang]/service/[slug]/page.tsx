@@ -1,6 +1,8 @@
 import { fetchAPI } from "@/app/[lang]/utils/fetch-api";
 import type { Metadata } from "next";
-import { FALLBACK_SEO } from "../../utils/constants";
+import { FALLBACK_SEO, SITE_URL, ORGANIZATION_INFO } from "../../utils/constants";
+import { getStrapiMedia } from "../../utils/api-helpers";
+import { i18n } from "../../../../../i18n-config";
 import NavbarThemeSetter from "../../components/NavbarThemeSetter";
 import { PageSection } from "@/types/generated";
 import componentResolver from "../../utils/component-resolver";
@@ -24,7 +26,10 @@ async function getMetaData(slug: string, lang: string) {
   const urlParamsObject = {
     filters: { slug },
     locale: lang,
-    fields: ["name", "description"],
+    populate: {
+      seo: { populate: "*" },
+      picture: { fields: ["url", "alternativeText"] },
+    },
   };
   const options = { headers: { Authorization: `Bearer ${token}` } };
   const response = await fetchAPI(path, urlParamsObject, options);
@@ -43,9 +48,47 @@ export async function generateMetadata({
     return FALLBACK_SEO;
   }
 
+  const service = meta[0];
+  const pageUrl = `${SITE_URL}/${lang}/service/${slug}`;
+
+  // Use SEO fields if available, otherwise fall back to service fields
+  const title = service.seo?.metaTitle || `${service.name} - Services`;
+  const description =
+    service.seo?.metaDescription ||
+    service.description ||
+    `Learn more about our ${service.name} service at LINC`;
+
+  // Use SEO shareImage, or service picture, or fallback
+  const ogImage = service.seo?.shareImage?.url
+    ? getStrapiMedia(service.seo.shareImage.url)
+    : service.picture?.url
+      ? getStrapiMedia(service.picture.url)
+      : `${SITE_URL}/og-image.jpg`;
+
   return {
-    title: `${meta[0].name} - Services`,
-    description: meta[0].description || `Learn more about our ${meta[0].name} service at LINC`,
+    title,
+    description,
+    alternates: {
+      canonical: pageUrl,
+      languages: Object.fromEntries(
+        i18n.locales.map((locale) => [locale, `${SITE_URL}/${locale}/service/${slug}`])
+      ),
+    },
+    openGraph: {
+      title,
+      description,
+      url: pageUrl,
+      siteName: ORGANIZATION_INFO.name,
+      locale: lang === "id" ? "id_ID" : "en_US",
+      type: "website",
+      images: ogImage ? [{ url: ogImage, width: 1200, height: 630, alt: title }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ogImage ? [ogImage] : undefined,
+    },
   };
 }
 

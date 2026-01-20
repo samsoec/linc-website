@@ -7,13 +7,14 @@ import { i18n, Locale } from "../../../i18n-config";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import ScrollToHash from "./components/ScrollToHash";
-import { FALLBACK_SEO } from "@/app/[lang]/utils/constants";
+import { FALLBACK_SEO, SITE_URL, ORGANIZATION_INFO } from "@/app/[lang]/utils/constants";
 import type { Global, StrapiResponse } from "@/types/generated";
 import { NavbarThemeProvider } from "./contexts/NavbarThemeContext";
 import { Suspense } from "react";
 import Banner from "./components/Banner";
 import { getDictionary } from "@/dictionaries";
 import { DictionaryProvider } from "@/contexts/DictionaryContext";
+import { OrganizationSchema } from "./components/StructuredData";
 
 async function getGlobal(lang: string): Promise<StrapiResponse<Global> | null> {
   const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
@@ -60,11 +61,58 @@ export async function generateMetadata({
   const { metadata, favicon } = meta.data;
   const { url } = favicon;
 
+  const title = metadata?.metaTitle || FALLBACK_SEO.title;
+  const description = metadata?.metaDescription || FALLBACK_SEO.description;
+
   return {
-    title: metadata?.metaTitle,
-    description: metadata?.metaDescription,
+    title: {
+      default: title,
+      template: `%s | ${ORGANIZATION_INFO.name}`,
+    },
+    description,
     icons: {
       icon: [new URL(url, getStrapiURL())],
+    },
+    metadataBase: new URL(SITE_URL),
+    alternates: {
+      canonical: `${SITE_URL}/${lang}`,
+      languages: Object.fromEntries(
+        i18n.locales.map((locale) => [locale, `${SITE_URL}/${locale}`])
+      ),
+    },
+    openGraph: {
+      title,
+      description,
+      url: `${SITE_URL}/${lang}`,
+      siteName: ORGANIZATION_INFO.name,
+      locale: lang === "id" ? "id_ID" : "en_US",
+      alternateLocale: i18n.locales.filter((l) => l !== lang).map((l) => (l === "id" ? "id_ID" : "en_US")),
+      type: "website",
+      images: [
+        {
+          url: `${SITE_URL}/og-image.jpg`,
+          width: 1200,
+          height: 630,
+          alt: ORGANIZATION_INFO.name,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [`${SITE_URL}/og-image.jpg`],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
   };
 }
@@ -112,6 +160,9 @@ export default async function RootLayout({
 
   return (
     <html lang={lang}>
+      <head>
+        <OrganizationSchema />
+      </head>
       <body>
         <DictionaryProvider dict={dict} lang={lang}>
           <NavbarThemeProvider>

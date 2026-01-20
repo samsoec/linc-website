@@ -1,7 +1,10 @@
 import { fetchAPI } from "@/app/[lang]/utils/fetch-api";
 import Post from "@/app/[lang]/views/post";
 import type { Metadata } from "next";
-import { FALLBACK_SEO } from "../../utils/constants";
+import { FALLBACK_SEO, SITE_URL, ORGANIZATION_INFO } from "../../utils/constants";
+import { getStrapiMedia } from "../../utils/api-helpers";
+import { i18n } from "../../../../../i18n-config";
+import { ArticleSchema, BreadcrumbSchema } from "../../components/StructuredData";
 
 async function getPostBySlug(slug: string, lang: string) {
   const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
@@ -37,7 +40,7 @@ async function getMetaData(slug: string, lang: string) {
   const urlParamsObject = {
     filters: { slug },
     locale: lang,
-    populate: { seo: { populate: "*" } },
+    populate: { seo: { populate: "*" }, cover: { fields: ["url", "alternativeText"] } },
   };
   const options = { headers: { Authorization: `Bearer ${token}` } };
   const response = await fetchAPI(path, urlParamsObject, options);
@@ -52,11 +55,43 @@ export async function generateMetadata({
   const { slug, lang } = await params;
   const meta = await getMetaData(slug, lang);
 
-  const metadata = meta[0].seo || FALLBACK_SEO;
+  if (!meta || meta.length === 0) return FALLBACK_SEO;
+
+  const article = meta[0];
+  const metadata = article.seo || FALLBACK_SEO;
+  const pageUrl = `${SITE_URL}/${lang}/blog/${slug}`;
+
+  // Use SEO shareImage, or article cover, or fallback
+  const ogImage = metadata.shareImage?.url
+    ? getStrapiMedia(metadata.shareImage.url)
+    : article.cover?.url
+      ? getStrapiMedia(article.cover.url)
+      : `${SITE_URL}/og-image.jpg`;
 
   return {
     title: metadata.metaTitle,
     description: metadata.metaDescription,
+    alternates: {
+      canonical: pageUrl,
+      languages: Object.fromEntries(
+        i18n.locales.map((locale) => [locale, `${SITE_URL}/${locale}/blog/${slug}`])
+      ),
+    },
+    openGraph: {
+      title: metadata.metaTitle,
+      description: metadata.metaDescription,
+      url: pageUrl,
+      siteName: ORGANIZATION_INFO.name,
+      locale: lang === "id" ? "id_ID" : "en_US",
+      type: "article",
+      images: ogImage ? [{ url: ogImage, width: 1200, height: 630, alt: metadata.metaTitle }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: metadata.metaTitle,
+      description: metadata.metaDescription,
+      images: ogImage ? [ogImage] : undefined,
+    },
   };
 }
 
@@ -68,7 +103,34 @@ export default async function PostRoute({
   const { slug, lang } = await params;
   const data = await getPostBySlug(slug, lang);
   if (data.data.length === 0) return <h2>no post found</h2>;
-  return <Post data={data.data[0]} lang={lang} />;
+
+  const article = data.data[0];
+  const pageUrl = `${SITE_URL}/${lang}/blog/${slug}`;
+  const ogImage = article.cover?.url
+    ? getStrapiMedia(article.cover.url)
+    : `${SITE_URL}/og-image.jpg`;
+
+  return (
+    <>
+      <ArticleSchema
+        title={article.title}
+        description={article.description}
+        url={pageUrl}
+        image={ogImage || undefined}
+        datePublished={article.publishedAt}
+        dateModified={article.updatedAt}
+        authorName={article.authorsBio?.name}
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: `${SITE_URL}/${lang}` },
+          { name: "Blog", url: `${SITE_URL}/${lang}/blog` },
+          { name: article.title, url: pageUrl },
+        ]}
+      />
+      <Post data={article} lang={lang} />
+    </>
+  );
 }
 
 export async function generateStaticParams() {
