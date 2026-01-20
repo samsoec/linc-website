@@ -1,6 +1,7 @@
 import { fetchAPI } from "@/app/[lang]/utils/fetch-api";
 import JobDetail from "@/app/[lang]/views/job";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { FALLBACK_SEO, SITE_URL, ORGANIZATION_INFO } from "../../utils/constants";
 import { i18n } from "../../../../../i18n-config";
 import NavbarThemeSetter from "../../components/NavbarThemeSetter";
@@ -96,7 +97,7 @@ export default async function JobRoute({
 }) {
   const { slug, lang } = await params;
   const data = await getJobBySlug(slug, lang);
-  if (data.data.length === 0) return <h2>Job not found</h2>;
+  if (data.data.length === 0) notFound();
 
   const job = data.data[0];
   const pageUrl = `${SITE_URL}/${lang}/career/${slug}`;

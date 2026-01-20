@@ -11,7 +11,8 @@ export const ORGANIZATION_INFO = {
   name: "Linc Group",
   url: SITE_URL,
   logo: `${SITE_URL}/logo.png`,
-  description: "Your Integrated Supply Chain Partner. Linc Group is one stop solution for global supply chain services and support.",
+  description:
+    "Your Integrated Supply Chain Partner. Linc Group is one stop solution for global supply chain services and support.",
   sameAs: [
     // Add your social media URLs here
     // "https://www.linkedin.com/company/lincgroup",

@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import LangRedirect from "./components/LangRedirect";
 import componentResolver from "./utils/component-resolver";
 import { getPageBySlug } from "@/app/[lang]/utils/get-page-by-slug";
@@ -15,7 +16,7 @@ export default async function RootRoute({ params }: { params: Promise<{ lang: st
       );
 
     if (page.data.length == 0 && lang !== i18n.defaultLocale) return <LangRedirect />;
-    if (page.data.length === 0) return null;
+    if (page.data.length === 0) notFound();
 
     const pageData = page.data[0];
     const contentSections = pageData.contentSections;

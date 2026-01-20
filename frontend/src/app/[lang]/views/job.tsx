@@ -213,7 +213,8 @@ export default function JobDetail({ data }: JobDetailProps) {
                       htmlFor="fullname"
                       className="mb-2 block text-sm font-medium text-gray-700"
                     >
-                      {t("form.labels.fullName")} <span className="text-red-500">{t("form.required")}</span>
+                      {t("form.labels.fullName")}{" "}
+                      <span className="text-red-500">{t("form.required")}</span>
                     </label>
                     <input
                       type="text"
@@ -230,7 +231,8 @@ export default function JobDetail({ data }: JobDetailProps) {
                   {/* Email */}
                   <div>
                     <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-700">
-                      {t("form.labels.email")} <span className="text-red-500">{t("form.required")}</span>
+                      {t("form.labels.email")}{" "}
+                      <span className="text-red-500">{t("form.required")}</span>
                     </label>
                     <input
                       type="email"
@@ -250,7 +252,8 @@ export default function JobDetail({ data }: JobDetailProps) {
                       htmlFor="phoneNumber"
                       className="mb-2 block text-sm font-medium text-gray-700"
                     >
-                      {t("form.labels.phoneNumber")} <span className="text-red-500">{t("form.required")}</span>
+                      {t("form.labels.phoneNumber")}{" "}
+                      <span className="text-red-500">{t("form.required")}</span>
                     </label>
                     <input
                       type="tel"
@@ -302,7 +305,8 @@ export default function JobDetail({ data }: JobDetailProps) {
                       htmlFor="resume"
                       className="mb-2 block text-sm font-medium text-gray-700"
                     >
-                      {t("form.labels.cvFile")} <span className="text-red-500">{t("form.required")}</span>
+                      {t("form.labels.cvFile")}{" "}
+                      <span className="text-red-500">{t("form.required")}</span>
                     </label>
                     <div className="relative">
                       <input

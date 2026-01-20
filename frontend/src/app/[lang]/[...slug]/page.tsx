@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { getPageBySlug } from "@/app/[lang]/utils/get-page-by-slug";
 import { FALLBACK_SEO, SITE_URL, ORGANIZATION_INFO } from "@/app/[lang]/utils/constants";
 import componentResolver from "../utils/component-resolver";
@@ -43,7 +44,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: ORGANIZATION_INFO.name,
       locale: lang === "id" ? "id_ID" : "en_US",
       type: "website",
-      images: ogImage ? [{ url: ogImage, width: 1200, height: 630, alt: metadata.metaTitle }] : undefined,
+      images: ogImage
+        ? [{ url: ogImage, width: 1200, height: 630, alt: metadata.metaTitle }]
+        : undefined,
     },
     twitter: {
       card: "summary_large_image",
@@ -58,7 +61,7 @@ export default async function PageRoute({ params }: Props) {
   const { slug, lang } = await params;
   const slugString = slug.join("/");
   const page = await getPageBySlug(slugString, lang);
-  if (page.data.length === 0) return null;
+  if (page.data.length === 0) notFound();
   const contentSections = page.data[0].contentSections;
   return contentSections.map((section: PageSection, index: number) =>
     componentResolver(section, index)

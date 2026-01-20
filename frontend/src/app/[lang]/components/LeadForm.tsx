@@ -176,7 +176,8 @@ export default function LeadForm({ data }: LeadFormProps) {
               {/* Fullname */}
               <div>
                 <label htmlFor="fullname" className="mb-2 block text-sm font-medium text-gray-700">
-                  {t("form.labels.fullName")} <span className="text-red-500">{t("form.required")}</span>
+                  {t("form.labels.fullName")}{" "}
+                  <span className="text-red-500">{t("form.required")}</span>
                 </label>
                 <input
                   type="text"
@@ -193,7 +194,8 @@ export default function LeadForm({ data }: LeadFormProps) {
               {/* Email */}
               <div>
                 <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-700">
-                  {t("form.labels.email")} <span className="text-red-500">{t("form.required")}</span>
+                  {t("form.labels.email")}{" "}
+                  <span className="text-red-500">{t("form.required")}</span>
                 </label>
                 <input
                   type="email"
@@ -213,7 +215,8 @@ export default function LeadForm({ data }: LeadFormProps) {
                   htmlFor="phoneNumber"
                   className="mb-2 block text-sm font-medium text-gray-700"
                 >
-                  {t("form.labels.phoneNumber")} <span className="text-red-500">{t("form.required")}</span>
+                  {t("form.labels.phoneNumber")}{" "}
+                  <span className="text-red-500">{t("form.required")}</span>
                 </label>
                 <input
                   type="tel"

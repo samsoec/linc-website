@@ -1,6 +1,7 @@
 import { fetchAPI } from "@/app/[lang]/utils/fetch-api";
 import Post from "@/app/[lang]/views/post";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { FALLBACK_SEO, SITE_URL, ORGANIZATION_INFO } from "../../utils/constants";
 import { getStrapiMedia } from "../../utils/api-helpers";
 import { i18n } from "../../../../../i18n-config";
@@ -84,7 +85,9 @@ export async function generateMetadata({
       siteName: ORGANIZATION_INFO.name,
       locale: lang === "id" ? "id_ID" : "en_US",
       type: "article",
-      images: ogImage ? [{ url: ogImage, width: 1200, height: 630, alt: metadata.metaTitle }] : undefined,
+      images: ogImage
+        ? [{ url: ogImage, width: 1200, height: 630, alt: metadata.metaTitle }]
+        : undefined,
     },
     twitter: {
       card: "summary_large_image",
@@ -102,7 +105,7 @@ export default async function PostRoute({
 }) {
   const { slug, lang } = await params;
   const data = await getPostBySlug(slug, lang);
-  if (data.data.length === 0) return <h2>no post found</h2>;
+  if (data.data.length === 0) notFound();
 
   const article = data.data[0];
   const pageUrl = `${SITE_URL}/${lang}/blog/${slug}`;

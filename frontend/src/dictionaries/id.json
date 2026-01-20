@@ -107,5 +107,14 @@
   "video": {
     "browserNotSupported": "Browser Anda tidak mendukung tag video.",
     "title": "Video"
+  },
+  "notFound": {
+    "title": "Halaman Tidak Ditemukan",
+    "heading": "404 - Halaman Tidak Ditemukan",
+    "message": "Maaf, halaman yang Anda cari tidak ada atau telah dipindahkan.",
+    "homeButton": "Kembali ke Beranda",
+    "servicesButton": "Layanan Kami",
+    "contactButton": "Hubungi Kami",
+    "suggestionsHeading": "Anda mungkin tertarik dengan:"
   }
 }

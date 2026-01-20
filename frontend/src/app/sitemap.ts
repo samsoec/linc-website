@@ -41,9 +41,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "daily",
       priority: 1.0,
       alternates: {
-        languages: Object.fromEntries(
-          i18n.locales.map((l) => [l, `${SITE_URL}/${l}`])
-        ),
+        languages: Object.fromEntries(i18n.locales.map((l) => [l, `${SITE_URL}/${l}`])),
       },
     });
   }

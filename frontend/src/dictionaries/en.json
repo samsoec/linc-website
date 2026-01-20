@@ -107,5 +107,14 @@
   "video": {
     "browserNotSupported": "Your browser does not support the video tag.",
     "title": "Video"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "heading": "404 - Page Not Found",
+    "message": "Sorry, the page you are looking for does not exist or has been moved.",
+    "homeButton": "Back to Home",
+    "servicesButton": "Our Services",
+    "contactButton": "Contact Us",
+    "suggestionsHeading": "You might be interested in:"
   }
 }

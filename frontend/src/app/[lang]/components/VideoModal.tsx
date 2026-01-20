@@ -21,7 +21,7 @@ export default function VideoModal({
   title = "Video",
 }: VideoModalProps) {
   const { t } = useDictionary();
-  
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";

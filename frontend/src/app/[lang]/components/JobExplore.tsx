@@ -19,7 +19,7 @@ interface JobCardProps {
 
 function JobCard({ job }: JobCardProps) {
   const { t } = useDictionary();
-  
+
   return (
     <div className="group relative flex items-center justify-between gap-4 rounded-lg border border-gray-200 bg-white p-6 md:p-4 transition-colors duration-300">
       {/* Left side: Job info */}
@@ -64,7 +64,9 @@ function JobCard({ job }: JobCardProps) {
         className="absolute inset-0 md:hidden"
         aria-label={`${t("actions.view")} ${job.name}`}
       >
-        <span className="sr-only">{t("actions.view")} {job.name}</span>
+        <span className="sr-only">
+          {t("actions.view")} {job.name}
+        </span>
       </LocaleLink>
     </div>
   );

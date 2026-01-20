@@ -1,5 +1,6 @@
 import { fetchAPI } from "@/app/[lang]/utils/fetch-api";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { FALLBACK_SEO, SITE_URL, ORGANIZATION_INFO } from "../../utils/constants";
 import { getStrapiMedia } from "../../utils/api-helpers";
 import { i18n } from "../../../../../i18n-config";
@@ -99,7 +100,7 @@ export default async function ServiceRoute({
 }) {
   const { slug, lang } = await params;
   const data = await getServiceBySlug(slug, lang);
-  if (data.data.length === 0) return <h2>Service not found</h2>;
+  if (data.data.length === 0) notFound();
   const contentSections = data.data[0].sections;
   return (
     <>

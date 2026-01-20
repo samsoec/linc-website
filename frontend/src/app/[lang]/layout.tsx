@@ -86,7 +86,9 @@ export async function generateMetadata({
       url: `${SITE_URL}/${lang}`,
       siteName: ORGANIZATION_INFO.name,
       locale: lang === "id" ? "id_ID" : "en_US",
-      alternateLocale: i18n.locales.filter((l) => l !== lang).map((l) => (l === "id" ? "id_ID" : "en_US")),
+      alternateLocale: i18n.locales
+        .filter((l) => l !== lang)
+        .map((l) => (l === "id" ? "id_ID" : "en_US")),
       type: "website",
       images: [
         {
