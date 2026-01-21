@@ -64,7 +64,7 @@ export async function generateMetadata({
     ? getStrapiMedia(service.seo.shareImage.url)
     : service.picture?.url
       ? getStrapiMedia(service.picture.url)
-      : `${SITE_URL}/og-image.jpg`;
+      : `${SITE_URL}/og-image.png`;
 
   return {
     title,

@@ -86,7 +86,7 @@ export function ArticleSchema({
     headline: title,
     description,
     url,
-    image: image || `${SITE_URL}/og-image.jpg`,
+    image: image || `${SITE_URL}/og-image.png`,
     datePublished,
     dateModified: dateModified || datePublished,
     author: authorName

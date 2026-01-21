@@ -67,7 +67,7 @@ export async function generateMetadata({
     ? getStrapiMedia(metadata.shareImage.url)
     : article.cover?.url
       ? getStrapiMedia(article.cover.url)
-      : `${SITE_URL}/og-image.jpg`;
+      : `${SITE_URL}/og-image.png`;
 
   return {
     title: metadata.metaTitle,
@@ -111,7 +111,7 @@ export default async function PostRoute({
   const pageUrl = `${SITE_URL}/${lang}/blog/${slug}`;
   const ogImage = article.cover?.url
     ? getStrapiMedia(article.cover.url)
-    : `${SITE_URL}/og-image.jpg`;
+    : `${SITE_URL}/og-image.png`;
 
   return (
     <>

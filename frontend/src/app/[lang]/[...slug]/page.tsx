@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const ogImage = metadata.shareImage?.url
     ? getStrapiMedia(metadata.shareImage.url)
-    : `${SITE_URL}/og-image.jpg`;
+    : `${SITE_URL}/og-image.png`;
 
   return {
     title: metadata.metaTitle,

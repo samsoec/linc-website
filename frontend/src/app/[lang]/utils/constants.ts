@@ -16,7 +16,7 @@ export const ORGANIZATION_INFO = {
   sameAs: [
     // Add your social media URLs here
     // "https://www.linkedin.com/company/lincgroup",
-    // "https://www.facebook.com/lincgroup",
-    // "https://www.instagram.com/lincgroup",
+    "https://www.facebook.com/LincGroupIndonesia/",
+    "https://www.instagram.com/linc.group"
   ],
 };

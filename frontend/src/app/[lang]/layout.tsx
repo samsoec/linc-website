@@ -92,7 +92,7 @@ export async function generateMetadata({
       type: "website",
       images: [
         {
-          url: `${SITE_URL}/og-image.jpg`,
+          url: `${SITE_URL}/og-image.png`,
           width: 1200,
           height: 630,
           alt: ORGANIZATION_INFO.name,
@@ -103,7 +103,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title,
       description,
-      images: [`${SITE_URL}/og-image.jpg`],
+      images: [`${SITE_URL}/og-image.png`],
     },
     robots: {
       index: true,

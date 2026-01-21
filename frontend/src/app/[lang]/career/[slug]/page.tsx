@@ -61,7 +61,7 @@ export async function generateMetadata({
     job.seo?.metaDescription ||
     `Apply for ${job.name} position${job.location?.name ? ` in ${job.location.name}` : ""} at LINC Group`;
 
-  const ogImage = job.seo?.shareImage?.url || `${SITE_URL}/og-image.jpg`;
+  const ogImage = job.seo?.shareImage?.url || `${SITE_URL}/og-image.png`;
 
   return {
     title,
