@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_sections_indonesia_maps",
+  "info": {
+    "displayName": "Indonesia Map"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "required": true
+    },
+    "subheading": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "markerIcon": {
+      "type": "string"
+    },
+    "locations": {
+      "type": "component",
+      "component": "elements.map-info",
+      "repeatable": true,
+      "required": true
+    },
+    "hoverable": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "config": {}
+}

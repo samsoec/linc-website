@@ -99,6 +99,20 @@ module.exports = (config, { strapi }) => {
               },
             },
           },
+          "sections.indonesia-map": {
+            populate: {
+              locations: {
+                populate: {
+                  location: true,
+                  item: {
+                    populate: {
+                      item: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
         },
       },
     };

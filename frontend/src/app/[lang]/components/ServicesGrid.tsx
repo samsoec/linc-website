@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { ServicesGridSection, Service } from "@/types/generated";
 import { getStrapiMedia } from "../utils/api-helpers";

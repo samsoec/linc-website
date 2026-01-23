@@ -826,6 +826,37 @@ export interface ApiJobJob extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiLocationMapLocationMap extends Struct.CollectionTypeSchema {
+  collectionName: 'location_maps';
+  info: {
+    displayName: 'Location Map';
+    pluralName: 'location-maps';
+    singularName: 'location-map';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    latitude: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::location-map.location-map'
+    > &
+      Schema.Attribute.Private;
+    longitude: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    zone: Schema.Attribute.String;
+  };
+}
+
 export interface ApiLocationLocation extends Struct.CollectionTypeSchema {
   collectionName: 'locations';
   info: {
@@ -1019,6 +1050,7 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
         'sections.transportation-fleet',
         'sections.large-image',
         'sections.service-info',
+        'sections.indonesia-map',
       ]
     > &
       Schema.Attribute.Required &
@@ -1559,6 +1591,7 @@ declare module '@strapi/strapi' {
       'api::highlighted-article.highlighted-article': ApiHighlightedArticleHighlightedArticle;
       'api::job-division.job-division': ApiJobDivisionJobDivision;
       'api::job.job': ApiJobJob;
+      'api::location-map.location-map': ApiLocationMapLocationMap;
       'api::location.location': ApiLocationLocation;
       'api::page.page': ApiPagePage;
       'api::service.service': ApiServiceService;

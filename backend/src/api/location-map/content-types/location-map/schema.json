@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "location_maps",
+  "info": {
+    "singularName": "location-map",
+    "pluralName": "location-maps",
+    "displayName": "Location Map"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "latitude": {
+      "type": "decimal",
+      "required": true
+    },
+    "longitude": {
+      "type": "decimal",
+      "required": true
+    },
+    "zone": {
+      "type": "string"
+    }
+  }
+}

@@ -17,6 +17,6 @@ export const ORGANIZATION_INFO = {
     // Add your social media URLs here
     // "https://www.linkedin.com/company/lincgroup",
     "https://www.facebook.com/LincGroupIndonesia/",
-    "https://www.instagram.com/linc.group"
+    "https://www.instagram.com/linc.group",
   ],
 };

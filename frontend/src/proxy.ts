@@ -34,6 +34,7 @@ export function proxy(request: NextRequest) {
       "/favicon.ico",
       "/background-banner.png",
       "/background-default.jpg",
+      "/indo-map.svg",
       // Your other files in `public`
     ].includes(pathname)
   )

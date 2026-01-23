@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_elements_map_info_items",
+  "info": {
+    "displayName": "Map Info Item"
+  },
+  "options": {},
+  "attributes": {
+    "subtitle": {
+      "type": "string",
+      "required": true
+    },
+    "item": {
+      "type": "component",
+      "component": "elements.hero-highlight",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

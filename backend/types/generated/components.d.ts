@@ -202,6 +202,33 @@ export interface ElementsLogos extends Struct.ComponentSchema {
   };
 }
 
+export interface ElementsMapInfo extends Struct.ComponentSchema {
+  collectionName: 'components_elements_map_infos';
+  info: {
+    displayName: 'Map Info';
+  };
+  attributes: {
+    item: Schema.Attribute.Component<'elements.map-info-item', true>;
+    location: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::location-map.location-map'
+    >;
+    markerSubtitle: Schema.Attribute.String;
+    markerTitle: Schema.Attribute.String;
+  };
+}
+
+export interface ElementsMapInfoItem extends Struct.ComponentSchema {
+  collectionName: 'components_elements_map_info_items';
+  info: {
+    displayName: 'Map Info Item';
+  };
+  attributes: {
+    item: Schema.Attribute.Component<'elements.hero-highlight', true>;
+    subtitle: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface ElementsNotificationBanner extends Struct.ComponentSchema {
   collectionName: 'components_elements_notification_banners';
   info: {
@@ -681,6 +708,22 @@ export interface SectionsHeroSimple extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionsIndonesiaMap extends Struct.ComponentSchema {
+  collectionName: 'components_sections_indonesia_maps';
+  info: {
+    displayName: 'Indonesia Map';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    heading: Schema.Attribute.String & Schema.Attribute.Required;
+    hoverable: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    locations: Schema.Attribute.Component<'elements.map-info', true> &
+      Schema.Attribute.Required;
+    markerIcon: Schema.Attribute.String;
+    subheading: Schema.Attribute.String;
+  };
+}
+
 export interface SectionsIndustrySectors extends Struct.ComponentSchema {
   collectionName: 'components_sections_industry_sectors';
   info: {
@@ -1028,6 +1071,8 @@ declare module '@strapi/strapi' {
       'elements.info-image-item': ElementsInfoImageItem;
       'elements.location': ElementsLocation;
       'elements.logos': ElementsLogos;
+      'elements.map-info': ElementsMapInfo;
+      'elements.map-info-item': ElementsMapInfoItem;
       'elements.notification-banner': ElementsNotificationBanner;
       'elements.phone-number': ElementsPhoneNumber;
       'elements.plan': ElementsPlan;
@@ -1061,6 +1106,7 @@ declare module '@strapi/strapi' {
       'sections.faq': SectionsFaq;
       'sections.hero': SectionsHero;
       'sections.hero-simple': SectionsHeroSimple;
+      'sections.indonesia-map': SectionsIndonesiaMap;
       'sections.industry-sectors': SectionsIndustrySectors;
       'sections.jargon-slider': SectionsJargonSlider;
       'sections.job-explore': SectionsJobExplore;

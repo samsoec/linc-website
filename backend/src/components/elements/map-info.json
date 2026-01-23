@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_elements_map_infos",
+  "info": {
+    "displayName": "Map Info"
+  },
+  "options": {},
+  "attributes": {
+    "location": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::location-map.location-map"
+    },
+    "item": {
+      "type": "component",
+      "component": "elements.map-info-item",
+      "repeatable": true
+    },
+    "markerTitle": {
+      "type": "string"
+    },
+    "markerSubtitle": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}
