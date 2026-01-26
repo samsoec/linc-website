@@ -5,6 +5,10 @@
   },
   "options": {},
   "attributes": {
+    "icon": {
+      "type": "string",
+      "required": true
+    },
     "title": {
       "type": "string",
       "required": true

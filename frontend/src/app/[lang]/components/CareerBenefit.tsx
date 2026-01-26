@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { CareerBenefitSection } from "@/types/generated";
 import { getStrapiMedia } from "../utils/api-helpers";
-import { LightBulbIcon } from "@heroicons/react/24/outline";
+import { DynamicHeroIcon } from "./DynamicIcon";
 
 interface CareerBenefitProps {
   data: CareerBenefitSection;
@@ -60,16 +60,18 @@ export default function CareerBenefit({ data }: CareerBenefitProps) {
               key={benefit.id || index}
               className="group relative overflow-hidden rounded-xl border-2 border-white/30 bg-white/5 backdrop-blur-sm p-6 transition-all duration-300 hover:border-white/60 hover:bg-white/10"
             >
-              {/* Icon */}
-              <div className="mb-4">
-                <LightBulbIcon className="h-10 w-10 text-white" />
+              <div className="flex">
+                {/* Icon */}
+                <DynamicHeroIcon iconName={benefit.icon} className="h-8 w-8 text-white" />
+
+                <div className="ml-4">
+                  {/* Title */}
+                  <h3 className="text-white text-xl font-semibold mb-3">{benefit.title}</h3>
+
+                  {/* Description */}
+                  <p className="text-white/90 leading-relaxed">{benefit.description}</p>
+                </div>
               </div>
-
-              {/* Title */}
-              <h3 className="text-white text-xl font-semibold mb-3">{benefit.title}</h3>
-
-              {/* Description */}
-              <p className="text-white/90 text-sm leading-relaxed">{benefit.description}</p>
             </div>
           ))}
         </div>

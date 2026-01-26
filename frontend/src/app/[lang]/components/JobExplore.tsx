@@ -200,9 +200,38 @@ export default function JobExplore({ data }: JobExploreProps) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  // Convert kebab-case to Title Case
+  const toTitleCase = (str: string) => {
+    return str
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(" ");
+  };
+
   return (
     <section className="w-full bg-white py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Search Result Info */}
+        <div className="mb-6">
+          <p className="text-sm text-gray-600">
+            {t("search.showing")}{" "}
+            <span className="font-semibold">{jobs.length.toLocaleString()}</span>{" "}
+            {t("search.results")}
+            {divisionFilter && (
+              <>
+                {" "}
+                for &quot;<span className="font-semibold">{toTitleCase(divisionFilter)}</span>&quot;
+              </>
+            )}
+            {locationFilter && (
+              <>
+                {" "}
+                in &quot;<span className="font-semibold">{toTitleCase(locationFilter)}</span>&quot;
+              </>
+            )}
+          </p>
+        </div>
+
         {/* Job List */}
         <div className="space-y-4 mb-12">
           {currentJobs.map((job) => (

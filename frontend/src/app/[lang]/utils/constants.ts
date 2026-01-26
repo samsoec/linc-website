@@ -5,7 +5,7 @@ export const FALLBACK_SEO = {
   description: "Your Integrated Supply Chain Partner",
 };
 
-export const DEFAULT_OG_IMAGE = "/og-image.jpg"; // Place a default OG image in /public
+export const DEFAULT_OG_IMAGE = "/og-image.png"; // Place a default OG image in /public
 
 export const ORGANIZATION_INFO = {
   name: "Linc Group",

@@ -83,13 +83,13 @@ export default function VisionMission({ data }: VisionMissionProps) {
                     </h2>
                   )}
                   {visionMission.missionDescription && (
-                    <div className="space-y-4 text-white">
+                    <ul className="space-y-4 text-white list-disc">
                       {visionMission.missionDescription.split("\n").map((line, index) => (
-                        <p key={index} className="leading-relaxed">
+                        <li key={index} className="leading-relaxed">
                           {line}
-                        </p>
+                        </li>
                       ))}
-                    </div>
+                    </ul>
                   )}
                 </div>
               </div>

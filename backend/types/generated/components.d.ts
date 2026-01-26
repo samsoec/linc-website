@@ -67,6 +67,7 @@ export interface ElementsCorporateBenefit extends Struct.ComponentSchema {
   };
   attributes: {
     description: Schema.Attribute.String;
+    icon: Schema.Attribute.String & Schema.Attribute.Required;
     title: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
@@ -532,10 +533,10 @@ export interface LinksSocialLink extends Struct.ComponentSchema {
       [
         'YOUTUBE',
         'TWITTER',
-        'DISCORD',
         'WEBSITE',
         'INSTAGRAM',
         'FACEBOOK',
+        'LINKEDIN',
         'TIKTOK',
       ]
     >;
