@@ -35,7 +35,9 @@ function useActiveLink() {
   const pathWithoutLang = useMemo(() => {
     const langPrefixMatch = pathname.match(localePattern);
     if (langPrefixMatch) {
-      const stripped = pathname.slice(langPrefixMatch[0].length - 1); // Keep the trailing slash/path
+      const localeCode = langPrefixMatch[1]; // Extract the matched locale (e.g., 'en')
+      const localePrefix = `/${localeCode}`; // Construct the prefix (e.g., '/en')
+      const stripped = pathname.slice(localePrefix.length); // Remove the locale prefix
       return stripped || "/";
     }
     return pathname;
